@@ -14,6 +14,10 @@
 		D995CC832C4EE70400E391F5 /* Hepatics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC822C4EE70400E391F5 /* Hepatics.swift */; };
 		D995CC882C4EE76A00E391F5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC872C4EE76A00E391F5 /* HomeViewController.swift */; };
 		D995CC8C2C4EE81D00E391F5 /* GamePlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC8B2C4EE81D00E391F5 /* GamePlayViewController.swift */; };
+		D995CC8E2C4EFC4A00E391F5 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC8D2C4EFC4A00E391F5 /* Observable.swift */; };
+		D995CC902C4EFCBC00E391F5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC8F2C4EFCBC00E391F5 /* HomeViewModel.swift */; };
+		D995CC922C4EFD9500E391F5 /* ConfigButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC912C4EFD9500E391F5 /* ConfigButton.swift */; };
+		D995CC942C4F00D000E391F5 /* TopHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC932C4F00D000E391F5 /* TopHomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		D995CC822C4EE70400E391F5 /* Hepatics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hepatics.swift; sourceTree = "<group>"; };
 		D995CC872C4EE76A00E391F5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D995CC8B2C4EE81D00E391F5 /* GamePlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayViewController.swift; sourceTree = "<group>"; };
+		D995CC8D2C4EFC4A00E391F5 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		D995CC8F2C4EFCBC00E391F5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		D995CC912C4EFD9500E391F5 /* ConfigButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigButton.swift; sourceTree = "<group>"; };
+		D995CC932C4F00D000E391F5 /* TopHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				D995CC7F2C4EE60B00E391F5 /* ViewCodeProtocols.swift */,
+				D995CC8D2C4EFC4A00E391F5 /* Observable.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -114,6 +123,9 @@
 			isa = PBXGroup;
 			children = (
 				D995CC872C4EE76A00E391F5 /* HomeViewController.swift */,
+				D995CC8F2C4EFCBC00E391F5 /* HomeViewModel.swift */,
+				D995CC912C4EFD9500E391F5 /* ConfigButton.swift */,
+				D995CC932C4F00D000E391F5 /* TopHomeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -206,7 +218,11 @@
 				D995CC882C4EE76A00E391F5 /* HomeViewController.swift in Sources */,
 				D995CC802C4EE60B00E391F5 /* ViewCodeProtocols.swift in Sources */,
 				D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */,
+				D995CC902C4EFCBC00E391F5 /* HomeViewModel.swift in Sources */,
+				D995CC922C4EFD9500E391F5 /* ConfigButton.swift in Sources */,
+				D995CC8E2C4EFC4A00E391F5 /* Observable.swift in Sources */,
 				D995CC832C4EE70400E391F5 /* Hepatics.swift in Sources */,
+				D995CC942C4F00D000E391F5 /* TopHomeView.swift in Sources */,
 				D995CC8C2C4EE81D00E391F5 /* GamePlayViewController.swift in Sources */,
 				D995CC6B2C4EDA3000E391F5 /* SceneDelegate.swift in Sources */,
 			);
@@ -347,8 +363,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeRight;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -379,8 +395,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeRight;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

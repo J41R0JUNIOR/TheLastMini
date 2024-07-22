@@ -9,14 +9,14 @@ import UIKit
 
 // Extensão que permite adicionar mais de uma view à hierarquia em uma única chamada. Exemplo: addViews(label1, label2, button1, button2)
 extension UIView {
-    func addSubviewsEx(_ views: UIView...) {
+    func addListSubviews(_ views: UIView...) {
         for view in views {
             addSubview(view)
         }
     }
 }
 
-protocol ViewModel {
+protocol ViewCode {
     // Adiciona views como subviews e define a hierarquia entre elas
     func addViews()
     
@@ -28,8 +28,8 @@ protocol ViewModel {
 }
 
 // Chama todos os métodos do protocolo
-extension ViewModel {
-    func setupViewModel() {
+extension ViewCode {
+    func setupViewCode() {
         addViews()
         addContrains()
         setupStyle()

@@ -7,26 +7,29 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
-
+class HomeViewController: UIViewController{
+    private lazy var configButton: ConfigButton = {
+       return ConfigButton()
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupViewModel()
+        self.setupViewCode()
     }
 }
 
 
-extension HomeViewController: ViewModel{
+extension HomeViewController: ViewCode{
     func addViews() {
-        
+        view.addListSubviews(configButton)
     }
     
     func addContrains() {
-        
+        configButton.center = view.center
     }
     
     func setupStyle() {
-        view.backgroundColor = .brown
+        view.backgroundColor = .systemBackground
     }
 }
