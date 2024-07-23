@@ -15,9 +15,9 @@ import UIKit
 public class Hepatics{
     
     public let userDefaults = UserDefaults.standard
-    static let shared: Hepatics = Hepatics()
+//    static let shared: Hepatics = Hepatics()
     
-    private init(){}
+    /*private*/ init(){}
    
     public func addHapticFeedbackFromViewController(type: UINotificationFeedbackGenerator.FeedbackType){
         let isVibrate = userDefaults.isVibrate!
@@ -30,7 +30,8 @@ public class Hepatics{
     
     public func feedback(for type: UIImpactFeedbackGenerator.FeedbackStyle) {
         let isVibrate = userDefaults.isVibrate
-        print("\n\nDEBUG: Valor de isVibrate e ", isVibrate as Any)
+        print("\n\n😈DEBUG: Valor de isVibrate e ", isVibrate as Any)
+        
         if isVibrate! {
             let generator = UIImpactFeedbackGenerator(style: type)
             generator.prepare()

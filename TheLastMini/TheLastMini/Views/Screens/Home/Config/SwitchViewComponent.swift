@@ -26,6 +26,7 @@ class SwitchViewComponent: UIView {
     }()
     
     public weak var delegate: ActionDelegate?
+    private let defult = UserDefaults.standard
     
     init(_ label: String, _ tag: Int){
         super.init(frame: .zero)
@@ -62,7 +63,8 @@ extension SwitchViewComponent{
     @objc 
     func handleTap(_ sender: UIButton!){
         print("DEBUG: Valor de Switch [\(label.text ?? "nil")] mudou para [\(switchCuston.isOn)]")
-        Hepatics.shared.feedback(for: .soft)
+        let test = Hepatics()
+        test.feedback(for: .soft)
         delegate?.startAction(sender.tag)
     }
     
@@ -70,7 +72,7 @@ extension SwitchViewComponent{
         self.label.text = label
         self.switchCuston.tag = tag
         if label == "Haptics"{
-            self.switchCuston.isOn = true
+            self.switchCuston.isOn = defult.isVibrate ?? true
         }
     }
 }
