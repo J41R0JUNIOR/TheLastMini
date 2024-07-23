@@ -84,7 +84,7 @@ extension TopHomeButtonsView: ViewCode{
     }
     
     func setupStyle() {
-        backgroundColor = .systemBackground
+        backgroundColor = .white
     }
 }
 

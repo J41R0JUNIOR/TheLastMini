@@ -20,6 +20,10 @@
 		D995CC962C50189F00E391F5 /* Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC952C50189F00E391F5 /* Delegates.swift */; };
 		D995CC992C501BA100E391F5 /* ConfigPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC982C501BA100E391F5 /* ConfigPopUpViewController.swift */; };
 		D995CC9C2C501BD300E391F5 /* GameCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC9B2C501BD300E391F5 /* GameCenterViewController.swift */; };
+		D995CC9E2C502A7200E391F5 /* ConfigPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC9D2C502A7200E391F5 /* ConfigPopUpView.swift */; };
+		D995CCA02C502E7E00E391F5 /* ScreenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC9F2C502E7E00E391F5 /* ScreenInfo.swift */; };
+		D995CCA22C5033DB00E391F5 /* SwitchViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCA12C5033DB00E391F5 /* SwitchViewComponent.swift */; };
+		D995CCA42C50411600E391F5 /* UserDefult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCA32C50411600E391F5 /* UserDefult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +42,10 @@
 		D995CC952C50189F00E391F5 /* Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegates.swift; sourceTree = "<group>"; };
 		D995CC982C501BA100E391F5 /* ConfigPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigPopUpViewController.swift; sourceTree = "<group>"; };
 		D995CC9B2C501BD300E391F5 /* GameCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterViewController.swift; sourceTree = "<group>"; };
+		D995CC9D2C502A7200E391F5 /* ConfigPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigPopUpView.swift; sourceTree = "<group>"; };
+		D995CC9F2C502E7E00E391F5 /* ScreenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenInfo.swift; sourceTree = "<group>"; };
+		D995CCA12C5033DB00E391F5 /* SwitchViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewComponent.swift; sourceTree = "<group>"; };
+		D995CCA32C50411600E391F5 /* UserDefult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +103,8 @@
 				D995CC7F2C4EE60B00E391F5 /* ViewCodeProtocols.swift */,
 				D995CC8D2C4EFC4A00E391F5 /* Observable.swift */,
 				D995CC952C50189F00E391F5 /* Delegates.swift */,
+				D995CC9F2C502E7E00E391F5 /* ScreenInfo.swift */,
+				D995CCA32C50411600E391F5 /* UserDefult.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -156,6 +166,8 @@
 			isa = PBXGroup;
 			children = (
 				D995CC982C501BA100E391F5 /* ConfigPopUpViewController.swift */,
+				D995CC9D2C502A7200E391F5 /* ConfigPopUpView.swift */,
+				D995CCA12C5033DB00E391F5 /* SwitchViewComponent.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -238,6 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D995CC882C4EE76A00E391F5 /* HomeViewController.swift in Sources */,
+				D995CCA02C502E7E00E391F5 /* ScreenInfo.swift in Sources */,
 				D995CC802C4EE60B00E391F5 /* ViewCodeProtocols.swift in Sources */,
 				D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */,
 				D995CC902C4EFCBC00E391F5 /* HomeViewModel.swift in Sources */,
@@ -246,8 +259,11 @@
 				D995CC962C50189F00E391F5 /* Delegates.swift in Sources */,
 				D995CC9C2C501BD300E391F5 /* GameCenterViewController.swift in Sources */,
 				D995CC942C4F00D000E391F5 /* TopHomeButtonsView.swift in Sources */,
+				D995CCA22C5033DB00E391F5 /* SwitchViewComponent.swift in Sources */,
 				D995CC8C2C4EE81D00E391F5 /* GamePlayViewController.swift in Sources */,
 				D995CC6B2C4EDA3000E391F5 /* SceneDelegate.swift in Sources */,
+				D995CC9E2C502A7200E391F5 /* ConfigPopUpView.swift in Sources */,
+				D995CCA42C50411600E391F5 /* UserDefult.swift in Sources */,
 				D995CC992C501BA100E391F5 /* ConfigPopUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
