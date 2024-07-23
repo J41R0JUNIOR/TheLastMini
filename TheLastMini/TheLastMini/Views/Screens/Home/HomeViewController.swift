@@ -41,7 +41,7 @@ extension HomeViewController: ViewCode{
     }
     
     func setupStyle() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .white
     }
 }
 
@@ -49,7 +49,7 @@ extension HomeViewController: NavigationDelegate{
     func navigationTo(_ tag: Int) {
         switch tag{
         case 0:
-            navigationController?.pushViewController(ConfigPopUpViewController(), animated: true)
+            present(ConfigPopUpViewController(), animated: false)
         case 1:
             navigationController?.pushViewController(GameCenterViewController(), animated: true)
         case 2:
