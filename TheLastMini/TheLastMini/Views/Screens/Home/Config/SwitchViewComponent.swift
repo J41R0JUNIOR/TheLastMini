@@ -63,8 +63,6 @@ extension SwitchViewComponent{
     @objc 
     func handleTap(_ sender: UIButton!){
         print("DEBUG: Valor de Switch [\(label.text ?? "nil")] mudou para [\(switchCuston.isOn)]")
-        let test = Hepatics()
-        test.feedback(for: .soft)
         delegate?.startAction(sender.tag)
     }
     
@@ -72,7 +70,7 @@ extension SwitchViewComponent{
         self.label.text = label
         self.switchCuston.tag = tag
         if label == "Haptics"{
-            self.switchCuston.isOn = defult.isVibrate ?? true
+            self.switchCuston.isOn = defult.isVibrate
         }
     }
 }

@@ -11,10 +11,9 @@
 		D995CC6B2C4EDA3000E391F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */; };
 		D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D995CC712C4EDA3200E391F5 /* Assets.xcassets */; };
 		D995CC802C4EE60B00E391F5 /* ViewCodeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC7F2C4EE60B00E391F5 /* ViewCodeProtocols.swift */; };
-		D995CC832C4EE70400E391F5 /* Hepatics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC822C4EE70400E391F5 /* Hepatics.swift */; };
+		D995CC832C4EE70400E391F5 /* HapticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC822C4EE70400E391F5 /* HapticsService.swift */; };
 		D995CC882C4EE76A00E391F5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC872C4EE76A00E391F5 /* HomeViewController.swift */; };
 		D995CC8C2C4EE81D00E391F5 /* GamePlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC8B2C4EE81D00E391F5 /* GamePlayViewController.swift */; };
-		D995CC8E2C4EFC4A00E391F5 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC8D2C4EFC4A00E391F5 /* Observable.swift */; };
 		D995CC902C4EFCBC00E391F5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC8F2C4EFCBC00E391F5 /* HomeViewModel.swift */; };
 		D995CC942C4F00D000E391F5 /* TopHomeButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC932C4F00D000E391F5 /* TopHomeButtonsView.swift */; };
 		D995CC962C50189F00E391F5 /* Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC952C50189F00E391F5 /* Delegates.swift */; };
@@ -33,10 +32,9 @@
 		D995CC712C4EDA3200E391F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D995CC762C4EDA3200E391F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D995CC7F2C4EE60B00E391F5 /* ViewCodeProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCodeProtocols.swift; sourceTree = "<group>"; };
-		D995CC822C4EE70400E391F5 /* Hepatics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hepatics.swift; sourceTree = "<group>"; };
+		D995CC822C4EE70400E391F5 /* HapticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsService.swift; sourceTree = "<group>"; };
 		D995CC872C4EE76A00E391F5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D995CC8B2C4EE81D00E391F5 /* GamePlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayViewController.swift; sourceTree = "<group>"; };
-		D995CC8D2C4EFC4A00E391F5 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		D995CC8F2C4EFCBC00E391F5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D995CC932C4F00D000E391F5 /* TopHomeButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHomeButtonsView.swift; sourceTree = "<group>"; };
 		D995CC952C50189F00E391F5 /* Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegates.swift; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				D995CC7F2C4EE60B00E391F5 /* ViewCodeProtocols.swift */,
-				D995CC8D2C4EFC4A00E391F5 /* Observable.swift */,
 				D995CC952C50189F00E391F5 /* Delegates.swift */,
 				D995CC9F2C502E7E00E391F5 /* ScreenInfo.swift */,
 				D995CCA32C50411600E391F5 /* UserDefult.swift */,
@@ -112,7 +109,7 @@
 		D995CC812C4EE6E400E391F5 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				D995CC822C4EE70400E391F5 /* Hepatics.swift */,
+				D995CC822C4EE70400E391F5 /* HapticsService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -254,8 +251,7 @@
 				D995CC802C4EE60B00E391F5 /* ViewCodeProtocols.swift in Sources */,
 				D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */,
 				D995CC902C4EFCBC00E391F5 /* HomeViewModel.swift in Sources */,
-				D995CC8E2C4EFC4A00E391F5 /* Observable.swift in Sources */,
-				D995CC832C4EE70400E391F5 /* Hepatics.swift in Sources */,
+				D995CC832C4EE70400E391F5 /* HapticsService.swift in Sources */,
 				D995CC962C50189F00E391F5 /* Delegates.swift in Sources */,
 				D995CC9C2C501BD300E391F5 /* GameCenterViewController.swift in Sources */,
 				D995CC942C4F00D000E391F5 /* TopHomeButtonsView.swift in Sources */,

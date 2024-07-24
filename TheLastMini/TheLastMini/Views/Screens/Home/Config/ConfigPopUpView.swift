@@ -107,7 +107,7 @@ extension ConfigPopUpView: ViewCode{
     }
     
     func setupStyle() {
-        backgroundColor = .black.withAlphaComponent(0.6)
+        backgroundColor = .black.withAlphaComponent(0.4)
     }
 }
 

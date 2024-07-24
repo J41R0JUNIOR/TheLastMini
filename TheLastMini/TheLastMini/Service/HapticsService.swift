@@ -16,7 +16,7 @@ class HapticsService{
     
     public let userDefaults = UserDefaults.standard
     /// Singleton instance
-    static let shared = HapticsManager()
+    static let shared = HapticsService()
     
     private init() {}
         
