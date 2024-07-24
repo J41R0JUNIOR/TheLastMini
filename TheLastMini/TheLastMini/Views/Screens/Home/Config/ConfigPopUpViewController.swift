@@ -9,8 +9,6 @@ import UIKit
 
 class ConfigPopUpViewController: UIViewController {
     
-    private let userDefaults = UserDefaults.standard
-
     private lazy var configView: ConfigPopUpView = {
         let view = ConfigPopUpView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -52,25 +50,29 @@ extension ConfigPopUpViewController: ViewCode{
 extension ConfigPopUpViewController: NavigationDelegate{
     func navigationTo(_ tag: Int) {
         if tag == 4{
-            UIView.animate(withDuration: 1, delay: 0.3,options: .curveEaseOut) {
-                self.view.alpha = 1
-            }completion: { _ in
+            UIView.animate(withDuration: 0.3, delay: 0.1, options: .curveLinear, animations: {
+                self.view.alpha = 0
+            }, completion: { _ in
                 self.dismiss(animated: false)
-            }
+            })
         }
+        HapticsService.shared.addHapticFeedbackFromViewController(type: .error)
     }
 }
 
 extension ConfigPopUpViewController: ActionDelegate{
     func startAction(_ tag: Int) {
+        ///Acoes dos Switchs
+        let userDefautl = UserDefaults.standard
         switch tag{
         case 0:
-            print("Switch Musica acao")
+            let music = userDefautl.isActivatedMusic
+            userDefautl.isActivatedMusic = !music
         case 1:
-            print("Switch sound efects acao")
+            let soundEffects = userDefautl.soundEffects
+            userDefautl.soundEffects = !soundEffects
         case 2:
-            let isVibrate = userDefaults.isVibrate
-            userDefaults.isVibrate = !isVibrate!
+            HapticsService.shared.changeValueIsVibrate()
         default:
             print("Tag Invalida")
         }

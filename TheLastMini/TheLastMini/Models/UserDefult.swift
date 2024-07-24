@@ -11,16 +11,36 @@ extension UserDefaults{
     //MARK: Enum que define um case do tipo String
     private enum UserDefaultsKeys: String{
         case isVibrate
+        case soundEffects
+        case isActivatedMusic
     }
     
-    var isVibrate: Bool? {
+    var soundEffects: Bool {
         get{
-//            print("\n\t Valor e ", self.isVibrate as Any)
+            let value = value(forKey: UserDefaultsKeys.soundEffects.rawValue) as? Bool ?? true
+            return (value)
+        }
+        set{
+            setValue(newValue, forKey: UserDefaultsKeys.soundEffects.rawValue)
+        }
+    }
+    
+    var isActivatedMusic: Bool {
+        get{
+            let value = value(forKey: UserDefaultsKeys.isActivatedMusic.rawValue) as? Bool ?? true
+            return (value)
+        }
+        set{
+            setValue(newValue, forKey: UserDefaultsKeys.isActivatedMusic.rawValue)
+        }
+    }
+    
+    var isVibrate: Bool {
+        get{
             let value = value(forKey: UserDefaultsKeys.isVibrate.rawValue) as? Bool ?? true
             return (value)
         }
         set{
-//            print("\n\t Settei Valor e ", isVibrate as Any)
             setValue(newValue, forKey: UserDefaultsKeys.isVibrate.rawValue)
         }
     }
