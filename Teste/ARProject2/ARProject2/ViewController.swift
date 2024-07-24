@@ -2,13 +2,14 @@ import SceneKit
 import ARKit
 import UIKit
 
-class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARCoachingOverlayViewDelegate {
     
     var sceneView: ARSCNView!
     var vehicleNode: SCNNode!
     var vehicle: SCNPhysicsVehicle!
     var isVehicleAdded = false
     var isPlaneAdded = false
+    var coachingOverlay = ARCoachingOverlayView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,6 +17,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         setupScene()
         setupVehicle()
         setupControls()
+        setupCoachingOverlay()
     }
     
     func setupScene() {
@@ -32,6 +34,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         // Configura a sessão de AR
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
+//        configuration.c
         sceneView.session.run(configuration)
         
         let floor = SCNFloor()
@@ -45,14 +48,14 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     
     func setupVehicle() {
         // Cria o chassis do veículo
-//        let chassis = SCNBox(width: 1.0, height: 0.5, length: 2.0, chamferRadius: 0.0)
-//        let chassisNode = SCNNode(geometry: chassis)
-//        chassisNode.position = SCNVector3(0, 0.5, -5)
+        let chassis = SCNBox(width: 1.0, height: 0.5, length: 2.0, chamferRadius: 0.0)
+        let chassisNode = SCNNode(geometry: chassis)
+        chassisNode.position = SCNVector3(0, 0.5, -5)
         
-        guard let wheelScene = SCNScene(named: "wheel.usdz"),
-              let wheelNode = wheelScene.rootNode.childNodes.first else {
-            fatalError("Could not load wheel asset")
-        }
+//        guard let wheelScene = SCNScene(named: "wheel.usdz"),
+//              let wheelNode = wheelScene.rootNode.childNodes.first else {
+//            fatalError("Could not load wheel asset")
+//        }
         
         let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: chassisNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
         body.mass = 1.0
@@ -60,7 +63,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         
         // Função para criar uma roda a partir do asset usdz
         func createWheel() -> SCNNode {
-            guard let wheelScene = SCNScene(named: "wheel.usdz"),
+            guard let wheelScene = SCNScene(named: "wheelCilindro.usdz"),
                   let wheelNode = wheelScene.rootNode.childNodes.first else {
                 fatalError("Could not load wheel asset")
             }
@@ -191,4 +194,35 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         print("Contact happened!")
     }
+    
+    func setupCoachingOverlay() {
+        coachingOverlay.session = sceneView.session
+        coachingOverlay.delegate = self
+        coachingOverlay.goal = .anyPlane
+        coachingOverlay.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(coachingOverlay)
+        
+        // Constrains para garantir que o overlay cubra toda a tela
+        NSLayoutConstraint.activate([
+            coachingOverlay.topAnchor.constraint(equalTo: view.topAnchor),
+            coachingOverlay.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            coachingOverlay.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            coachingOverlay.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        print("Vai comecar ✅")
+    }
+    
+    func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        print("Sera que foi agora? 🐐")
+    }
+    
+    func coachingOverlayViewDidRequestSessionReset(_ coachingOverlayView: ARCoachingOverlayView) {
+        print("Pedi para refazer  🚨")
+    }
 }
+
+
+
