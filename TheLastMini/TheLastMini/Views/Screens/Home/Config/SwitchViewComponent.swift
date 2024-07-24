@@ -62,15 +62,21 @@ extension SwitchViewComponent: ViewCode{
 extension SwitchViewComponent{
     @objc 
     func handleTap(_ sender: UIButton!){
-        print("DEBUG: Valor de Switch [\(label.text ?? "nil")] mudou para [\(switchCuston.isOn)]")
         delegate?.startAction(sender.tag)
     }
     
     private func configure(_ label: String, _ tag: Int){
         self.label.text = label
         self.switchCuston.tag = tag
-        if label == "Haptics"{
-            self.switchCuston.isOn = defult.isVibrate
+        
+        let valueTogle: Bool = switch tag{
+        case 0: defult.isActivatedMusic
+        case 1: defult.soundEffects
+        case 2: defult.isVibrate
+        default:
+            Bool()
         }
+        
+        switchCuston.isOn = valueTogle
     }
 }
