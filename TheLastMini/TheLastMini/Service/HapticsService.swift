@@ -12,27 +12,35 @@ import UIKit
  * - `UINotificationFeedbackGenerator.FeedbackType`: .Sucesso, .Erro, .Aviso.
  * - `UIImpactFeedbackGenerator.FeedbackStyle`: .Leve, .Médio, .Pesado.
  */
-public class Hepatics{
+class HapticsService{
     
     public let userDefaults = UserDefaults.standard
-//    static let shared: Hepatics = Hepatics()
+    /// Singleton instance
+    static let shared = HapticsManager()
     
-    /*private*/ init(){}
+    private init() {}
+        
+    public func changeValueIsVibrate(){
+        let isVibrate = userDefaults.isVibrate
+        print("⬆️ Antes ", isVibrate)
+        userDefaults.isVibrate = !isVibrate
+        print("⬇️ Depois, ", userDefaults.isVibrate)
+    }
    
     public func addHapticFeedbackFromViewController(type: UINotificationFeedbackGenerator.FeedbackType){
-        let isVibrate = userDefaults.isVibrate!
+        let isVibrate = userDefaults.isVibrate
         
         if isVibrate{
             let generetor = UINotificationFeedbackGenerator()
+            generetor.prepare()
             generetor.notificationOccurred(type)
         }
     }
     
     public func feedback(for type: UIImpactFeedbackGenerator.FeedbackStyle) {
         let isVibrate = userDefaults.isVibrate
-        print("\n\n😈DEBUG: Valor de isVibrate e ", isVibrate as Any)
         
-        if isVibrate! {
+        if isVibrate {
             let generator = UIImpactFeedbackGenerator(style: type)
             generator.prepare()
             generator.impactOccurred()
