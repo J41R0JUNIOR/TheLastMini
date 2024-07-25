@@ -58,7 +58,7 @@ extension GamePlayViewController: ViewCode{
     }
     
     func setupStyle() {
-        
+        self.view.backgroundColor = .clear
     }
 }
 
