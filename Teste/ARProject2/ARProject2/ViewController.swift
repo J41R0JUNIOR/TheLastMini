@@ -2,14 +2,15 @@ import SceneKit
 import ARKit
 import UIKit
 
-class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARCoachingOverlayViewDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
+    var sessionInfoView: UIView!
+    var sessionInfoLabel: UILabel!
     
     var sceneView: ARSCNView!
     var vehicleNode: SCNNode!
     var vehicle: SCNPhysicsVehicle!
     var isVehicleAdded = false
     var isPlaneAdded = false
-    var coachingOverlay = ARCoachingOverlayView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,7 +18,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         setupScene()
         setupVehicle()
         setupControls()
-        setupCoachingOverlay()
     }
     
     func setupScene() {
@@ -25,7 +25,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         sceneView.delegate = self
         sceneView.showsStatistics = true
         sceneView.autoenablesDefaultLighting = true
-        sceneView.debugOptions = [.showWorldOrigin, .showPhysicsShapes]
+        sceneView.debugOptions = [/*.showWorldOrigin,*/ .showPhysicsShapes]
         self.view.addSubview(sceneView)
         
         let scene = SCNScene()
@@ -34,7 +34,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         // Configura a sessão de AR
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
-//        configuration.c
         sceneView.session.run(configuration)
         
         let floor = SCNFloor()
@@ -42,34 +41,49 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: floor, options: nil))
         sceneView.scene.rootNode.addChildNode(floorNode)
         floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.7)
+        floorNode.position = SCNVector3(x: 0, y: -1, z: 0)
     }
     
     
+    // Função para criar uma roda a partir do asset usdz
+    func createWheel() -> SCNNode {
+        guard let wheelScene = SCNScene(named: "wheelCilindro.usdz"),
+              let wheelNode = wheelScene.rootNode.childNodes.first else {
+            fatalError("Could not load wheel asset")
+        }
+       
+        
+        return wheelNode.clone()
+    }
+    
+    func createChassis() ->SCNNode{
+        //                 Cria o chassis do veículo
+//        let chassis = SCNBox(width: 1.0, height: 0.5, length: 2.0, chamferRadius: 0.0)
+//        let chassisNode = SCNNode(geometry: chassis)
+        
+        guard let chassis = SCNScene(named: "chassiModel.usdz"),
+              let chassisNode = chassis.rootNode.childNodes.first else {
+            fatalError("Could not load wheel asset")
+        }
+        
+        
+        
+        chassisNode.position = SCNVector3(0, -1, -5)
+//        chassisNode.scale = SCNVector3(0.1, 0.1, 0.1)
+        
+//        chassisNode.orientation.z = .pi/2
+        return chassisNode
+    }
+    
     
     func setupVehicle() {
-        // Cria o chassis do veículo
-        let chassis = SCNBox(width: 1.0, height: 0.5, length: 2.0, chamferRadius: 0.0)
-        let chassisNode = SCNNode(geometry: chassis)
-        chassisNode.position = SCNVector3(0, 0.5, -5)
         
-//        guard let wheelScene = SCNScene(named: "wheel.usdz"),
-//              let wheelNode = wheelScene.rootNode.childNodes.first else {
-//            fatalError("Could not load wheel asset")
-//        }
+        let chassisNode = createChassis()
+        
         
         let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: chassisNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
         body.mass = 1.0
         chassisNode.physicsBody = body
-        
-        // Função para criar uma roda a partir do asset usdz
-        func createWheel() -> SCNNode {
-            guard let wheelScene = SCNScene(named: "wheelCilindro.usdz"),
-                  let wheelNode = wheelScene.rootNode.childNodes.first else {
-                fatalError("Could not load wheel asset")
-            }
-            
-            return wheelNode.clone()
-        }
         
         let wheel1Node = createWheel()
         wheel1Node.position = SCNVector3(-0.5, 0, 0.75)
@@ -89,10 +103,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         let wheel3 = SCNPhysicsVehicleWheel(node: wheel3Node)
         let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
         
-        wheel1.connectionPosition = SCNVector3(-0.5, -0.25, 0.75)
-        wheel2.connectionPosition = SCNVector3(0.5, -0.25, 0.75)
-        wheel3.connectionPosition = SCNVector3(-0.5, -0.25, -0.75)
-        wheel4.connectionPosition = SCNVector3(0.5, -0.25, -0.75)
+        wheel1.connectionPosition = SCNVector3(-0.32, -0.15, 0.45)
+        wheel2.connectionPosition = SCNVector3(0.32, -0.15, 0.45)
+        wheel3.connectionPosition = SCNVector3(-0.32, -0.15, -0.45)
+        wheel4.connectionPosition = SCNVector3(0.32, -0.15, -0.45)
+
         
         wheel1.suspensionStiffness = CGFloat(1)
         wheel2.suspensionStiffness = CGFloat(1)
@@ -120,38 +135,38 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     }
     
     func setupControls() {
-           // Adicionar controles de movimento
-           
-           // Botões de direção lado a lado na esquerda
-           let leftButton = UIButton(frame: CGRect(x: 20, y: self.view.frame.height - 120, width: 100, height: 50))
-           leftButton.backgroundColor = .green
-           leftButton.setTitle("Left", for: .normal)
-           leftButton.addTarget(self, action: #selector(turnLeft), for: .touchDown)
-           leftButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
-           self.view.addSubview(leftButton)
-           
-           let rightButton = UIButton(frame: CGRect(x: 130, y: self.view.frame.height - 120, width: 100, height: 50))
-           rightButton.backgroundColor = .yellow
-           rightButton.setTitle("Right", for: .normal)
-           rightButton.addTarget(self, action: #selector(turnRight), for: .touchDown)
-           rightButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
-           self.view.addSubview(rightButton)
-           
-           // Botões de movimento um acima do outro na direita
-           let forwardButton = UIButton(frame: CGRect(x: self.view.frame.width - 120, y: self.view.frame.height - 180, width: 100, height: 50))
-           forwardButton.backgroundColor = .blue
-           forwardButton.setTitle("Forward", for: .normal)
-           forwardButton.addTarget(self, action: #selector(moveForward), for: .touchDown)
-           forwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
-           self.view.addSubview(forwardButton)
-           
-           let backwardButton = UIButton(frame: CGRect(x: self.view.frame.width - 120, y: self.view.frame.height - 120, width: 100, height: 50))
-           backwardButton.backgroundColor = .red
-           backwardButton.setTitle("Backward", for: .normal)
-           backwardButton.addTarget(self, action: #selector(moveBackward), for: .touchDown)
-           backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
-           self.view.addSubview(backwardButton)
-       }
+        // Adicionar controles de movimento
+        
+        // Botões de direção lado a lado na esquerda
+        let leftButton = UIButton(frame: CGRect(x: 20, y: self.view.frame.height - 120, width: 100, height: 50))
+        leftButton.backgroundColor = .green
+        leftButton.setTitle("Left", for: .normal)
+        leftButton.addTarget(self, action: #selector(turnLeft), for: .touchDown)
+        leftButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
+        self.view.addSubview(leftButton)
+        
+        let rightButton = UIButton(frame: CGRect(x: 130, y: self.view.frame.height - 120, width: 100, height: 50))
+        rightButton.backgroundColor = .yellow
+        rightButton.setTitle("Right", for: .normal)
+        rightButton.addTarget(self, action: #selector(turnRight), for: .touchDown)
+        rightButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
+        self.view.addSubview(rightButton)
+        
+        // Botões de movimento um acima do outro na direita
+        let forwardButton = UIButton(frame: CGRect(x: self.view.frame.width - 120, y: self.view.frame.height - 180, width: 100, height: 50))
+        forwardButton.backgroundColor = .blue
+        forwardButton.setTitle("Forward", for: .normal)
+        forwardButton.addTarget(self, action: #selector(moveForward), for: .touchDown)
+        forwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
+        self.view.addSubview(forwardButton)
+        
+        let backwardButton = UIButton(frame: CGRect(x: self.view.frame.width - 120, y: self.view.frame.height - 120, width: 100, height: 50))
+        backwardButton.backgroundColor = .red
+        backwardButton.setTitle("Backward", for: .normal)
+        backwardButton.addTarget(self, action: #selector(moveBackward), for: .touchDown)
+        backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
+        self.view.addSubview(backwardButton)
+    }
     
     @objc func moveForward() {
         let force: CGFloat = 1 // Aumentar a força aplicada
@@ -194,35 +209,4 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         print("Contact happened!")
     }
-    
-    func setupCoachingOverlay() {
-        coachingOverlay.session = sceneView.session
-        coachingOverlay.delegate = self
-        coachingOverlay.goal = .anyPlane
-        coachingOverlay.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(coachingOverlay)
-        
-        // Constrains para garantir que o overlay cubra toda a tela
-        NSLayoutConstraint.activate([
-            coachingOverlay.topAnchor.constraint(equalTo: view.topAnchor),
-            coachingOverlay.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            coachingOverlay.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            coachingOverlay.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
-    
-    func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
-        print("Vai comecar ✅")
-    }
-    
-    func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
-        print("Sera que foi agora? 🐐")
-    }
-    
-    func coachingOverlayViewDidRequestSessionReset(_ coachingOverlayView: ARCoachingOverlayView) {
-        print("Pedi para refazer  🚨")
-    }
 }
-
-
-
