@@ -75,6 +75,11 @@ extension GamePlayViewController: ARSCNViewDelegate{
         
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
+        
+        if ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh){
+            configuration.sceneReconstruction = .mesh
+        }
+        
         sceneView.session.run(configuration)
         
     }
