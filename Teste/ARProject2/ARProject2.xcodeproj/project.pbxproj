@@ -13,7 +13,6 @@
 		B3C57D832C51752600BCD2AF /* wheel.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B3C57D812C51752600BCD2AF /* wheel.usdz */; };
 		B3C5942E2C519B9C00BCD2AF /* chassiModel.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B3C5942D2C519B9C00BCD2AF /* chassiModel.usdz */; };
 		B3C594302C51A70000BCD2AF /* wheelModel.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B3C5942F2C51A70000BCD2AF /* wheelModel.usdz */; };
-		B3C594362C51AD1A00BCD2AF /* chassi.scn in Resources */ = {isa = PBXBuildFile; fileRef = B3C594352C51AD1A00BCD2AF /* chassi.scn */; };
 		B3E305BD2C4ED1BF0015180E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E305BC2C4ED1BF0015180E /* AppDelegate.swift */; };
 		B3E305BF2C4ED1BF0015180E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E305BE2C4ED1BF0015180E /* SceneDelegate.swift */; };
 		B3E305C42C4ED1BF0015180E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B3E305C32C4ED1BF0015180E /* Base */; };
@@ -28,7 +27,6 @@
 		B3C57D812C51752600BCD2AF /* wheel.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = wheel.usdz; sourceTree = "<group>"; };
 		B3C5942D2C519B9C00BCD2AF /* chassiModel.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = chassiModel.usdz; sourceTree = "<group>"; };
 		B3C5942F2C51A70000BCD2AF /* wheelModel.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = wheelModel.usdz; path = ../wheelModel.usdz; sourceTree = "<group>"; };
-		B3C594352C51AD1A00BCD2AF /* chassi.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = chassi.scn; sourceTree = "<group>"; };
 		B3E305B92C4ED1BF0015180E /* ARProject2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARProject2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E305BC2C4ED1BF0015180E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3E305BE2C4ED1BF0015180E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,7 +72,6 @@
 				B3C5942F2C51A70000BCD2AF /* wheelModel.usdz */,
 				B3C5942D2C519B9C00BCD2AF /* chassiModel.usdz */,
 				B3C57D802C51752600BCD2AF /* chassi.usdz */,
-				B3C594352C51AD1A00BCD2AF /* chassi.scn */,
 				B3C57D812C51752600BCD2AF /* wheel.usdz */,
 				B3C57D7E2C509C6900BCD2AF /* wheelCilindro.usdz */,
 				B3E305C22C4ED1BF0015180E /* Main.storyboard */,
@@ -143,7 +140,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3C594362C51AD1A00BCD2AF /* chassi.scn in Resources */,
 				B3C57D832C51752600BCD2AF /* wheel.usdz in Resources */,
 				B3C594302C51A70000BCD2AF /* wheelModel.usdz in Resources */,
 				B3E305C62C4ED1C00015180E /* Assets.xcassets in Resources */,

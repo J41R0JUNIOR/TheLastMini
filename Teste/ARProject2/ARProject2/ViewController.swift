@@ -2,7 +2,7 @@ import SceneKit
 import ARKit
 import UIKit
 
-class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARCoachingOverlayViewDelegate {
     var sessionInfoView: UIView!
     var sessionInfoLabel: UILabel!
     
@@ -12,12 +12,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     var isVehicleAdded = false
     var isPlaneAdded = false
     
+    var coachingOverlay = ARCoachingOverlayView()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupScene()
         setupVehicle()
         setupControls()
+        setupCoachingOverlay()
+        
     }
     
     func setupScene() {
@@ -51,15 +56,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
               let wheelNode = wheelScene.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
         }
-       
+        
         
         return wheelNode.clone()
     }
     
     func createChassis() ->SCNNode{
         //                 Cria o chassis do veículo
-//        let chassis = SCNBox(width: 1.0, height: 0.5, length: 2.0, chamferRadius: 0.0)
-//        let chassisNode = SCNNode(geometry: chassis)
+        //        let chassis = SCNBox(width: 1.0, height: 0.5, length: 2.0, chamferRadius: 0.0)
+        //        let chassisNode = SCNNode(geometry: chassis)
         
         guard let chassis = SCNScene(named: "chassiModel.usdz"),
               let chassisNode = chassis.rootNode.childNodes.first else {
@@ -69,9 +74,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         
         
         chassisNode.position = SCNVector3(0, -1, -5)
-//        chassisNode.scale = SCNVector3(0.1, 0.1, 0.1)
+        //        chassisNode.scale = SCNVector3(0.1, 0.1, 0.1)
         
-//        chassisNode.orientation.z = .pi/2
+        //        chassisNode.orientation.z = .pi/2
         return chassisNode
     }
     
@@ -107,7 +112,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         wheel2.connectionPosition = SCNVector3(0.32, -0.15, 0.45)
         wheel3.connectionPosition = SCNVector3(-0.32, -0.15, -0.45)
         wheel4.connectionPosition = SCNVector3(0.32, -0.15, -0.45)
-
+        
         
         wheel1.suspensionStiffness = CGFloat(1)
         wheel2.suspensionStiffness = CGFloat(1)
@@ -167,6 +172,35 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
         self.view.addSubview(backwardButton)
     }
+    
+    func setupCoachingOverlay() {
+        coachingOverlay.session = sceneView.session
+        coachingOverlay.delegate = self
+        coachingOverlay.goal = .anyPlane
+        coachingOverlay.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(coachingOverlay)
+        
+        // Constrains para garantir que o overlay cubra toda a tela
+        NSLayoutConstraint.activate([
+            coachingOverlay.topAnchor.constraint(equalTo: view.topAnchor),
+            coachingOverlay.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            coachingOverlay.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            coachingOverlay.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        print("Vai comecar ✅")
+    }
+    
+    func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        print("Sera que foi agora? 🐐")
+    }
+    
+    func coachingOverlayViewDidRequestSessionReset(_ coachingOverlayView: ARCoachingOverlayView) {
+        print("Pedi para refazer  🚨")
+    }
+    
     
     @objc func moveForward() {
         let force: CGFloat = 1 // Aumentar a força aplicada
