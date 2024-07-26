@@ -86,6 +86,7 @@ extension MenuColletionView: UICollectionViewDelegate, UICollectionViewDataSourc
         let image = model[indexPath.row].image
         let label = model[indexPath.row].text
         
+        
         cell.configure(image, label)
         
         return cell
@@ -95,4 +96,6 @@ extension MenuColletionView: UICollectionViewDelegate, UICollectionViewDataSourc
         print("Clickei no [\(indexPath.row) - \(model[indexPath.row].text)]")
         delegate?.navigationTo(indexPath.row)
     }
+    
+
 }

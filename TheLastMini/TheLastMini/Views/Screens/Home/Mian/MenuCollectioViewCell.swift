@@ -62,7 +62,7 @@ extension MenuCollectioViewCell: ViewCode{
     }
     
     func setupStyle() {
-//        self.backgroundColor = .red
+        self.backgroundColor = .blue.withAlphaComponent(0.4)
     }
 }
 
