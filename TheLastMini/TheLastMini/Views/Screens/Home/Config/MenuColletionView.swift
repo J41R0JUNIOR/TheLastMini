@@ -19,19 +19,19 @@ class MenuColletionView: UIView {
       
         let colletion = UICollectionView(frame: .zero, collectionViewLayout: layout)
         colletion.register(MenuCollectioViewCell.self, forCellWithReuseIdentifier: MenuCollectioViewCell.identifier)
-        colletion.backgroundColor = .clear
         colletion.delegate = self
         colletion.dataSource = self
         colletion.translatesAutoresizingMaskIntoConstraints = false
         colletion.isPagingEnabled = true
         colletion.showsHorizontalScrollIndicator = false
-//        colletion.backgroundColor = .red
+        colletion.backgroundColor = .clear
         return colletion
     }()
 
     init(){
         super.init(frame: .zero)
         print("Entered init")
+        
         setupViewCode()
     }
     
@@ -75,7 +75,7 @@ extension MenuColletionView: UICollectionViewDelegate, UICollectionViewDataSourc
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuCollectioViewCell.identifier, for: indexPath) as? MenuCollectioViewCell else {
             fatalError("Error in MenuColletionView")
         }
-                
+        
         return cell
     }
     

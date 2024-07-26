@@ -8,14 +8,14 @@
 import UIKit
 
 class MenuCollectioViewCell: UICollectionViewCell {
-    
+
     static let identifier = "MenuCollectioViewCell"
     let size = ScreenInfo.shared.getBoundsSize()
     
     //minigame cell image
     private lazy var imageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "questionmark")
+        image.image = UIImage(systemName: "questionmark.app.fill")
         image.layer.masksToBounds = true
         image.layer.cornerRadius = 15
         image.contentMode = .scaleAspectFill
@@ -27,6 +27,8 @@ class MenuCollectioViewCell: UICollectionViewCell {
     override init(frame: CGRect){
         super.init(frame: frame)
         print("entrei na viewcell menu")
+        
+        
         setupViewCode()
     }
     
@@ -44,8 +46,8 @@ extension MenuCollectioViewCell: ViewCode{
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: size.width*0.6),
-            imageView.heightAnchor.constraint(equalToConstant: size.width*0.6),
+            imageView.widthAnchor.constraint(equalToConstant: size.width*0.2),
+            imageView.heightAnchor.constraint(equalToConstant: size.width*0.3),
         ])
     }
     

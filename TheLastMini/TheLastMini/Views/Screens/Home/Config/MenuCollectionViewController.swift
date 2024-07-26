@@ -15,6 +15,10 @@ class MenuCollectionViewController: UICollectionViewController {
         return view
     }()
     
+    override func loadView() {
+        self.view = menuColletion
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,7 +30,7 @@ class MenuCollectionViewController: UICollectionViewController {
 
 extension MenuCollectionViewController: ViewCode{
     func addViews() {
-        self.view.addListSubviews(menuColletion)
+        
     }
     
     func addContrains() {
@@ -39,6 +43,6 @@ extension MenuCollectionViewController: ViewCode{
     }
     
     func setupStyle() {
-        
+
     }
 }
