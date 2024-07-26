@@ -17,7 +17,7 @@ class MenuColletionView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = .init(width: size.width*0.3, height: size.width*0.2)
-        layout.sectionInset = UIEdgeInsets(top: 10, left: size.width/5, bottom: 0, right: size.width/5)
+        layout.sectionInset = UIEdgeInsets(top: 40, left: size.width/3.5, bottom: 0, right: size.width/3.8)
         
         let colletion = UICollectionView(frame: .zero, collectionViewLayout: layout)
         colletion.register(MenuCollectioViewCell.self, forCellWithReuseIdentifier: MenuCollectioViewCell.identifier)
@@ -26,7 +26,7 @@ class MenuColletionView: UIView {
         colletion.translatesAutoresizingMaskIntoConstraints = false
         colletion.isPagingEnabled = false
         colletion.showsHorizontalScrollIndicator = false
-        colletion.backgroundColor = .brown
+        colletion.backgroundColor = .clear
         return colletion
     }()
 
@@ -53,7 +53,7 @@ extension MenuColletionView: ViewCode{
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: size.height*0.5)
+            collectionView.heightAnchor.constraint(equalToConstant: size.height*0.6)
         ])
     }
     
