@@ -14,6 +14,12 @@ class HomeViewController: UIViewController{
         return view
     }()
     
+    private lazy var carouselMenuComponent: MenuCollectionViewController = {
+        let viewController = MenuCollectionViewController()
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        return viewController
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,8 +30,9 @@ class HomeViewController: UIViewController{
 
 extension HomeViewController: ViewCode{
     func addViews() {
-        view.addListSubviews(topViewButtons)
-        
+        addChild(carouselMenuComponent)
+        view.addListSubviews(carouselMenuComponent.view, topViewButtons)
+
         self.topViewButtons.delegate = self
     }
     
@@ -36,7 +43,13 @@ extension HomeViewController: ViewCode{
             topViewButtons.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             topViewButtons.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
             ///Mark: Mudar depois: Temporario
-            topViewButtons.heightAnchor.constraint(equalToConstant: 500),
+//            topViewButtons.heightAnchor.constraint(equalToConstant: 500),
+            
+            //CAROUSEL
+            carouselMenuComponent.view.topAnchor.constraint(equalTo: view.topAnchor),
+            carouselMenuComponent.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            carouselMenuComponent.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            carouselMenuComponent.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
     
