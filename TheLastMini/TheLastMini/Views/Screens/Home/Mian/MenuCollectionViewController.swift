@@ -23,6 +23,7 @@ class MenuCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
 
         setupViewCode()
+        setupCells()
     }
 
 }
@@ -30,7 +31,7 @@ class MenuCollectionViewController: UICollectionViewController {
 
 extension MenuCollectionViewController: ViewCode{
     func addViews() {
-        
+        self.menuColletion.delegate = self
     }
     
     func addContrains() {
@@ -44,5 +45,23 @@ extension MenuCollectionViewController: ViewCode{
     
     func setupStyle() {
 
+    }
+    
+    func setupCells(){
+        let model: [MenuDataModel] = [MenuDataModel(image: UIImage(resource: .interlagos), text: "Interlagos"),
+                                      MenuDataModel(image: UIImage(resource: .r34), text: "Interlagos"),
+                                      MenuDataModel(image: UIImage(resource: .r34), text: "Interlagos")]
+        self.menuColletion.configure(model)
+    }
+}
+
+extension MenuCollectionViewController: NavigationDelegate{
+    func navigationTo(_ tag: Int) {
+        switch tag{
+        case 0:
+            navigationController?.pushViewController(GamePlayViewController(), animated: true)
+        default:
+            print("tag Invalida")
+        }
     }
 }

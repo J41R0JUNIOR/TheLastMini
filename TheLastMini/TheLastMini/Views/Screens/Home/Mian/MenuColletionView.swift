@@ -9,22 +9,24 @@ import UIKit
 
 class MenuColletionView: UIView {
     
-    let size = ScreenInfo.shared.getBoundsSize()
+    private var model: [MenuDataModel] = []
+    private let size = ScreenInfo.shared.getBoundsSize()
+    public var delegate: NavigationDelegate?
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = .init(width: size.width*0.60, height: size.width*0.63)
+        layout.itemSize = .init(width: size.width*0.3, height: size.width*0.2)
         layout.sectionInset = UIEdgeInsets(top: 10, left: size.width/5, bottom: 0, right: size.width/5)
-      
+        
         let colletion = UICollectionView(frame: .zero, collectionViewLayout: layout)
         colletion.register(MenuCollectioViewCell.self, forCellWithReuseIdentifier: MenuCollectioViewCell.identifier)
         colletion.delegate = self
         colletion.dataSource = self
         colletion.translatesAutoresizingMaskIntoConstraints = false
-        colletion.isPagingEnabled = true
+        colletion.isPagingEnabled = false
         colletion.showsHorizontalScrollIndicator = false
-        colletion.backgroundColor = .clear
+        colletion.backgroundColor = .brown
         return colletion
     }()
 
@@ -51,12 +53,17 @@ extension MenuColletionView: ViewCode{
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: size.width*0.6)
+            collectionView.heightAnchor.constraint(equalToConstant: size.height*0.5)
         ])
     }
     
     func setupStyle() {
         
+    }
+    
+    public func configure(_ model: [MenuDataModel]){
+        self.model = model
+        self.collectionView.reloadData()
     }
 }
 
@@ -64,7 +71,7 @@ extension MenuColletionView: ViewCode{
 extension MenuColletionView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return self.model.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -76,10 +83,16 @@ extension MenuColletionView: UICollectionViewDelegate, UICollectionViewDataSourc
             fatalError("Error in MenuColletionView")
         }
         
+        let image = model[indexPath.row].image
+        let label = model[indexPath.row].text
+        
+        cell.configure(image, label)
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        print("Clickei no [\(indexPath.row) - \(model[indexPath.row].text)]")
+        delegate?.navigationTo(indexPath.row)
     }
 }

@@ -12,7 +12,15 @@ class MenuCollectioViewCell: UICollectionViewCell {
     static let identifier = "MenuCollectioViewCell"
     let size = ScreenInfo.shared.getBoundsSize()
     
-    //minigame cell image
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.text = "nil"
+        label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "questionmark.app.fill")
@@ -28,7 +36,6 @@ class MenuCollectioViewCell: UICollectionViewCell {
         super.init(frame: frame)
         print("entrei na viewcell menu")
         
-        
         setupViewCode()
     }
     
@@ -39,19 +46,29 @@ class MenuCollectioViewCell: UICollectionViewCell {
 
 extension MenuCollectioViewCell: ViewCode{
     func addViews() {
-        addListSubviews(imageView)
+        addListSubviews(imageView, label)
     }
     
     func addContrains() {
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: size.width*0.2),
-            imageView.heightAnchor.constraint(equalToConstant: size.width*0.3),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: size.width*0.3),
+            imageView.heightAnchor.constraint(equalToConstant: size.width*0.2),
+            
+            label.bottomAnchor.constraint(equalTo: imageView.topAnchor),
+            label.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
         ])
     }
     
     func setupStyle() {
-        
+        self.backgroundColor = .red
+    }
+}
+
+extension MenuCollectioViewCell{
+    public func configure(_ image: UIImage, _ label: String){
+        self.imageView.image = image
+        self.label.text = label
     }
 }
