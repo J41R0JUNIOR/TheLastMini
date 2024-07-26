@@ -15,7 +15,7 @@ class MenuCollectioViewCell: UICollectionViewCell {
     private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "nil"
-        label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.font = .systemFont(ofSize: 24, weight: .medium)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -62,7 +62,7 @@ extension MenuCollectioViewCell: ViewCode{
     }
     
     func setupStyle() {
-        self.backgroundColor = .red
+//        self.backgroundColor = .red
     }
 }
 

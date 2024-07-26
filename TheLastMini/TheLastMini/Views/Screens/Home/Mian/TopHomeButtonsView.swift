@@ -33,17 +33,14 @@ class TopHomeButtonsView: UIView {
         return button
     }()
     
-//    private lazy var playButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setTitle("Play", for: .normal)
-//        button.contentMode = .scaleAspectFill
-//        button.backgroundColor = .lightGray.withAlphaComponent(0.5)
-//        button.layer.cornerRadius = 3.0
-//        button.tag = 2
-//        button.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        return button
-//    }()
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.text = "Selecione um Mapa"
+        label.font = .systemFont(ofSize: 26, weight: .black)
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     public weak var delegate: NavigationDelegate?
     
@@ -63,7 +60,7 @@ class TopHomeButtonsView: UIView {
 // MARK: - ViewCode Protocol Methods
 extension TopHomeButtonsView: ViewCode{
     func addViews() {
-        addListSubviews(configButton, gameCenterButton/*, playButton*/)
+        addListSubviews(configButton, gameCenterButton, label)
     }
     
     func addContrains() {
@@ -71,15 +68,13 @@ extension TopHomeButtonsView: ViewCode{
             gameCenterButton.widthAnchor.constraint(equalToConstant: 40),
             gameCenterButton.heightAnchor.constraint(equalToConstant: 40),
             gameCenterButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            
+            label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            label.topAnchor.constraint(equalTo: self.topAnchor),
 
             configButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
             configButton.widthAnchor.constraint(equalToConstant: 40),
-            configButton.heightAnchor.constraint(equalToConstant: 40),
-            
-//            playButton.widthAnchor.constraint(equalToConstant: 40),
-//            playButton.heightAnchor.constraint(equalToConstant: 40),
-//            playButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-//            playButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            configButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
