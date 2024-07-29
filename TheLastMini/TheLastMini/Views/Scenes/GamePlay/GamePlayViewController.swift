@@ -86,7 +86,7 @@ extension GamePlayViewController: ARSCNViewDelegate{
 }
 
 
-//MARK: - Configuração de animação
+//MARK: - Configuração de animação de scan
 extension GamePlayViewController: ARCoachingOverlayViewDelegate{
     func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
         print("Vai comecar ✅")
