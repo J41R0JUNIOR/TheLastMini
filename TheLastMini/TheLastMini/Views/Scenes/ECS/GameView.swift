@@ -24,6 +24,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         sceneView.addGestureRecognizer(tapGesture)
     }
 
+    
     @objc func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
         let location = gestureRecognizer.location(in: sceneView)
         guard let query = sceneView.raycastQuery(from: location, allowing: .existingPlaneGeometry, alignment: .horizontal) else { return }
@@ -32,12 +33,22 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         guard let hitTestResult = results.first else { return }
         
         let position = SCNVector3(hitTestResult.worldTransform.columns.3.x,
-                                  hitTestResult.worldTransform.columns.3.y,
+                                  hitTestResult.worldTransform.columns.3.y + 0.2,
                                   hitTestResult.worldTransform.columns.3.z)
         
+        print("Tapped position: \(position)")
         setupVehicle(at: position)
-        print(position)
     }
+    
+    func setupFloor(){
+        let floor = SCNFloor()
+        let floorNode = SCNNode(geometry: floor)
+        floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: floor, options: nil))
+        sceneView.scene.rootNode.addChildNode(floorNode)
+        floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.7)
+        floorNode.position = SCNVector3(x: 0, y: -1, z: -4)
+    }
+
 
     func setupScene() {
         sceneView = ARSCNView(frame: self.view.frame)
@@ -53,10 +64,12 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
         sceneView.session.run(configuration)
+        
+        setupFloor()
     }
 
     func createWheel(lado: Lado) -> SCNNode {
-        let wheel = lado.rawValue == 1 ? "Ll.usdz" : "Rr.usdz"
+        let wheel = lado == .L ? "Ll.usdz" : "Rr.usdz"
         guard let wheelNode = SCNScene(named: wheel)?.rootNode else {
             fatalError("Could not load wheel asset")
         }
@@ -84,7 +97,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let renderComponent = RenderComponent(node: chassisNode)
         entityManager.addComponent(renderComponent, to: entity)
         
-        let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: chassisNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
+        let body = SCNPhysicsBody(type: .dynamic, shape: nil)
         body.mass = 1.0
         chassisNode.physicsBody = body
         
@@ -99,14 +112,14 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
         
         let x: Double = 0.19
-        let y: Double = 0.031
+        let y: Double = -0.031
         let z: Double = 0.25
         
         wheel1.connectionPosition = SCNVector3(-x, y, z)
         wheel2.connectionPosition = SCNVector3(x, y, z)
         wheel3.connectionPosition = SCNVector3(-x, y, -z)
         wheel4.connectionPosition = SCNVector3(x, y, -z)
-        
+
         wheel1.suspensionStiffness = CGFloat(1)
         wheel2.suspensionStiffness = CGFloat(1)
         wheel3.suspensionStiffness = CGFloat(1)
@@ -120,7 +133,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let vehicle = SCNPhysicsVehicle(chassisBody: body, wheels: [wheel1, wheel2, wheel3, wheel4])
         
         chassisNode.position = position
-        
         sceneView.scene.rootNode.addChildNode(chassisNode)
         
         SCNTransaction.begin()
@@ -133,6 +145,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         isVehicleAdded = true
     }
+
 
     func createPlane(anchor: ARPlaneAnchor) -> SCNNode {
         let planeNode = SCNNode()
@@ -214,70 +227,70 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         vehicle.applyEngineForce(force, forWheelAt: 2) // Traseiras
         vehicle.applyEngineForce(force, forWheelAt: 3)
     }
-
-    var lastUpdateTime: TimeInterval = 0
-
-    // MARK: - ARSCNViewDelegate
-    
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
-        
-        let plane = createPlane(anchor: planeAnchor)
-        
-        node.addChildNode(plane)
-    }
-
-    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        guard let planeAnchor = anchor as? ARPlaneAnchor,
-              let planeNode = node.childNodes.first,
-              let plane = planeNode.geometry as? SCNPlane else { return }
-        
-        plane.width = CGFloat(planeAnchor.planeExtent.width)
-        plane.height = CGFloat(planeAnchor.planeExtent.height)
-        planeNode.position = SCNVector3(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
-    }
-
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay.
-    }
-
-    func sessionInterruptionEnded(_ session: ARSession) {
-        resetTracking()
-    }
-
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        guard error is ARError else { return }
-        
-        let errorWithInfo = error as NSError
-        let messages = [
-            errorWithInfo.localizedDescription,
-            errorWithInfo.localizedFailureReason,
-            errorWithInfo.localizedRecoverySuggestion
-        ]
-        
-        let errorMessage = messages.compactMap({ $0 }).joined(separator: "\n")
-        
-        DispatchQueue.main.async {
-            let alertController = UIAlertController(title: "The AR session failed.", message: errorMessage, preferredStyle: .alert)
-            let restartAction = UIAlertAction(title: "Restart Session", style: .default) { _ in
-                alertController.dismiss(animated: true, completion: nil)
-                self.resetTracking()
-            }
-            alertController.addAction(restartAction)
-            self.present(alertController, animated: true, completion: nil)
-        }
-    }
-
-    private func resetTracking() {
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.horizontal, .vertical]
-        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-    }
+//
+//    var lastUpdateTime: TimeInterval = 0
+//
+//    // MARK: - ARSCNViewDelegate
+//    
+//    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+//        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+//        
+//        let plane = createPlane(anchor: planeAnchor)
+//        
+//        node.addChildNode(plane)
+//    }
+//
+//    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+//        guard let planeAnchor = anchor as? ARPlaneAnchor,
+//              let planeNode = node.childNodes.first,
+//              let plane = planeNode.geometry as? SCNPlane else { return }
+//        
+//        plane.width = CGFloat(planeAnchor.planeExtent.width)
+//        plane.height = CGFloat(planeAnchor.planeExtent.height)
+//        planeNode.position = SCNVector3(planeAnchor.center.x, planeAnchor.center.y, planeAnchor.center.z)
+//    }
+//
+//    func sessionWasInterrupted(_ session: ARSession) {
+//        // Inform the user that the session has been interrupted, for example, by presenting an overlay.
+//    }
+//
+//    func sessionInterruptionEnded(_ session: ARSession) {
+//        resetTracking()
+//    }
+//
+//    func session(_ session: ARSession, didFailWithError error: Error) {
+//        guard error is ARError else { return }
+//        
+//        let errorWithInfo = error as NSError
+//        let messages = [
+//            errorWithInfo.localizedDescription,
+//            errorWithInfo.localizedFailureReason,
+//            errorWithInfo.localizedRecoverySuggestion
+//        ]
+//        
+//        let errorMessage = messages.compactMap({ $0 }).joined(separator: "\n")
+//        
+//        DispatchQueue.main.async {
+//            let alertController = UIAlertController(title: "The AR session failed.", message: errorMessage, preferredStyle: .alert)
+//            let restartAction = UIAlertAction(title: "Restart Session", style: .default) { _ in
+//                alertController.dismiss(animated: true, completion: nil)
+//                self.resetTracking()
+//            }
+//            alertController.addAction(restartAction)
+//            self.present(alertController, animated: true, completion: nil)
+//        }
+//    }
+//
+//    private func resetTracking() {
+//        let configuration = ARWorldTrackingConfiguration()
+//        configuration.planeDetection = [.horizontal, .vertical]
+//        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+//    }
 }
 
-enum Lado: Int{
-    case L = 1
-    case R = 2
+enum Lado{
+    case L
+    case R
 }
 
 extension UIColor {

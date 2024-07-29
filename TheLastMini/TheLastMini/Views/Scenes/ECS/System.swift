@@ -22,12 +22,14 @@ class MovementSystem: System {
                 continue
             }
             
+            // Atualiza a posição com base na velocidade e tempo decorrido
             positionComponents[entity.id]?.x += Double(velocity.x) * Double(deltaTime)
             positionComponents[entity.id]?.y += Double(velocity.y) * Double(deltaTime)
             positionComponents[entity.id]?.z += velocity.z * Double(deltaTime)
         }
     }
 }
+
 
 class RenderSystem: System {
     var positionComponents: [UUID: PositionComponent] = [:]
@@ -39,7 +41,9 @@ class RenderSystem: System {
                 continue
             }
             
+            // Atualiza a posição do nó com base no componente de posição
             render.node.position = SCNVector3(position.x, position.y, position.z)
         }
     }
 }
+
