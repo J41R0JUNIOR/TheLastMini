@@ -42,6 +42,7 @@ extension HomeViewController: ViewCode{
             topViewButtons.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             topViewButtons.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             topViewButtons.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
+            topViewButtons.heightAnchor.constraint(equalToConstant: 50),
             
             //CAROUSEL
             carouselMenuComponent.view.topAnchor.constraint(equalTo: view.topAnchor),
@@ -59,6 +60,8 @@ extension HomeViewController: ViewCode{
 extension HomeViewController: NavigationDelegate{
     func navigationTo(_ tag: Int) {
         switch tag{
+        case 0:
+            present(ConfigPopUpViewController(), animated: false)
         case 1:
             navigationController?.pushViewController(GameCenterViewController(), animated: true)
         case 2:
