@@ -1,8 +1,15 @@
+//
+//  TestSpeedwayController.swift
+//  ARProject2
+//
+//  Created by André Felipe Chinen on 30/07/24.
+//
+
 import SceneKit
 import ARKit
 import UIKit
 
-class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARCoachingOverlayViewDelegate {
+class TestSpeedwayController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARCoachingOverlayViewDelegate {
     var sessionInfoView: UIView!
     var sessionInfoLabel: UILabel!
     
@@ -11,12 +18,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
     var vehicle: SCNPhysicsVehicle!
     var isVehicleAdded = false
     var isPlaneAdded = false
-    var pinchGesture = UIPinchGestureRecognizer()
     
-//    var wheel1Node: SCNNode!
-//    var wheel2Node: SCNNode!
-//    var wheel3Node: SCNNode!
-//    var wheel4Node: SCNNode!
+    var groundNode: SCNNode?
+    var invWall1: SCNNode?
+    var invWall2: SCNNode?
     
     var coachingOverlay = ARCoachingOverlayView()
     
@@ -50,9 +55,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
         sceneView.addGestureRecognizer(gestureRecognizer)
         
-        pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(sender:)))
-        
-        sceneView.addGestureRecognizer(pinchGesture)
         
 //        let floor = SCNFloor()
 //        let floorNode = SCNNode(geometry: floor)
@@ -82,12 +84,27 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         return chassisNode
     }
     
+    func createPista() ->SCNNode{
+        guard let pista = SCNScene(named: "speedway.usdz"),
+              let pistaNode = pista.rootNode.childNodes.first else {
+            fatalError("Could not load wheel asset")
+        }
+        
+        guard let nodes = pista.rootNode.childNodes.first else { fatalError() }
+        
+        groundNode = nodes.childNode(withName: "Ground", recursively: true)
+        invWall1 = nodes.childNode(withName: "InvWall1", recursively: true)
+        invWall1?.geometry?.materials.first?.diffuse.contents = UIColor.green.withAlphaComponent(0.5)
+        invWall2 = nodes.childNode(withName: "InvWall2", recursively: true)
+        invWall2?.geometry?.materials.first?.diffuse.contents = UIColor.green.withAlphaComponent(0.5)
+        
+        return pistaNode
+    }
+    
     func setupVehicle(at position: SCNVector3) {
-//        let scale: Float = 0.5
         // Cria o chassis do veículo
         let chassisNode = createChassis()
-//        chassisNode.simdScale *= 0.5
-//        chassisNode.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)
+        chassisNode.position = position
         
         let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: chassisNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
         body.mass = 1.0
@@ -96,23 +113,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         // Cria as rodas e ajusta suas posições
         let wheel1Node = createWheel()
         wheel1Node.position = SCNVector3(-0.5, 0, 0.75)
-//        wheel1Node.scale = SCNVector3(x: scale, y: scale, z: scale)
-//        wheel1Node.simdScale *= 0.5
         
         let wheel2Node = createWheel()
         wheel2Node.position = SCNVector3(0.5, 0, 0.75)
-//        wheel2Node.simdScale *= 0.5
-//        wheel2Node.scale = SCNVector3(x: scale, y: scale, z: scale)
 
         let wheel3Node = createWheel()
         wheel3Node.position = SCNVector3(-0.5, 0, -0.75)
-//        wheel3Node.simdScale *= 0.5
-//        wheel3Node.scale = SCNVector3(x: scale, y: scale, z: scale)
 
         let wheel4Node = createWheel()
         wheel4Node.position = SCNVector3(0.5, 0, -0.75)
-//        wheel4Node.simdScale *= 0.5
-//        wheel4Node.scale = SCNVector3(x: scale, y: scale, z: scale)
 
         // Adiciona as rodas ao nó pai
         chassisNode.addChildNode(wheel1Node)
@@ -120,19 +129,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         chassisNode.addChildNode(wheel3Node)
         chassisNode.addChildNode(wheel4Node)
         
-//        let wheel1 = SCNPhysicsVehicleWheel()
-//        wheel1.radius = 10
-        
         // Cria juntas para conectar as rodas ao chassi
         let wheel1 = SCNPhysicsVehicleWheel(node: wheel1Node)
         let wheel2 = SCNPhysicsVehicleWheel(node: wheel2Node)
         let wheel3 = SCNPhysicsVehicleWheel(node: wheel3Node)
         let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
-        
-//        wheel1.connectionPosition = SCNVector3(-0.32 * scale, -0.15 * scale, 0.45 * scale)
-//        wheel2.connectionPosition = SCNVector3(0.32 * scale, -0.15 * scale, 0.45 * scale)
-//        wheel3.connectionPosition = SCNVector3(-0.32 * scale, -0.15 * scale, -0.45 * scale)
-//        wheel4.connectionPosition = SCNVector3(0.32 * scale, -0.15 * scale, -0.45 * scale)
         
         wheel1.connectionPosition = SCNVector3(-0.32, -0.15, 0.45)
         wheel2.connectionPosition = SCNVector3(0.32, -0.15, 0.45)
@@ -145,13 +146,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         wheel4.suspensionStiffness = CGFloat(1)
         
         let vehicle = SCNPhysicsVehicle(chassisBody: body, wheels: [wheel1, wheel2, wheel3, wheel4])
-        
-        chassisNode.position = position
-//        chassisNode.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)
-//        wheel1Node.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)
-//        wheel2Node.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)
-//        wheel3Node.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)
-//        wheel4Node.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)
         
         self.vehicle = vehicle
         self.vehicleNode = chassisNode
@@ -271,11 +265,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         
         let floor = SCNFloor()
         let floorNode = SCNNode(geometry: floor)
+        floorNode.geometry = floor
         floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: floor, options: nil))
-        floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.7)
+        floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.0)
         floorNode.position = SCNVector3(hitTestResult.worldTransform.columns.3.x, hitTestResult.worldTransform.columns.3.y, hitTestResult.worldTransform.columns.3.z)
         
         sceneView.scene.rootNode.addChildNode(floorNode)
+        
+        let speedwayNode = createPista()
+        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: speedwayNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
+        speedwayNode.physicsBody = body
+        speedwayNode.position = SCNVector3(x: hitTestResult.worldTransform.columns.3.x, y: hitTestResult.worldTransform.columns.3.y, z: hitTestResult.worldTransform.columns.3.z)
+        
+        sceneView.scene.rootNode.addChildNode(speedwayNode)
         
         setupVehicle(at: SCNVector3(hitTestResult.worldTransform.columns.3.x, hitTestResult.worldTransform.columns.3.y, hitTestResult.worldTransform.columns.3.z))
         setupControls()
@@ -299,137 +301,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         addFloor(hitTestResult: hitResult)
     }
     
-    @objc func handlePinch(sender: UIPinchGestureRecognizer) {
-        let scale = Float(sender.scale)
-        
-//        if sender.state == .began {
-//            print("BEGAN STATE!!!")
-//            sceneView.scene.physicsWorld.removeBehavior(vehicle)
-//            vehicleNode = createChassis()
-//            
-//        }
-        
-        sceneView.scene.physicsWorld.removeBehavior(vehicle)
-        
-//        vehicleNode.removeFromParentNode()
-             
-        // Ajusta a escala do nó pai
-        vehicleNode.scale = SCNVector3(x: vehicleNode.scale.x * scale, y: vehicleNode.scale.y * scale, z: vehicleNode.scale.z * scale)
-        
-        let newBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: vehicleNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
-        newBody.mass = 1.0
-        vehicleNode.physicsBody = newBody
-        
-        let wheel1Node = createWheel()
-        wheel1Node.position = SCNVector3(-0.5, 0, 0.75)
-        
-        let wheel2Node = createWheel()
-        wheel2Node.position = SCNVector3(0.5, 0, 0.75)
-
-        let wheel3Node = createWheel()
-        wheel3Node.position = SCNVector3(-0.5, 0, -0.75)
-
-        let wheel4Node = createWheel()
-        wheel4Node.position = SCNVector3(0.5, 0, -0.75)
-        
-//        for child in vehicleNode.childNodes {
-//            child.removeFromParentNode()
-//        }
-        
-//        vehicleNode.addChildNode(wheel1Node)
-//        vehicleNode.addChildNode(wheel2Node)
-//        vehicleNode.addChildNode(wheel3Node)
-//        vehicleNode.addChildNode(wheel4Node)
-//        
-        let wheel1 = SCNPhysicsVehicleWheel(node: wheel1Node)
-        let wheel2 = SCNPhysicsVehicleWheel(node: wheel2Node)
-        let wheel3 = SCNPhysicsVehicleWheel(node: wheel3Node)
-        let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
-        
-//        wheel1.connectionPosition = SCNVector3(-0.32 * scale, -0.15 * scale, 0.45 * scale)
-//        wheel2.connectionPosition = SCNVector3(0.32 * scale, -0.15 * scale, 0.45 * scale)
-//        wheel3.connectionPosition = SCNVector3(-0.32 * scale, -0.15 * scale, -0.45 * scale)
-//        wheel4.connectionPosition = SCNVector3(0.32 * scale, -0.15 * scale, -0.45 * scale)
-        
-        wheel1.connectionPosition = SCNVector3(-0.32, -0.15, 0.45)
-        wheel2.connectionPosition = SCNVector3(0.32, -0.15, 0.45)
-        wheel3.connectionPosition = SCNVector3(-0.32, -0.15, -0.45)
-        wheel4.connectionPosition = SCNVector3(0.32, -0.15, -0.45)
-        
-        wheel1.suspensionStiffness = CGFloat(1)
-        wheel2.suspensionStiffness = CGFloat(1)
-        wheel3.suspensionStiffness = CGFloat(1)
-        wheel4.suspensionStiffness = CGFloat(1)
-//        
-        vehicle = SCNPhysicsVehicle(chassisBody: newBody, wheels: [wheel1, wheel2, wheel3, wheel4])
-        
-//        sceneView.scene.rootNode.addChildNode(vehicleNode)
-    
-        sceneView.scene.physicsWorld.addBehavior(vehicle)
-        
-        if sender.state == .ended {
-            vehicleNode.position.y += 1
-            print("VEHICLENODE SCALE: \(vehicleNode.scale)")
-//            let position = vehicleNode.position
-//            
-//            vehicleNode.removeFromParentNode()
-//            sceneView.scene.physicsWorld.removeBehavior(vehicle)
-//            
-//            let chassisNode = createChassis()
-//            chassisNode.position = position
-//            chassisNode.scale = SCNVector3(x: vehicleNode.scale.x * scale, y: vehicleNode.scale.y * scale, z: vehicleNode.scale.z * scale)
-//            
-//            let newBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: chassisNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
-//            newBody.mass = 1.0
-//            chassisNode.physicsBody = newBody
-//            
-//            let wheel1Node = createWheel()
-//            wheel1Node.position = SCNVector3(-0.5, 0, 0.75)
-//            
-//            let wheel2Node = createWheel()
-//            wheel2Node.position = SCNVector3(0.5, 0, 0.75)
-//
-//            let wheel3Node = createWheel()
-//            wheel3Node.position = SCNVector3(-0.5, 0, -0.75)
-//
-//            let wheel4Node = createWheel()
-//            wheel4Node.position = SCNVector3(0.5, 0, -0.75)
-//            
-//            for child in vehicleNode.childNodes {
-//                child.removeFromParentNode()
-//            }
-//            
-//            chassisNode.addChildNode(wheel1Node)
-//            chassisNode.addChildNode(wheel2Node)
-//            chassisNode.addChildNode(wheel3Node)
-//            chassisNode.addChildNode(wheel4Node)
-//            
-//            let wheel1 = SCNPhysicsVehicleWheel(node: wheel1Node)
-//            let wheel2 = SCNPhysicsVehicleWheel(node: wheel2Node)
-//            let wheel3 = SCNPhysicsVehicleWheel(node: wheel3Node)
-//            let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
-//            
-//            wheel1.connectionPosition = SCNVector3(-0.32, -0.15, 0.45)
-//            wheel2.connectionPosition = SCNVector3(0.32, -0.15, 0.45)
-//            wheel3.connectionPosition = SCNVector3(-0.32, -0.15, -0.45)
-//            wheel4.connectionPosition = SCNVector3(0.32, -0.15, -0.45)
-//            
-//            wheel1.suspensionStiffness = CGFloat(1)
-//            wheel2.suspensionStiffness = CGFloat(1)
-//            wheel3.suspensionStiffness = CGFloat(1)
-//            wheel4.suspensionStiffness = CGFloat(1)
-//            
-//            vehicle = SCNPhysicsVehicle(chassisBody: newBody, wheels: [wheel1, wheel2, wheel3, wheel4])
-//            vehicleNode = chassisNode
-//            
-//            sceneView.scene.rootNode.addChildNode(vehicleNode)
-//        
-//            sceneView.scene.physicsWorld.addBehavior(vehicle)
-        }
-        
-        sender.scale = 1
-    }
-    
     // Métodos de ARSCNViewDelegate para gerenciar a detecção de planos e atualização de nós
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         // Implementar se necessário
@@ -440,3 +311,4 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
         print("Contact happened!")
     }
 }
+

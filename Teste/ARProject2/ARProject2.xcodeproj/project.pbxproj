@@ -18,6 +18,9 @@
 		B3E305C42C4ED1BF0015180E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B3E305C32C4ED1BF0015180E /* Base */; };
 		B3E305C62C4ED1C00015180E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3E305C52C4ED1C00015180E /* Assets.xcassets */; };
 		B3E305C92C4ED1C00015180E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B3E305C82C4ED1C00015180E /* Base */; };
+		C05638C12C594DD100742377 /* TestSpeedwayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05638C02C594DD100742377 /* TestSpeedwayController.swift */; };
+		C05638C32C59507F00742377 /* TestSpeedway.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C05638C22C59507F00742377 /* TestSpeedway.usdz */; };
+		C05638C72C595C3F00742377 /* speedway.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C05638C62C595C3F00742377 /* speedway.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		B3E305C52C4ED1C00015180E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3E305C82C4ED1C00015180E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B3E305CA2C4ED1C00015180E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C05638C02C594DD100742377 /* TestSpeedwayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSpeedwayController.swift; sourceTree = "<group>"; };
+		C05638C22C59507F00742377 /* TestSpeedway.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = TestSpeedway.usdz; sourceTree = "<group>"; };
+		C05638C62C595C3F00742377 /* speedway.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = speedway.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,11 +75,14 @@
 				B3E305BC2C4ED1BF0015180E /* AppDelegate.swift */,
 				B3E305BE2C4ED1BF0015180E /* SceneDelegate.swift */,
 				B3C57D782C5048D400BCD2AF /* ViewController.swift */,
+				C05638C02C594DD100742377 /* TestSpeedwayController.swift */,
 				B3C5942F2C51A70000BCD2AF /* wheelModel.usdz */,
 				B3C5942D2C519B9C00BCD2AF /* chassiModel.usdz */,
 				B3C57D802C51752600BCD2AF /* chassi.usdz */,
 				B3C57D812C51752600BCD2AF /* wheel.usdz */,
 				B3C57D7E2C509C6900BCD2AF /* wheelCilindro.usdz */,
+				C05638C22C59507F00742377 /* TestSpeedway.usdz */,
+				C05638C62C595C3F00742377 /* speedway.usdz */,
 				B3E305C22C4ED1BF0015180E /* Main.storyboard */,
 				B3E305C52C4ED1C00015180E /* Assets.xcassets */,
 				B3E305C72C4ED1C00015180E /* LaunchScreen.storyboard */,
@@ -145,7 +154,9 @@
 				B3E305C62C4ED1C00015180E /* Assets.xcassets in Resources */,
 				B3E305C92C4ED1C00015180E /* Base in Resources */,
 				B3C5942E2C519B9C00BCD2AF /* chassiModel.usdz in Resources */,
+				C05638C72C595C3F00742377 /* speedway.usdz in Resources */,
 				B3E305C42C4ED1BF0015180E /* Base in Resources */,
+				C05638C32C59507F00742377 /* TestSpeedway.usdz in Resources */,
 				B3C57D822C51752600BCD2AF /* chassi.usdz in Resources */,
 				B3C57D7F2C509C6900BCD2AF /* wheelCilindro.usdz in Resources */,
 			);
@@ -159,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3C57D792C5048D400BCD2AF /* ViewController.swift in Sources */,
+				C05638C12C594DD100742377 /* TestSpeedwayController.swift in Sources */,
 				B3E305BD2C4ED1BF0015180E /* AppDelegate.swift in Sources */,
 				B3E305BF2C4ED1BF0015180E /* SceneDelegate.swift in Sources */,
 			);
