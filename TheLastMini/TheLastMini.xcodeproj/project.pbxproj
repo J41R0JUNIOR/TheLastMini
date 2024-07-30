@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B384A5532C5808C8002FA243 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B384A5522C5808C8002FA243 /* GameView.swift */; };
-		B384A5552C580C53002FA243 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = B384A5542C580C53002FA243 /* Components.swift */; };
-		B384A5572C580C98002FA243 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B384A5562C580C98002FA243 /* Entities.swift */; };
-		B384A5592C580CBB002FA243 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = B384A5582C580CBB002FA243 /* System.swift */; };
-		B384A55B2C580CE1002FA243 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B384A55A2C580CE1002FA243 /* EntityManager.swift */; };
 		B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55C2C580D8F002FA243 /* Ll.usdz */; };
 		B384A5602C580D8F002FA243 /* MmR.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55D2C580D8F002FA243 /* MmR.usdz */; };
 		B384A5612C580D8F002FA243 /* Rr.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55E2C580D8F002FA243 /* Rr.usdz */; };
@@ -39,10 +35,6 @@
 
 /* Begin PBXFileReference section */
 		B384A5522C5808C8002FA243 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
-		B384A5542C580C53002FA243 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
-		B384A5562C580C98002FA243 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
-		B384A5582C580CBB002FA243 /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
-		B384A55A2C580CE1002FA243 /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
 		B384A55C2C580D8F002FA243 /* Ll.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Ll.usdz; sourceTree = "<group>"; };
 		B384A55D2C580D8F002FA243 /* MmR.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = MmR.usdz; sourceTree = "<group>"; };
 		B384A55E2C580D8F002FA243 /* Rr.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Rr.usdz; sourceTree = "<group>"; };
@@ -85,10 +77,6 @@
 			isa = PBXGroup;
 			children = (
 				B384A5522C5808C8002FA243 /* GameView.swift */,
-				B384A55A2C580CE1002FA243 /* EntityManager.swift */,
-				B384A5582C580CBB002FA243 /* System.swift */,
-				B384A5542C580C53002FA243 /* Components.swift */,
-				B384A5562C580C98002FA243 /* Entities.swift */,
 				B384A55C2C580D8F002FA243 /* Ll.usdz */,
 				B384A55D2C580D8F002FA243 /* MmR.usdz */,
 				B384A55E2C580D8F002FA243 /* Rr.usdz */,
@@ -311,16 +299,12 @@
 				D995CC832C4EE70400E391F5 /* HapticsService.swift in Sources */,
 				D995CC962C50189F00E391F5 /* Delegates.swift in Sources */,
 				D995CC9C2C501BD300E391F5 /* GameCenterViewController.swift in Sources */,
-				B384A5572C580C98002FA243 /* Entities.swift in Sources */,
-				B384A5552C580C53002FA243 /* Components.swift in Sources */,
 				D995CC942C4F00D000E391F5 /* TopHomeButtonsView.swift in Sources */,
 				D995CCAF2C52EEAF00E391F5 /* MenuCollectioViewCell.swift in Sources */,
-				B384A55B2C580CE1002FA243 /* EntityManager.swift in Sources */,
 				D995CCA22C5033DB00E391F5 /* SwitchViewComponent.swift in Sources */,
 				D995CC8C2C4EE81D00E391F5 /* GamePlayViewController.swift in Sources */,
 				B384A5532C5808C8002FA243 /* GameView.swift in Sources */,
 				D995CCAD2C52EDEE00E391F5 /* MenuColletionView.swift in Sources */,
-				B384A5592C580CBB002FA243 /* System.swift in Sources */,
 				D995CC6B2C4EDA3000E391F5 /* SceneDelegate.swift in Sources */,
 				D995CC9E2C502A7200E391F5 /* ConfigPopUpView.swift in Sources */,
 				D995CCA42C50411600E391F5 /* UserDefult.swift in Sources */,

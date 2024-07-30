@@ -7,9 +7,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     var vehicle: SCNPhysicsVehicle!
     var isVehicleAdded = false
 
-    var entityManager = EntityManager()
-    var movementSystem = MovementSystem()
-    var renderSystem = RenderSystem()
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,17 +83,10 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
 
     func setupVehicle(at position: SCNVector3) {
-        let entity = entityManager.createEntity()
-        
-        let positionComponent = PositionComponent(x: Double(position.x), y: Double(position.y), z: Double(position.z))
-        entityManager.addComponent(positionComponent, to: entity)
-        
-        let velocityComponent = VelocityComponent(x: 0, y: 0, z: 0)
-        entityManager.addComponent(velocityComponent, to: entity)
+       
         
         let chassisNode = createChassis()
-        let renderComponent = RenderComponent(node: chassisNode)
-        entityManager.addComponent(renderComponent, to: entity)
+      
         
         let body = SCNPhysicsBody(type: .dynamic, shape: nil)
         body.mass = 1.0
