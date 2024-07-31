@@ -1,49 +1,41 @@
 //
-//  System.swift
+//  File.swift
 //  TheLastMini
 //
-//  Created by Jairo Júnior on 29/07/24.
+//  Created by Jairo Júnior on 31/07/24.
 //
 
 import Foundation
-import SceneKit
+import RealityKit
 
-protocol System {
-    func update(deltaTime: TimeInterval, entities: [Entity])
+class RenderSystem {
+    func update(deltaTime: TimeInterval, entities: [Entity]) {
+        for entity in entities {
+            guard let position = entity.getComponent(ofType: PositionComponent.self) else { continue }
+            
+            // Atualizar a posição do node
+//            entity.position = position.position
+//            print(position)
+//            print("entity.position", entity.position)
+        }
+    }
 }
 
-class MovementSystem: System {
-    var positionComponents: [UUID: PositionComponent] = [:]
-    var velocityComponents: [UUID: VelocityComponent] = [:]
+class MovementSystem {
+    var steeringAngle: CGFloat = 0.0
+    var engineForce: CGFloat = 0.0
     
     func update(deltaTime: TimeInterval, entities: [Entity]) {
         for entity in entities {
-            guard let position = positionComponents[entity.id], let velocity = velocityComponents[entity.id] else {
-                continue
-            }
+            guard let vehiclePhysics = entity.getComponent(ofType: VehiclePhysicsComponent.self) else { continue }
             
-            // Atualiza a posição com base na velocidade e tempo decorrido
-            positionComponents[entity.id]?.x += Double(velocity.x) * Double(deltaTime)
-            positionComponents[entity.id]?.y += Double(velocity.y) * Double(deltaTime)
-            positionComponents[entity.id]?.z += velocity.z * Double(deltaTime)
+            vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 0)
+            vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 1)
+            vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 2)
+            vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 3)
         }
     }
 }
 
 
-class RenderSystem: System {
-    var positionComponents: [UUID: PositionComponent] = [:]
-    var renderComponents: [UUID: RenderComponent] = [:]
-    
-    func update(deltaTime: TimeInterval, entities: [Entity]) {
-        for entity in entities {
-            guard let position = positionComponents[entity.id], let render = renderComponents[entity.id] else {
-                continue
-            }
-            
-            // Atualiza a posição do nó com base no componente de posição
-            render.node.position = SCNVector3(position.x, position.y, position.z)
-        }
-    }
-}
 
