@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "originHash" : "de78aca027018a6160962ef23a0926c91b58c89d154a3dd0185dd61e013037c8",
-=======
   "originHash" : "699e852c94761bb16ee250cc6e296ce76ed810a0f6266b9184c96dac03ba85c5",
->>>>>>> 627744c4a412a87dc6c4c334716ad889f672df6e
   "pins" : [
     {
       "identity" : "arkit-focusnode",
