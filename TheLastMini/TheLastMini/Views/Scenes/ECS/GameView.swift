@@ -6,6 +6,10 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     var vehicleNode: SCNNode!
     var vehicle: SCNPhysicsVehicle!
     var isVehicleAdded = false
+    
+    var groundNode: SCNNode?
+    var invWall1: SCNNode?
+    var invWall2: SCNNode?
 
     var entityManager = EntityManager()
     var movementSystem = MovementSystem()
@@ -15,7 +19,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         super.viewDidLoad()
         
         setupScene()
-        setupControls()
         setupTapGesture()
     }
 
@@ -32,21 +35,40 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let results = sceneView.session.raycast(query)
         guard let hitTestResult = results.first else { return }
         
-        let position = SCNVector3(hitTestResult.worldTransform.columns.3.x,
-                                  hitTestResult.worldTransform.columns.3.y + 0.2,
-                                  hitTestResult.worldTransform.columns.3.z)
+        let position = SCNVector3(x: hitTestResult.worldTransform.columns.3.x,
+                                  y: hitTestResult.worldTransform.columns.3.y,
+                                  z: hitTestResult.worldTransform.columns.3.z)
         
         print("Tapped position: \(position)")
-        setupVehicle(at: position)
+        setupFloor(at: position)
     }
     
-    func setupFloor(){
+    func setupFloor(at position: SCNVector3){
+        if isVehicleAdded {
+            return
+        }
+        
+        isVehicleAdded = true
+        
         let floor = SCNFloor()
         let floorNode = SCNNode(geometry: floor)
         floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: floor, options: nil))
         sceneView.scene.rootNode.addChildNode(floorNode)
-        floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.7)
-        floorNode.position = SCNVector3(x: 0, y: -1, z: -4)
+        floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.0)
+        floorNode.position = position
+        floorNode.position.y -= 0.2
+        
+        let speedwayNode = createSpeedway()
+        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: speedwayNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
+        speedwayNode.physicsBody = body
+        speedwayNode.position = position
+        speedwayNode.position.y -= 0.1
+        
+        sceneView.scene.rootNode.addChildNode(speedwayNode)
+        
+        setupVehicle(at: position)
+        setupControls()
+//        floorNode.position = SCNVector3(x: 0, y: -1, z: -4)
     }
 
 
@@ -64,8 +86,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
         sceneView.session.run(configuration)
-        
-        setupFloor()
     }
 
     func createWheel(lado: Lado) -> SCNNode {
@@ -82,6 +102,23 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             fatalError("Could not load chassis asset")
         }
         return chassisNode
+    }
+    
+    func createSpeedway() ->SCNNode{
+        guard let pista = SCNScene(named: "speedway.usdz"),
+              let pistaNode = pista.rootNode.childNodes.first else {
+            fatalError("Could not load wheel asset")
+        }
+        
+        guard let nodes = pista.rootNode.childNodes.first else { fatalError() }
+        
+        groundNode = nodes.childNode(withName: "Ground", recursively: true)
+        invWall1 = nodes.childNode(withName: "InvWall1", recursively: true)
+        invWall1?.geometry?.materials.first?.diffuse.contents = UIColor.green.withAlphaComponent(0.5)
+        invWall2 = nodes.childNode(withName: "InvWall2", recursively: true)
+        invWall2?.geometry?.materials.first?.diffuse.contents = UIColor.green.withAlphaComponent(0.5)
+        
+        return pistaNode
     }
 
     func setupVehicle(at position: SCNVector3) {
@@ -135,35 +172,33 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         chassisNode.position = position
         sceneView.scene.rootNode.addChildNode(chassisNode)
         
-        SCNTransaction.begin()
-        SCNTransaction.completionBlock = {
+//        SCNTransaction.begin()
+//        SCNTransaction.completionBlock = {
             self.sceneView.scene.physicsWorld.addBehavior(vehicle)
             self.vehicle = vehicle
             self.vehicleNode = chassisNode
-        }
-        SCNTransaction.commit()
-        
-        isVehicleAdded = true
+//        }
+//        SCNTransaction.commit()
     }
 
 
-    func createPlane(anchor: ARPlaneAnchor) -> SCNNode {
-        let planeNode = SCNNode()
-        let geometry = SCNPlane(width: CGFloat(anchor.planeExtent.width), height: CGFloat(anchor.planeExtent.height))
-        let material = SCNMaterial()
-        material.diffuse.contents = UIColor.transparentLightBlue
-        geometry.materials = [material]
-        
-        planeNode.geometry = geometry
-        planeNode.position = SCNVector3(anchor.center.x, anchor.center.y, anchor.center.z)
-        planeNode.transform = SCNMatrix4MakeRotation(-Float.pi / 2, 1, 0, 0)
-        
-        let physicsShape = SCNPhysicsShape(geometry: geometry, options: nil)
-        let physicsBody = SCNPhysicsBody(type: .static, shape: physicsShape)
-        planeNode.physicsBody = physicsBody
-        
-        return planeNode
-    }
+//    func createPlane(anchor: ARPlaneAnchor) -> SCNNode {
+//        let planeNode = SCNNode()
+//        let geometry = SCNPlane(width: CGFloat(anchor.planeExtent.width), height: CGFloat(anchor.planeExtent.height))
+//        let material = SCNMaterial()
+//        material.diffuse.contents = UIColor.transparentLightBlue
+//        geometry.materials = [material]
+//        
+//        planeNode.geometry = geometry
+//        planeNode.position = SCNVector3(anchor.center.x, anchor.center.y, anchor.center.z)
+//        planeNode.transform = SCNMatrix4MakeRotation(-Float.pi / 2, 1, 0, 0)
+//        
+//        let physicsShape = SCNPhysicsShape(geometry: geometry, options: nil)
+//        let physicsBody = SCNPhysicsBody(type: .static, shape: physicsShape)
+//        planeNode.physicsBody = physicsBody
+//        
+//        return planeNode
+//    }
 
     func setupControls() {
         let leftButton = UIButton(frame: CGRect(x: 20, y: self.view.frame.height - 120, width: 100, height: 50))
