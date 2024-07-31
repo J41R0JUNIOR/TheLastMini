@@ -35,6 +35,7 @@
 		D995CCAF2C52EEAF00E391F5 /* MenuCollectioViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCAE2C52EEAF00E391F5 /* MenuCollectioViewCell.swift */; };
 		D995CCB32C541F9D00E391F5 /* MenuData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCB22C541F9D00E391F5 /* MenuData.swift */; };
 		D995CCBD2C581F0000E391F5 /* FocusNode in Frameworks */ = {isa = PBXBuildFile; productRef = D995CCBC2C581F0000E391F5 /* FocusNode */; };
+		D995CCC22C5AA97900E391F5 /* GameCenterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCC12C5AA97900E391F5 /* GameCenterService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,8 @@
 		D995CCAC2C52EDEE00E391F5 /* MenuColletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuColletionView.swift; sourceTree = "<group>"; };
 		D995CCAE2C52EEAF00E391F5 /* MenuCollectioViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectioViewCell.swift; sourceTree = "<group>"; };
 		D995CCB22C541F9D00E391F5 /* MenuData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuData.swift; sourceTree = "<group>"; };
+		D995CCC02C5AA95200E391F5 /* TheLastMini.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TheLastMini.entitlements; sourceTree = "<group>"; };
+		D995CCC12C5AA97900E391F5 /* GameCenterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +117,7 @@
 		D995CC672C4EDA3000E391F5 /* TheLastMini */ = {
 			isa = PBXGroup;
 			children = (
+				D995CCC02C5AA95200E391F5 /* TheLastMini.entitlements */,
 				D995CC762C4EDA3200E391F5 /* Info.plist */,
 				D995CC842C4EE71800E391F5 /* Views */,
 				D995CC812C4EE6E400E391F5 /* Service */,
@@ -149,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				D995CC822C4EE70400E391F5 /* HapticsService.swift */,
+				D995CCC12C5AA97900E391F5 /* GameCenterService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -328,6 +333,7 @@
 				D995CC6B2C4EDA3000E391F5 /* SceneDelegate.swift in Sources */,
 				D995CC9E2C502A7200E391F5 /* ConfigPopUpView.swift in Sources */,
 				D995CCA42C50411600E391F5 /* UserDefult.swift in Sources */,
+				D995CCC22C5AA97900E391F5 /* GameCenterService.swift in Sources */,
 				D995CC992C501BA100E391F5 /* ConfigPopUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -459,6 +465,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 335BRL9A43;
@@ -493,6 +500,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 335BRL9A43;
