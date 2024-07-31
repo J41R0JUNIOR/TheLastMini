@@ -10,6 +10,7 @@ import RealityKit
 import SceneKit
 
 extension SCNNode {
+    
     private struct AssociatedKeys {
         static var components = "components"
     }

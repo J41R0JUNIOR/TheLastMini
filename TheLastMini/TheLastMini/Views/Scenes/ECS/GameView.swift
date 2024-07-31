@@ -124,6 +124,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         chassisNode.physicsBody = body
         
         let wheel1Node = createWheel(lado: .R)
+        
         let wheel2Node = createWheel(lado: .L)
         let wheel3Node = createWheel(lado: .R)
         let wheel4Node = createWheel(lado: .L)
@@ -134,7 +135,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
         
         let x: Double = 0.19
-        let y: Double = -0.031
+        let y: Double = 0
         let z: Double = 0.25
         
         wheel1.connectionPosition = SCNVector3(-x, y, z)
@@ -142,10 +143,18 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         wheel3.connectionPosition = SCNVector3(-x, y, -z)
         wheel4.connectionPosition = SCNVector3(x, y, -z)
         
-        wheel1.suspensionStiffness = CGFloat(1)
-        wheel2.suspensionStiffness = CGFloat(1)
-        wheel3.suspensionStiffness = CGFloat(1)
-        wheel4.suspensionStiffness = CGFloat(1)
+        wheel1.suspensionStiffness = CGFloat(20)
+        wheel2.suspensionStiffness = CGFloat(20)
+        wheel3.suspensionStiffness = CGFloat(20)
+        wheel4.suspensionStiffness = CGFloat(20)
+        
+        // Ajuste o comprimento da suspensão
+        
+        let value = 0.15
+        wheel1.suspensionRestLength = value
+        wheel2.suspensionRestLength = value
+        wheel3.suspensionRestLength = value
+        wheel4.suspensionRestLength = value
         
         chassisNode.addChildNode(wheel1Node)
         chassisNode.addChildNode(wheel2Node)
@@ -155,6 +164,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let vehicle = SCNPhysicsVehicle(chassisBody: body, wheels: [wheel1, wheel2, wheel3, wheel4])
         
         chassisNode.position = position
+        chassisNode.position.y += 0.3
         sceneView.scene.rootNode.addChildNode(chassisNode)
         
 //        SCNTransaction.begin()
@@ -170,6 +180,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         chassisNode.addComponent(vehicleComponent)
         chassisNode.addComponent(positionComponent)
         isVehicleAdded = true
+        
 //        }
 //        SCNTransaction.commit()
     }
@@ -258,7 +269,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     func update(deltaTime: TimeInterval) {
         movementSystem.update(deltaTime: deltaTime, entities: entities)
         renderSystem.update(deltaTime: deltaTime, entities: entities)
-//        movementSystem.resetCommands()
     }
     
     // Chamar a função de atualização de jogo no loop principal

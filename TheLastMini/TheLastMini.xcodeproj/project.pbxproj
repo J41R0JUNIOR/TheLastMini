@@ -11,10 +11,10 @@
 		B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55C2C580D8F002FA243 /* Ll.usdz */; };
 		B384A5602C580D8F002FA243 /* MmR.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55D2C580D8F002FA243 /* MmR.usdz */; };
 		B384A5612C580D8F002FA243 /* Rr.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55E2C580D8F002FA243 /* Rr.usdz */; };
-		C05638C92C596CC200742377 /* speedway.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C05638C82C596CC200742377 /* speedway.usdz */; };
 		B39E5E472C5A70DC00D28EAA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E462C5A70DC00D28EAA /* Extension.swift */; };
 		B39E5E492C5A70FA00D28EAA /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E482C5A70FA00D28EAA /* System.swift */; };
 		B39E5E4B2C5A715700D28EAA /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E4A2C5A715700D28EAA /* Component.swift */; };
+		C05638C92C596CC200742377 /* speedway.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C05638C82C596CC200742377 /* speedway.usdz */; };
 		D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC682C4EDA3000E391F5 /* AppDelegate.swift */; };
 		D995CC6B2C4EDA3000E391F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */; };
 		D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D995CC712C4EDA3200E391F5 /* Assets.xcassets */; };
@@ -43,10 +43,10 @@
 		B384A55C2C580D8F002FA243 /* Ll.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Ll.usdz; sourceTree = "<group>"; };
 		B384A55D2C580D8F002FA243 /* MmR.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = MmR.usdz; sourceTree = "<group>"; };
 		B384A55E2C580D8F002FA243 /* Rr.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Rr.usdz; sourceTree = "<group>"; };
-		C05638C82C596CC200742377 /* speedway.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = speedway.usdz; sourceTree = "<group>"; };
 		B39E5E462C5A70DC00D28EAA /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B39E5E482C5A70FA00D28EAA /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		B39E5E4A2C5A715700D28EAA /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
+		C05638C82C596CC200742377 /* speedway.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = speedway.usdz; sourceTree = "<group>"; };
 		D995CC652C4EDA3000E391F5 /* TheLastMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheLastMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D995CC682C4EDA3000E391F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -465,7 +465,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SJYF62B3PZ;
+				DEVELOPMENT_TEAM = KV78S9S54R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
@@ -499,7 +499,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SJYF62B3PZ;
+				DEVELOPMENT_TEAM = KV78S9S54R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";

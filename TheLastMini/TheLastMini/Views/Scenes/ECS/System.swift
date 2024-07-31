@@ -17,6 +17,7 @@ class RenderSystem {
 //            entity.position = position.position
 //            print(position)
 //            print("entity.position", entity.position)
+          
         }
     }
 }
