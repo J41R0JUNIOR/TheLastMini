@@ -160,8 +160,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
 //        SCNTransaction.begin()
 //        SCNTransaction.completionBlock = {
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)
-        self.vehicle = vehicle
-        self.vehicleNode = chassisNode
+//        self.vehicle = vehicle
+//        self.vehicleNode = chassisNode
         self.entities.append(chassisNode)
         
         let vehicleComponent = VehiclePhysicsComponent(vehicle: vehicle, wheels: [wheel1, wheel2, wheel3, wheel4])
