@@ -26,7 +26,7 @@ class GamePlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .red
+
         self.setupViewCode()
         self.setupConfigurations()
     }
