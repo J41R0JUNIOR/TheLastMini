@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GameKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
@@ -14,10 +15,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else {
             return
         }
+        
+        requestPermission()
+        
         self.window = UIWindow(windowScene: windowScene)
-        let navigationController = UINavigationController(rootViewController: /*HomeViewController()*/ GameView())
+        let navigationController = UINavigationController(rootViewController: HomeViewController() /*GameView()*/)
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
+    }
+    
+    public func requestPermission(){
+        let localPlayer = GKLocalPlayer.local
+        localPlayer.authenticateHandler = { (viewController, error) in
+            if let viewController = viewController{
+                viewController.present(viewController, animated: true)
+            }else if localPlayer.isAuthenticated{
+                print("Permissão ativada")
+            }else {
+                print("Player não authenticated")
+                if let error = error{
+                    print("ERROR in 'requestPermission': ", error.localizedDescription)
+                }
+            }
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
