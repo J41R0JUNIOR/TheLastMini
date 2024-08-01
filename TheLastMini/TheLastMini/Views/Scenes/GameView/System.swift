@@ -20,20 +20,33 @@ class RenderSystem {
           
         }
     }
+    
+    
 }
 
-class MovementSystem {
+class MovementSystem: TrafficLightDelegate {
+    func changed() {
+        canMove = true
+    }
+    
     var steeringAngle: CGFloat = 0.0
     var engineForce: CGFloat = 0.0
+    var canMove:Bool
+    
+    init(canMove: Bool = false) {
+        self.canMove = canMove
+    }
     
     func update(deltaTime: TimeInterval, entities: [Entity]) {
         for entity in entities {
             guard let vehiclePhysics = entity.getComponent(ofType: VehiclePhysicsComponent.self) else { continue }
             
-            vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 0)
-            vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 1)
-            vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 2)
-            vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 3)
+            if canMove{
+                vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 0)
+                vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 1)
+                vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 2)
+                vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 3)
+            }
         }
     }
 }

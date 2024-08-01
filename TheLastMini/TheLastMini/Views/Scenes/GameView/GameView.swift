@@ -1,24 +1,29 @@
 import Foundation
 import ARKit
 
-class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate {
+class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate, TrafficLightDelegate{
+
     var sceneView: ARSCNView!
     var isVehicleAdded = false
     
     var groundNode: SCNNode?
     var invWall1: SCNNode?
     var invWall2: SCNNode?
-
+    
     var entities: [Entity] = []
     let movementSystem = MovementSystem()
     let renderSystem = RenderSystem()
+    
+    var trafficLightComponent = TrafficLightComponent(frame: .init(origin: .zero, size: .init(width: 200, height: 100)))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupScene()
         setupTapGesture()
+        trafficLightComponent.delegate = self
     }
+
     
     func setupTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -41,9 +46,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func setupFloor(at position: SCNVector3){
-        if isVehicleAdded {
-            return
-        }
+        //        if isVehicleAdded {
+        //            return
+        //        }
         
         isVehicleAdded = true
         
@@ -65,7 +70,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         setupVehicle(at: position)
         setupControls()
-//        floorNode.position = SCNVector3(x: 0, y: -1, z: -4)
+        trafficLightComponent.lightAnimation()
+        //        floorNode.position = SCNVector3(x: 0, y: -1, z: -4)
     }
     
     func setupScene() {
@@ -76,12 +82,18 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         sceneView.debugOptions = [.showPhysicsShapes]
         self.view.addSubview(sceneView)
         
-        let scene = SCNScene()
-        sceneView.scene = scene
-        
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
         sceneView.session.run(configuration)
+        
+//        SetupTrafficLight()
+        trafficLightComponent.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(trafficLightComponent)
+        
+        NSLayoutConstraint.activate([
+            trafficLightComponent.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            trafficLightComponent.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+               ])
     }
     
     func createWheel(lado: Lado) -> SCNNode {
@@ -116,7 +128,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         return pistaNode
     }
-
+    
     func setupVehicle(at position: SCNVector3) {
         let chassisNode = createChassis()
         let body = SCNPhysicsBody(type: .dynamic, shape: nil)
@@ -147,14 +159,12 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         wheel2.suspensionStiffness = CGFloat(20)
         wheel3.suspensionStiffness = CGFloat(20)
         wheel4.suspensionStiffness = CGFloat(20)
-        
-        // Ajuste o comprimento da suspensão
-        
-        let value = 0.15
-        wheel1.suspensionRestLength = value
-        wheel2.suspensionRestLength = value
-        wheel3.suspensionRestLength = value
-        wheel4.suspensionRestLength = value
+                
+        let suspensionRestLength = 0.15
+        wheel1.suspensionRestLength = suspensionRestLength
+        wheel2.suspensionRestLength = suspensionRestLength
+        wheel3.suspensionRestLength = suspensionRestLength
+        wheel4.suspensionRestLength = suspensionRestLength
         
         chassisNode.addChildNode(wheel1Node)
         chassisNode.addChildNode(wheel2Node)
@@ -165,13 +175,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         chassisNode.position = position
         chassisNode.position.y += 0.3
-        sceneView.scene.rootNode.addChildNode(chassisNode)
         
-//        SCNTransaction.begin()
-//        SCNTransaction.completionBlock = {
+        sceneView.scene.rootNode.addChildNode(chassisNode)
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)
-//        self.vehicle = vehicle
-//        self.vehicleNode = chassisNode
         self.entities.append(chassisNode)
         
         let vehicleComponent = VehiclePhysicsComponent(vehicle: vehicle, wheels: [wheel1, wheel2, wheel3, wheel4])
@@ -179,63 +185,36 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         chassisNode.addComponent(vehicleComponent)
         chassisNode.addComponent(positionComponent)
+        print(chassisNode.getId(), "esse é o uuid do carro gerado")
         isVehicleAdded = true
-        
-//        }
-//        SCNTransaction.commit()
     }
-
-
-//    func createPlane(anchor: ARPlaneAnchor) -> SCNNode {
-//        let planeNode = SCNNode()
-//        let geometry = SCNPlane(width: CGFloat(anchor.planeExtent.width), height: CGFloat(anchor.planeExtent.height))
-//        let material = SCNMaterial()
-//        material.diffuse.contents = UIColor.transparentLightBlue
-//        geometry.materials = [material]
-//        
-//        planeNode.geometry = geometry
-//        planeNode.position = SCNVector3(anchor.center.x, anchor.center.y, anchor.center.z)
-//        planeNode.transform = SCNMatrix4MakeRotation(-Float.pi / 2, 1, 0, 0)
-//        
-//        let physicsShape = SCNPhysicsShape(geometry: geometry, options: nil)
-//        let physicsBody = SCNPhysicsBody(type: .static, shape: physicsShape)
-//        planeNode.physicsBody = physicsBody
-//        
-//        return planeNode
-//    }
-
-            
-        // }
-        // SCNTransaction.commit()
-        
-        
-    // }
+   
     
     func setupControls() {
         let leftButton = UIButton(frame: CGRect(x: 20, y: self.view.frame.height - 120, width: 100, height: 50))
         leftButton.backgroundColor = .green
-        leftButton.setTitle("Left", for: .normal)
+        leftButton.setTitle("👈🏽", for: .normal)
         leftButton.addTarget(self, action: #selector(turnLeft), for: .touchDown)
         leftButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
         self.view.addSubview(leftButton)
         
         let rightButton = UIButton(frame: CGRect(x: 130, y: self.view.frame.height - 120, width: 100, height: 50))
         rightButton.backgroundColor = .yellow
-        rightButton.setTitle("Right", for: .normal)
+        rightButton.setTitle("👉🏽", for: .normal)
         rightButton.addTarget(self, action: #selector(turnRight), for: .touchDown)
         rightButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
         self.view.addSubview(rightButton)
         
         let forwardButton = UIButton(frame: CGRect(x: self.view.frame.width - 120, y: self.view.frame.height - 180, width: 100, height: 50))
         forwardButton.backgroundColor = .blue
-        forwardButton.setTitle("Forward", for: .normal)
+        forwardButton.setTitle("👆🏽", for: .normal)
         forwardButton.addTarget(self, action: #selector(moveForward), for: .touchDown)
         forwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
         self.view.addSubview(forwardButton)
         
         let backwardButton = UIButton(frame: CGRect(x: self.view.frame.width - 120, y: self.view.frame.height - 120, width: 100, height: 50))
         backwardButton.backgroundColor = .red
-        backwardButton.setTitle("Backward", for: .normal)
+        backwardButton.setTitle("👇🏼", for: .normal)
         backwardButton.addTarget(self, action: #selector(moveBackward), for: .touchDown)
         backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
         self.view.addSubview(backwardButton)
@@ -267,8 +246,15 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     
     // Atualizar a lógica de jogo a cada frame
     func update(deltaTime: TimeInterval) {
+        
+
+        
         movementSystem.update(deltaTime: deltaTime, entities: entities)
         renderSystem.update(deltaTime: deltaTime, entities: entities)
+    }
+    
+    func changed() {
+        self.trafficLightComponent.removeFromSuperview()
     }
     
     // Chamar a função de atualização de jogo no loop principal
