@@ -25,7 +25,6 @@ class MenuCollectionViewController: UICollectionViewController {
         setupViewCode()
         setupCells()
     }
-
 }
 
 
@@ -48,8 +47,7 @@ extension MenuCollectionViewController: ViewCode{
     }
     
     func setupCells(){
-        let model: [MenuDataModel] = [MenuDataModel(image: UIImage(resource: .interlagos), text: "Interlagos")
-                                      ,
+        let model: [MenuDataModel] = [MenuDataModel(image: UIImage(resource: .interlagos), text: "Interlagos"),
                                       MenuDataModel(image: UIImage(resource: .r34), text: "Interlagos"),
                                       MenuDataModel(image: UIImage(resource: .r34), text: "Interlagos")
         ]
@@ -61,7 +59,7 @@ extension MenuCollectionViewController: NavigationDelegate{
     func navigationTo(_ tag: Int) {
         switch tag{
         case 0:
-            navigationController?.pushViewController(GamePlayViewController(), animated: true)
+            navigationController?.pushViewController(GameView(), animated: true)
         default:
             print("tag Invalida")
         }

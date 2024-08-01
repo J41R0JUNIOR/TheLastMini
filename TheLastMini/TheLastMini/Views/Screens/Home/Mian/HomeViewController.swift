@@ -21,15 +21,6 @@ class HomeViewController: UIViewController{
         return viewController
     }()
     
-    private lazy var label: UILabel = {
-        let label = UILabel()
-        label.text = "Selecione um Mapa"
-        label.font = .systemFont(ofSize: 16, weight: .black)
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     public var gameCenterVC: GKGameCenterViewController?
         
     override func viewDidLoad() {
@@ -43,7 +34,7 @@ class HomeViewController: UIViewController{
 extension HomeViewController: ViewCode{
     func addViews() {
         addChild(carouselMenuComponent)
-        view.addListSubviews(carouselMenuComponent.view, topViewButtons, label)
+        view.addListSubviews(carouselMenuComponent.view, topViewButtons)
 
         self.topViewButtons.delegate = self
     }
@@ -60,12 +51,7 @@ extension HomeViewController: ViewCode{
             carouselMenuComponent.view.topAnchor.constraint(equalTo: view.topAnchor),
             carouselMenuComponent.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             carouselMenuComponent.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            carouselMenuComponent.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            
-            label.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            label.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            
+            carouselMenuComponent.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     
@@ -89,8 +75,6 @@ extension HomeViewController: NavigationDelegate{
         case 1:
             newInstanceGameCenter()
             present(gameCenterVC!, animated: true)
-        case 2:
-            navigationController?.pushViewController(GamePlayViewController(), animated: true)
         default:
             print("Tag invalida")
         }

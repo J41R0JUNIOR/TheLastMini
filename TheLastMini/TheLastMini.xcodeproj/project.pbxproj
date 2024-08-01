@@ -22,11 +22,9 @@
 		D995CC832C4EE70400E391F5 /* HapticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC822C4EE70400E391F5 /* HapticsService.swift */; };
 		D995CC882C4EE76A00E391F5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC872C4EE76A00E391F5 /* HomeViewController.swift */; };
 		D995CC8C2C4EE81D00E391F5 /* GamePlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC8B2C4EE81D00E391F5 /* GamePlayViewController.swift */; };
-		D995CC902C4EFCBC00E391F5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC8F2C4EFCBC00E391F5 /* HomeViewModel.swift */; };
 		D995CC942C4F00D000E391F5 /* TopHomeButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC932C4F00D000E391F5 /* TopHomeButtonsView.swift */; };
 		D995CC962C50189F00E391F5 /* Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC952C50189F00E391F5 /* Delegates.swift */; };
 		D995CC992C501BA100E391F5 /* ConfigPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC982C501BA100E391F5 /* ConfigPopUpViewController.swift */; };
-		D995CC9C2C501BD300E391F5 /* GameCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC9B2C501BD300E391F5 /* GameCenterViewController.swift */; };
 		D995CC9E2C502A7200E391F5 /* ConfigPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC9D2C502A7200E391F5 /* ConfigPopUpView.swift */; };
 		D995CCA02C502E7E00E391F5 /* ScreenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC9F2C502E7E00E391F5 /* ScreenInfo.swift */; };
 		D995CCA22C5033DB00E391F5 /* SwitchViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCA12C5033DB00E391F5 /* SwitchViewComponent.swift */; };
@@ -39,6 +37,7 @@
 		D995CCC22C5AA97900E391F5 /* GameCenterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCC12C5AA97900E391F5 /* GameCenterService.swift */; };
 		D995CCC42C5AB62D00E391F5 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCC32C5AB62D00E391F5 /* Enums.swift */; };
 		D995CCC62C5ABFD400E391F5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCC52C5ABFD400E391F5 /* Extensions.swift */; };
+		D995CCC82C5C0F7000E391F5 /* ReplaceAndPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCC72C5C0F7000E391F5 /* ReplaceAndPlayView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,11 +58,9 @@
 		D995CC822C4EE70400E391F5 /* HapticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsService.swift; sourceTree = "<group>"; };
 		D995CC872C4EE76A00E391F5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D995CC8B2C4EE81D00E391F5 /* GamePlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayViewController.swift; sourceTree = "<group>"; };
-		D995CC8F2C4EFCBC00E391F5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D995CC932C4F00D000E391F5 /* TopHomeButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHomeButtonsView.swift; sourceTree = "<group>"; };
 		D995CC952C50189F00E391F5 /* Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegates.swift; sourceTree = "<group>"; };
 		D995CC982C501BA100E391F5 /* ConfigPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigPopUpViewController.swift; sourceTree = "<group>"; };
-		D995CC9B2C501BD300E391F5 /* GameCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterViewController.swift; sourceTree = "<group>"; };
 		D995CC9D2C502A7200E391F5 /* ConfigPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigPopUpView.swift; sourceTree = "<group>"; };
 		D995CC9F2C502E7E00E391F5 /* ScreenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenInfo.swift; sourceTree = "<group>"; };
 		D995CCA12C5033DB00E391F5 /* SwitchViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchViewComponent.swift; sourceTree = "<group>"; };
@@ -76,6 +73,7 @@
 		D995CCC12C5AA97900E391F5 /* GameCenterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterService.swift; sourceTree = "<group>"; };
 		D995CCC32C5AB62D00E391F5 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		D995CCC52C5ABFD400E391F5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D995CCC72C5C0F7000E391F5 /* ReplaceAndPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceAndPlayView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +99,7 @@
 				B39E5E462C5A70DC00D28EAA /* Extension.swift */,
 				B39E5E482C5A70FA00D28EAA /* System.swift */,
 				B39E5E4A2C5A715700D28EAA /* Component.swift */,
+				D995CCC72C5C0F7000E391F5 /* ReplaceAndPlayView.swift */,
 			);
 			path = ECS;
 			sourceTree = "<group>";
@@ -187,7 +186,6 @@
 		D995CC862C4EE73D00E391F5 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				D995CC9A2C501BBA00E391F5 /* GameCenter */,
 				D995CC972C501B8800E391F5 /* Config */,
 				D995CCB12C541BFF00E391F5 /* Mian */,
 			);
@@ -221,14 +219,6 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
-		D995CC9A2C501BBA00E391F5 /* GameCenter */ = {
-			isa = PBXGroup;
-			children = (
-				D995CC9B2C501BD300E391F5 /* GameCenterViewController.swift */,
-			);
-			path = GameCenter;
-			sourceTree = "<group>";
-		};
 		D995CCB12C541BFF00E391F5 /* Mian */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,7 +226,6 @@
 				D995CCAA2C52ECDD00E391F5 /* MenuCollectionViewController.swift */,
 				D995CCAC2C52EDEE00E391F5 /* MenuColletionView.swift */,
 				D995CCAE2C52EEAF00E391F5 /* MenuCollectioViewCell.swift */,
-				D995CC8F2C4EFCBC00E391F5 /* HomeViewModel.swift */,
 				D995CC932C4F00D000E391F5 /* TopHomeButtonsView.swift */,
 			);
 			path = Mian;
@@ -328,17 +317,16 @@
 				D995CCA02C502E7E00E391F5 /* ScreenInfo.swift in Sources */,
 				D995CC802C4EE60B00E391F5 /* ViewCodeProtocols.swift in Sources */,
 				D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */,
-				D995CC902C4EFCBC00E391F5 /* HomeViewModel.swift in Sources */,
 				D995CC832C4EE70400E391F5 /* HapticsService.swift in Sources */,
 				D995CC962C50189F00E391F5 /* Delegates.swift in Sources */,
 				B39E5E492C5A70FA00D28EAA /* System.swift in Sources */,
 				B39E5E472C5A70DC00D28EAA /* Extension.swift in Sources */,
-				D995CC9C2C501BD300E391F5 /* GameCenterViewController.swift in Sources */,
 				D995CC942C4F00D000E391F5 /* TopHomeButtonsView.swift in Sources */,
 				D995CCAF2C52EEAF00E391F5 /* MenuCollectioViewCell.swift in Sources */,
 				D995CCA22C5033DB00E391F5 /* SwitchViewComponent.swift in Sources */,
 				D995CC8C2C4EE81D00E391F5 /* GamePlayViewController.swift in Sources */,
 				B384A5532C5808C8002FA243 /* GameView.swift in Sources */,
+				D995CCC82C5C0F7000E391F5 /* ReplaceAndPlayView.swift in Sources */,
 				B39E5E4B2C5A715700D28EAA /* Component.swift in Sources */,
 				D995CCAD2C52EDEE00E391F5 /* MenuColletionView.swift in Sources */,
 				D995CC6B2C4EDA3000E391F5 /* SceneDelegate.swift in Sources */,

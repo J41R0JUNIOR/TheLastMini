@@ -11,3 +11,8 @@ import Foundation
 enum Identifier: String{
     case recordID = "RecordID"
 }
+
+enum Lado{
+    case L
+    case R
+}

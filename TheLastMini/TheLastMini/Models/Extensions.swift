@@ -14,3 +14,6 @@ extension TimeInterval{
     }
 }
 
+extension UIColor {
+    static let transparentLightBlue = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5)
+}
