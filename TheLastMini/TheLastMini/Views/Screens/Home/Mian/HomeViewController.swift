@@ -21,8 +21,17 @@ class HomeViewController: UIViewController{
         return viewController
     }()
     
-    public var gameCenterVC: GKGameCenterViewController?
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.text = "Selecione um Mapa"
+        label.font = .systemFont(ofSize: 16, weight: .black)
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
+    public var gameCenterVC: GKGameCenterViewController?
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,7 +43,7 @@ class HomeViewController: UIViewController{
 extension HomeViewController: ViewCode{
     func addViews() {
         addChild(carouselMenuComponent)
-        view.addListSubviews(carouselMenuComponent.view, topViewButtons)
+        view.addListSubviews(carouselMenuComponent.view, topViewButtons, label)
 
         self.topViewButtons.delegate = self
     }
@@ -52,6 +61,11 @@ extension HomeViewController: ViewCode{
             carouselMenuComponent.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             carouselMenuComponent.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             carouselMenuComponent.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            
+            label.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            label.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            
         ])
     }
     
