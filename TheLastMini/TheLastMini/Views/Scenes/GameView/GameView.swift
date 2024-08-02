@@ -6,10 +6,6 @@ import SmartHitTest
 class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate, TrafficLightDelegate {
     var sceneView: ARSCNView = ARSCNView(frame: .zero)
     var isVehicleAdded = false
-    
-    // var groundNode: SCNNode?
-    // var invWall1: SCNNode?
-    // var invWall2: SCNNode?
 
     var checkpointsNode: [SCNNode?] = []
     var finishNode: SCNNode?
@@ -45,18 +41,32 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         self.setupScene()
         self.setupViewCode()
+
+    }
+    
+    func loopTest() async {
+        while(true){
+            print("Estou em Looping")
+        }
     }
     
     private func configureFocusNode(){
-        focusNode.viewDelegate = sceneView
         focusNode.childNodes.forEach { $0.removeFromParentNode() }
         
+        focusNode.viewDelegate = sceneView
+        
         let customNode = createSpeedway()
-        focusNode.addChildNode(customNode)
+        
+        if customNode.parent != nil {
+            print("Adicionando ao pai")
+            focusNode.addChildNode(customNode)
+        }
         
         customNode.scale = SCNVector3(0.1, 0.1, 0.1) //remover depois
         focusNode.isHidden = false
-        sceneView.scene.rootNode.addChildNode(self.focusNode)
+        
+        self.addNodeToScene(node: self.focusNode)
+//        sceneView.scene.rootNode.addChildNode(self.focusNode)
     }
 
 
@@ -69,7 +79,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     @objc func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
         focusNode.isHidden = true
         self.replaceAndPlay.isHidden = false
-        
+        self.tapGesture?.isEnabled = false
+
         setupFloor(at: focusNode.position)
     }
     
@@ -84,16 +95,23 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let floor = SCNFloor()
         let floorNode = SCNNode(geometry: floor)
         floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: floor, options: nil))
-        floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.0)
+        floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(1)
         floorNode.position = position
         floorNode.position.y -= 0.2
-        sceneView.scene.rootNode.addChildNode(floorNode)
+        self.addNodeToScene(node: floorNode)
         
         let speedwayNode = createSpeedway()
         speedwayNode.position = position
         speedwayNode.position.y -= 0.1
-        sceneView.scene.rootNode.addChildNode(speedwayNode)
+        self.addNodeToScene(node: speedwayNode)
         setupVehicle(at: position)
+    }
+    
+    func addNodeToScene(node: SCNNode){
+        if node.parent != nil {
+            node.removeFromParentNode()
+        }
+        sceneView.scene.rootNode.addChildNode(node)
     }
     
     func setupScene() {
@@ -112,10 +130,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         coachingOverlay.goal = .horizontalPlane
 
         sceneView.session.run(configuration)
-        
-//        SetupTrafficLight()
-        
-
     }
     
     
@@ -135,7 +149,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         return chassisNode
     }
     
-    func createSpeedway() ->SCNNode{
+    func createSpeedway() -> SCNNode{
         guard let pista = SCNScene(named: "TestCompleteSpeedway.usdz"),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
@@ -152,14 +166,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             checkNode?.name = "check\(i)"
             checkpointsNode.append(checkNode)
         }
-        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)
         
-//        groundNode = nodes.childNode(withName: "Ground", recursively: true)
-//        invWall1 = nodes.childNode(withName: "InvWall1", recursively: true)
-//        invWall1?.geometry?.materials.first?.diffuse.contents = UIColor.green.withAlphaComponent(0.5)
-//        invWall2 = nodes.childNode(withName: "InvWall2", recursively: true)
-//        invWall2?.geometry?.materials.first?.diffuse.contents = UIColor.green.withAlphaComponent(0.5)
-        
+        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)?.parent
+        pistaNode.name = "pistaNode"
         return pistaNode
     }
     
@@ -210,7 +219,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         chassisNode.position = position
         chassisNode.position.y += 0.3
-        sceneView.scene.rootNode.addChildNode(chassisNode)
+        self.addNodeToScene(node: chassisNode)
+//        sceneView.scene.rootNode.addChildNode(chassisNode)
 
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)
         self.entities.append(chassisNode)
@@ -347,6 +357,7 @@ extension GameView: ARCoachingOverlayViewDelegate{
 //    func coachingOverlayViewDidRequestSessionReset(_ coachingOverlayView: ARCoachingOverlayView) {
 //        print("Pedi para refazer  🚨")
 //    }
+    
 }
 
 //MARK: Função de action replace and play button
@@ -356,16 +367,17 @@ extension GameView: NavigationDelegate{
         case 10:
             print("Replace")
             if sceneView.scene.rootNode.childNodes.count > 0{
+                print("TESTEEEEEEEE aaiaiaiaiai")
                 sceneView.scene.rootNode.childNodes.forEach { $0.removeFromParentNode() }
                 self.isVehicleAdded = false
                 self.replaceAndPlay.toggleVisibility()
                 configureFocusNode()
+                self.tapGesture?.isEnabled = true
             }
         case 11:
             print("Play")
             setupControls()
             self.replaceAndPlay.toggleVisibility()
-            self.tapGesture?.isEnabled = false 
             self.trafficLightComponent.isHidden = false
             self.trafficLightComponent.startAnimation()
             

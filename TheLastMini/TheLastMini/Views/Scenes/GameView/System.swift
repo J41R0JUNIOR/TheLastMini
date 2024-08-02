@@ -20,8 +20,6 @@ class RenderSystem {
           
         }
     }
-    
-    
 }
 
 class MovementSystem: TrafficLightDelegate {
