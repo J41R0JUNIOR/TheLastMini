@@ -1,13 +1,16 @@
 import Foundation
 import ARKit
 
-class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate {
+class GameView: UIViewController, ARSCNViewDelegate, ARSessionDelegate, SCNPhysicsContactDelegate {
     var sceneView: ARSCNView!
     var isVehicleAdded = false
     
-    var groundNode: SCNNode?
-    var invWall1: SCNNode?
-    var invWall2: SCNNode?
+//    var groundNode: SCNNode?
+//    var invWall1: SCNNode?
+//    var invWall2: SCNNode?
+    
+    var checkpointsNode: [SCNNode?] = []
+    var finishNode: SCNNode?
 
     var entities: [Entity] = []
     let movementSystem = MovementSystem()
@@ -50,22 +53,18 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let floor = SCNFloor()
         let floorNode = SCNNode(geometry: floor)
         floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: floor, options: nil))
-        sceneView.scene.rootNode.addChildNode(floorNode)
         floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.0)
         floorNode.position = position
         floorNode.position.y -= 0.2
+        sceneView.scene.rootNode.addChildNode(floorNode)
         
         let speedwayNode = createSpeedway()
-        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: speedwayNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
-        speedwayNode.physicsBody = body
         speedwayNode.position = position
         speedwayNode.position.y -= 0.1
-        
         sceneView.scene.rootNode.addChildNode(speedwayNode)
         
         setupVehicle(at: position)
         setupControls()
-//        floorNode.position = SCNVector3(x: 0, y: -1, z: -4)
     }
     
     func setupScene() {
@@ -78,6 +77,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         let scene = SCNScene()
         sceneView.scene = scene
+        sceneView.scene.physicsWorld.contactDelegate = self
         
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
@@ -101,30 +101,42 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createSpeedway() ->SCNNode{
-        guard let pista = SCNScene(named: "speedway.usdz"),
+        guard let pista = SCNScene(named: "TestCompleteSpeedway.usdz"),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
         }
         
-        guard let nodes = pista.rootNode.childNodes.first else { fatalError() }
+        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: pistaNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
+        pistaNode.physicsBody = body
         
-        groundNode = nodes.childNode(withName: "Ground", recursively: true)
-        invWall1 = nodes.childNode(withName: "InvWall1", recursively: true)
-        invWall1?.geometry?.materials.first?.diffuse.contents = UIColor.green.withAlphaComponent(0.5)
-        invWall2 = nodes.childNode(withName: "InvWall2", recursively: true)
-        invWall2?.geometry?.materials.first?.diffuse.contents = UIColor.green.withAlphaComponent(0.5)
+        for i in 1...6 {
+            let checkNode = pistaNode.childNode(withName: "Checkpoint\(i)", recursively: true)
+            checkNode?.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: checkNode!))
+            checkNode?.physicsBody?.categoryBitMask = 1 << 2 // 0010
+            checkNode?.physicsBody?.contactTestBitMask = 1 << 1 // 0001
+            checkNode?.name = "check\(i)"
+            checkpointsNode.append(checkNode)
+        }
+        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)
+        
+//        groundNode = nodes.childNode(withName: "Ground", recursively: true)
+//        invWall1 = nodes.childNode(withName: "InvWall1", recursively: true)
+//        invWall1?.geometry?.materials.first?.diffuse.contents = UIColor.green.withAlphaComponent(0.5)
+//        invWall2 = nodes.childNode(withName: "InvWall2", recursively: true)
+//        invWall2?.geometry?.materials.first?.diffuse.contents = UIColor.green.withAlphaComponent(0.5)
         
         return pistaNode
     }
 
     func setupVehicle(at position: SCNVector3) {
         let chassisNode = createChassis()
-        let body = SCNPhysicsBody(type: .dynamic, shape: nil)
+        let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: chassisNode))
         body.mass = 1.0
         chassisNode.physicsBody = body
+        chassisNode.physicsBody?.categoryBitMask = 1 << 1  // 0001
+        chassisNode.physicsBody?.contactTestBitMask = 1 << 2 // 0010
         
         let wheel1Node = createWheel(lado: .R)
-        
         let wheel2Node = createWheel(lado: .L)
         let wheel3Node = createWheel(lado: .R)
         let wheel4Node = createWheel(lado: .L)
@@ -166,12 +178,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         chassisNode.position = position
         chassisNode.position.y += 0.3
         sceneView.scene.rootNode.addChildNode(chassisNode)
-        
-//        SCNTransaction.begin()
-//        SCNTransaction.completionBlock = {
+
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)
-//        self.vehicle = vehicle
-//        self.vehicleNode = chassisNode
         self.entities.append(chassisNode)
         
         let vehicleComponent = VehiclePhysicsComponent(vehicle: vehicle, wheels: [wheel1, wheel2, wheel3, wheel4])
@@ -180,36 +188,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         chassisNode.addComponent(vehicleComponent)
         chassisNode.addComponent(positionComponent)
         isVehicleAdded = true
-        
-//        }
-//        SCNTransaction.commit()
     }
-
-
-//    func createPlane(anchor: ARPlaneAnchor) -> SCNNode {
-//        let planeNode = SCNNode()
-//        let geometry = SCNPlane(width: CGFloat(anchor.planeExtent.width), height: CGFloat(anchor.planeExtent.height))
-//        let material = SCNMaterial()
-//        material.diffuse.contents = UIColor.transparentLightBlue
-//        geometry.materials = [material]
-//        
-//        planeNode.geometry = geometry
-//        planeNode.position = SCNVector3(anchor.center.x, anchor.center.y, anchor.center.z)
-//        planeNode.transform = SCNMatrix4MakeRotation(-Float.pi / 2, 1, 0, 0)
-//        
-//        let physicsShape = SCNPhysicsShape(geometry: geometry, options: nil)
-//        let physicsBody = SCNPhysicsBody(type: .static, shape: physicsShape)
-//        planeNode.physicsBody = physicsBody
-//        
-//        return planeNode
-//    }
-
-            
-        // }
-        // SCNTransaction.commit()
-        
-        
-    // }
     
     func setupControls() {
         let leftButton = UIButton(frame: CGRect(x: 20, y: self.view.frame.height - 120, width: 100, height: 50))
@@ -282,6 +261,25 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     @objc func gameLoop(displayLink: CADisplayLink) {
         let deltaTime = displayLink.duration
         update(deltaTime: deltaTime)
+    }
+    
+    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        print("CONTACT DETECTED!")
+        
+        let nodeA = contact.nodeA
+        let nodeB = contact.nodeB
+        
+        // Verificar qual nó é o carrinho e qual é o checkpoint
+        if (nodeA.physicsBody?.categoryBitMask == 1 << 2 && nodeB.physicsBody?.categoryBitMask == 1 << 1) ||
+           (nodeA.physicsBody?.categoryBitMask == 1 << 1 && nodeB.physicsBody?.categoryBitMask == 1 << 2) {
+            let checkpointNode = nodeA.physicsBody?.categoryBitMask == 1 << 2 ? nodeA : nodeB
+            print("Carrinho passou pelo checkpoint: \(checkpointNode.name ?? "nil")")
+        }
+        
+    }
+    
+    func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
+        // Registrar algo quando termina o contato aqui
     }
 }
 
