@@ -30,7 +30,6 @@ class MenuCollectioViewCell: UICollectionViewCell {
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-
     
     override init(frame: CGRect){
         super.init(frame: frame)

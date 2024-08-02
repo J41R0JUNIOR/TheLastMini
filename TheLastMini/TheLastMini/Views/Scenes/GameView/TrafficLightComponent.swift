@@ -22,6 +22,7 @@ class TrafficLightComponent: UIView{
     override init(frame: CGRect) {
         super.init(frame: frame)
        
+        self.isHidden = true
         SetupTrafficLight()
 //        lightAnimation()
     }
@@ -61,7 +62,7 @@ class TrafficLightComponent: UIView{
         }
     }
     
-    func lightAnimation() {
+    func startAnimation() {
         light1.backgroundColor = .yellow
         var count = 0
         let lights = [light1, light2, light3]
