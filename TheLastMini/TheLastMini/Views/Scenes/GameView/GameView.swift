@@ -36,10 +36,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         self.setupScene()
         self.setupViewCode()
-//        self.view.addSubview(coachingOverlay)
     }
     
     private func configureFocusNode(){

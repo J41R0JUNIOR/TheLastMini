@@ -116,7 +116,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		B384A5512C5807E4002FA243 /* ECS */ = {
+		B384A5512C5807E4002FA243 /* GameView */ = {
 			isa = PBXGroup;
 			children = (
 				B384A5522C5808C8002FA243 /* GameView.swift */,
@@ -345,13 +345,12 @@
 				D995CCB32C541F9D00E391F5 /* Models.swift in Sources */,
 				D995CCC42C5AB62D00E391F5 /* Enums.swift in Sources */,
 				62E91F8F2C5AAC0900280B20 /* ResultsView.swift in Sources */,
-				D995CCB32C541F9D00E391F5 /* MenuData.swift in Sources */,
+				D995CCB32C541F9D00E391F5 /* Models.swift in Sources */,
 				D995CCAB2C52ECDD00E391F5 /* MenuCollectionViewController.swift in Sources */,
 				D995CCA02C502E7E00E391F5 /* ScreenInfo.swift in Sources */,
 				D995CC802C4EE60B00E391F5 /* ViewCodeProtocols.swift in Sources */,
 				D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */,
 				62E91F942C5AB21400280B20 /* PlayerTimeRankModel.swift in Sources */,
-				D995CC902C4EFCBC00E391F5 /* HomeViewModel.swift in Sources */,
 				D995CC832C4EE70400E391F5 /* HapticsService.swift in Sources */,
 				D995CC962C50189F00E391F5 /* Delegates.swift in Sources */,
 				B39E5E492C5A70FA00D28EAA /* System.swift in Sources */,
@@ -506,7 +505,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KV78S9S54R;
+				DEVELOPMENT_TEAM = 335BRL9A43;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
@@ -521,7 +520,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMinii;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -541,7 +540,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KV78S9S54R;
+				DEVELOPMENT_TEAM = 335BRL9A43;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
@@ -556,7 +555,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMinii;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
