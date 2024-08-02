@@ -105,11 +105,11 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         sceneView.scene.physicsWorld.contactDelegate = self
                 
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.horizontal, .vertical]
+        configuration.planeDetection = [.horizontal]
         
         coachingOverlay.session = sceneView.session
         coachingOverlay.delegate = self
-        coachingOverlay.goal = .anyPlane
+        coachingOverlay.goal = .horizontalPlane
 
         sceneView.session.run(configuration)
         
