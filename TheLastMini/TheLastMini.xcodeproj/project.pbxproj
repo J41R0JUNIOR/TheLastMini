@@ -19,6 +19,7 @@
 		B39E5E4B2C5A715700D28EAA /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E4A2C5A715700D28EAA /* Component.swift */; };
 		B39E5E4F2C5C07FA00D28EAA /* TrafficLightComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E4E2C5C07FA00D28EAA /* TrafficLightComponent.swift */; };
 		B39E5E532C5C240D00D28EAA /* TrafficLightDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E522C5C240D00D28EAA /* TrafficLightDelegate.swift */; };
+		B39E5E572C5D72BE00D28EAA /* CarControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E562C5D72BE00D28EAA /* CarControlComponent.swift */; };
 		C01B33192C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C01B33182C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz */; };
 		C01B331B2C5D532E000C4AE3 /* TestSpeedwayCheckDown1_5.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C01B331A2C5D532D000C4AE3 /* TestSpeedwayCheckDown1_5.usdz */; };
 		C05638C92C596CC200742377 /* speedway.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C05638C82C596CC200742377 /* speedway.usdz */; };
@@ -60,6 +61,7 @@
 		B39E5E4A2C5A715700D28EAA /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		B39E5E4E2C5C07FA00D28EAA /* TrafficLightComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficLightComponent.swift; sourceTree = "<group>"; };
 		B39E5E522C5C240D00D28EAA /* TrafficLightDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficLightDelegate.swift; sourceTree = "<group>"; };
+		B39E5E562C5D72BE00D28EAA /* CarControlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarControlComponent.swift; sourceTree = "<group>"; };
 		C01B33182C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = TestSpeedwayCheckDown1.usdz; sourceTree = "<group>"; };
 		C01B331A2C5D532D000C4AE3 /* TestSpeedwayCheckDown1_5.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = TestSpeedwayCheckDown1_5.usdz; sourceTree = "<group>"; };
 		C05638C82C596CC200742377 /* speedway.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = speedway.usdz; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				D995CCC72C5C0F7000E391F5 /* ReplaceAndPlayComponent.swift */,
 				B39E5E4E2C5C07FA00D28EAA /* TrafficLightComponent.swift */,
+				B39E5E562C5D72BE00D28EAA /* CarControlComponent.swift */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				D995CCA42C50411600E391F5 /* UserDefult.swift in Sources */,
 				D995CCC22C5AA97900E391F5 /* GameCenterService.swift in Sources */,
 				B39E5E532C5C240D00D28EAA /* TrafficLightDelegate.swift in Sources */,
+				B39E5E572C5D72BE00D28EAA /* CarControlComponent.swift in Sources */,
 				D995CC992C501BA100E391F5 /* ConfigPopUpViewController.swift in Sources */,
 				B39E5E4F2C5C07FA00D28EAA /* TrafficLightComponent.swift in Sources */,
 			);
