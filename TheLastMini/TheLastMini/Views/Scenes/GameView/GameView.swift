@@ -50,10 +50,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     private func configureFocusNode(){
         focusNode.childNodes.forEach { $0.removeFromParentNode() }
         
-        focusNode.viewDelegate = sceneView
-        
         let customNode = createSpeedway()
-        
+        print("Estou aqui: ", sceneView.scene.rootNode.childNodes.count, " [-] ", sceneView.scene.rootNode.childNodes)
+
         if customNode.parent != nil {
             print("Adicionando ao pai")
             focusNode.addChildNode(customNode)
@@ -63,6 +62,10 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         focusNode.isHidden = false
         
         self.addNodeToScene(node: self.focusNode)
+        
+//        if focusNode.parent != nil {
+//            
+//        }
 //        sceneView.scene.rootNode.addChildNode(self.focusNode)
     }
 
@@ -92,7 +95,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let floor = SCNFloor()
         let floorNode = SCNNode(geometry: floor)
         floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: floor, options: nil))
-        floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(1)
+        floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.0)
         floorNode.position = position
         floorNode.position.y -= 0.2
         self.addNodeToScene(node: floorNode)
@@ -368,11 +371,13 @@ extension GameView: NavigationDelegate{
         case 10:
             print("Replace")
             if sceneView.scene.rootNode.childNodes.count > 0{
-                print("TESTEEEEEEEE aaiaiaiaiai")
                 sceneView.scene.rootNode.childNodes.forEach { $0.removeFromParentNode() }
+                print("TESTEEEEEEEE aaiaiaiaiai")
                 self.isVehicleAdded = false
                 self.replaceAndPlay.toggleVisibility()
+                print(sceneView.scene.rootNode.childNodes.count, " [-] ", sceneView.scene.rootNode.childNodes)
                 configureFocusNode()
+                print("aaiaiaiaiai")
                 self.tapGesture?.isEnabled = true
             }
         case 11:
@@ -394,6 +399,8 @@ extension GameView: ViewCode{
         
         self.replaceAndPlay.delegate = self
         self.trafficLightComponent.delegate = self
+        focusNode.viewDelegate = sceneView
+
     }
     
     func addContrains() {
