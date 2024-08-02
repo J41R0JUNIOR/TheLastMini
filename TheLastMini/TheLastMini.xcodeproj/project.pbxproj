@@ -44,7 +44,7 @@
 		D995CCC22C5AA97900E391F5 /* GameCenterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCC12C5AA97900E391F5 /* GameCenterService.swift */; };
 		D995CCC42C5AB62D00E391F5 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCC32C5AB62D00E391F5 /* Enums.swift */; };
 		D995CCC62C5ABFD400E391F5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCC52C5ABFD400E391F5 /* Extensions.swift */; };
-		D995CCC82C5C0F7000E391F5 /* ReplaceAndPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCC72C5C0F7000E391F5 /* ReplaceAndPlayView.swift */; };
+		D995CCC82C5C0F7000E391F5 /* ReplaceAndPlayComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCC72C5C0F7000E391F5 /* ReplaceAndPlayComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,7 +87,7 @@
 		D995CCC12C5AA97900E391F5 /* GameCenterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterService.swift; sourceTree = "<group>"; };
 		D995CCC32C5AB62D00E391F5 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		D995CCC52C5ABFD400E391F5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		D995CCC72C5C0F7000E391F5 /* ReplaceAndPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceAndPlayView.swift; sourceTree = "<group>"; };
+		D995CCC72C5C0F7000E391F5 /* ReplaceAndPlayComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceAndPlayComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +123,20 @@
 		B384A5512C5807E4002FA243 /* GameView */ = {
 			isa = PBXGroup;
 			children = (
+				B39E5E552C5D70BE00D28EAA /* ViewComponents */,
+				B39E5E542C5D6FA900D28EAA /* ARComponents */,
 				B384A5522C5808C8002FA243 /* GameView.swift */,
+				B39E5E462C5A70DC00D28EAA /* Extension.swift */,
+				B39E5E482C5A70FA00D28EAA /* System.swift */,
+				B39E5E4A2C5A715700D28EAA /* Component.swift */,
+				B39E5E522C5C240D00D28EAA /* TrafficLightDelegate.swift */,
+			);
+			path = GameView;
+			sourceTree = "<group>";
+		};
+		B39E5E542C5D6FA900D28EAA /* ARComponents */ = {
+			isa = PBXGroup;
+			children = (
 				B384A55C2C580D8F002FA243 /* Ll.usdz */,
 				B384A55D2C580D8F002FA243 /* MmR.usdz */,
 				B384A55E2C580D8F002FA243 /* Rr.usdz */,
@@ -131,14 +144,17 @@
 				C089E0F52C5AD47C0003E40E /* TestCompleteSpeedway.usdz */,
 				C01B33182C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz */,
 				C01B331A2C5D532D000C4AE3 /* TestSpeedwayCheckDown1_5.usdz */,
-				B39E5E462C5A70DC00D28EAA /* Extension.swift */,
-				B39E5E482C5A70FA00D28EAA /* System.swift */,
-				B39E5E4A2C5A715700D28EAA /* Component.swift */,
-				D995CCC72C5C0F7000E391F5 /* ReplaceAndPlayView.swift */,
-				B39E5E4E2C5C07FA00D28EAA /* TrafficLightComponent.swift */,
-				B39E5E522C5C240D00D28EAA /* TrafficLightDelegate.swift */,
 			);
-			path = GameView;
+			path = ARComponents;
+			sourceTree = "<group>";
+		};
+		B39E5E552C5D70BE00D28EAA /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				D995CCC72C5C0F7000E391F5 /* ReplaceAndPlayComponent.swift */,
+				B39E5E4E2C5C07FA00D28EAA /* TrafficLightComponent.swift */,
+			);
+			path = ViewComponents;
 			sourceTree = "<group>";
 		};
 		D995CC5C2C4EDA3000E391F5 = {
@@ -360,7 +376,7 @@
 				D995CCAF2C52EEAF00E391F5 /* MenuCollectioViewCell.swift in Sources */,
 				D995CCA22C5033DB00E391F5 /* SwitchViewComponent.swift in Sources */,
 				B384A5532C5808C8002FA243 /* GameView.swift in Sources */,
-				D995CCC82C5C0F7000E391F5 /* ReplaceAndPlayView.swift in Sources */,
+				D995CCC82C5C0F7000E391F5 /* ReplaceAndPlayComponent.swift in Sources */,
 				62E91F912C5AAC1900280B20 /* ResultsViewController.swift in Sources */,
 				B39E5E4B2C5A715700D28EAA /* Component.swift in Sources */,
 				D995CCAD2C52EDEE00E391F5 /* MenuColletionView.swift in Sources */,
@@ -505,7 +521,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 335BRL9A43;
+				DEVELOPMENT_TEAM = KV78S9S54R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
@@ -520,7 +536,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -540,7 +556,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 335BRL9A43;
+				DEVELOPMENT_TEAM = KV78S9S54R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
@@ -555,7 +571,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReplaceAndPlayView: UIView {
+class ReplaceAndPlayComponent: UIView {
     
     private lazy var replace: UIButton = {
         let button = UIButton()
@@ -48,7 +48,7 @@ class ReplaceAndPlayView: UIView {
     }
 }
 
-extension ReplaceAndPlayView: ViewCode{
+extension ReplaceAndPlayComponent: ViewCode{
     func addViews() {
         self.addListSubviews(replace, play)
     }
@@ -73,7 +73,7 @@ extension ReplaceAndPlayView: ViewCode{
     }
 }
 
-extension ReplaceAndPlayView{
+extension ReplaceAndPlayComponent{
     @objc
     private func handleTap(_ sender: UIButton!){
         print(sender.tag)
@@ -87,5 +87,5 @@ extension ReplaceAndPlayView{
 
 
 #Preview{
-    ReplaceAndPlayView()
+    ReplaceAndPlayComponent()
 }

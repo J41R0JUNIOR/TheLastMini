@@ -24,8 +24,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         return arView
     }()
     
-    private lazy var replaceAndPlay: ReplaceAndPlayView = {
-        let view = ReplaceAndPlayView()
+    private lazy var replaceAndPlay: ReplaceAndPlayComponent = {
+        let view = ReplaceAndPlayComponent()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -259,6 +259,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         backwardButton.addTarget(self, action: #selector(moveBackward), for: .touchDown)
         backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
         self.view.addSubview(backwardButton)
+        
+        
     }
     
     @objc func moveForward() {
