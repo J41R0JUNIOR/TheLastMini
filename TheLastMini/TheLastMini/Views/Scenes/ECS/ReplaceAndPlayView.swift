@@ -68,7 +68,8 @@ extension ReplaceAndPlayView: ViewCode{
     }
     
     func setupStyle() {
-        self.backgroundColor = .clear 
+        self.isHidden = true
+        self.backgroundColor = .clear
     }
 }
 
