@@ -325,7 +325,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
 extension GameView: TrafficLightDelegate{
     func changed() {
         self.trafficLightComponent.removeFromSuperview()
-        movementSystem.changed()
+        movementSystem.changeCanMove()
 //        setupControls()
     }
 }
