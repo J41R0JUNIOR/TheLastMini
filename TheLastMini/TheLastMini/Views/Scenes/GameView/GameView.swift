@@ -34,11 +34,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         return view
     }()
     
-    var trafficLightComponent: TrafficLightComponent = {
-        let view = TrafficLightComponent(frame: .init(origin: .zero, size: .init(width: 200, height: 100)))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    var trafficLightComponent = TrafficLightComponent(frame: .init(origin: .zero, size: .init(width: 200, height: 100)))
+      
     
     override func viewDidLoad() {
         super.viewDidLoad()
