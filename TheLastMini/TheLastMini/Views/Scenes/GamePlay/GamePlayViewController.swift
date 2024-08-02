@@ -81,7 +81,6 @@ extension GamePlayViewController: ARSCNViewDelegate{
         }
         
         sceneView.session.run(configuration)
-        
     }
 }
 

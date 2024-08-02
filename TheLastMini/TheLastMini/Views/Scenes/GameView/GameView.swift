@@ -1,50 +1,81 @@
 import Foundation
 import ARKit
+import FocusNode
+import SmartHitTest
 
-class GameView: UIViewController, ARSCNViewDelegate, ARSessionDelegate, SCNPhysicsContactDelegate {
-    var sceneView: ARSCNView!
+class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate, TrafficLightDelegate {
+    var sceneView: ARSCNView = ARSCNView(frame: .zero)
     var isVehicleAdded = false
     
-//    var groundNode: SCNNode?
-//    var invWall1: SCNNode?
-//    var invWall2: SCNNode?
-    
+    // var groundNode: SCNNode?
+    // var invWall1: SCNNode?
+    // var invWall2: SCNNode?
+
     var checkpointsNode: [SCNNode?] = []
     var finishNode: SCNNode?
-
+    
     var entities: [Entity] = []
     let movementSystem = MovementSystem()
     let renderSystem = RenderSystem()
+    let focusNode: FocusNode = FocusNode()
+    
+    var tapGesture: UITapGestureRecognizer?
+    
+    ///View de animacao de scan
+    private lazy var coachingOverlay: ARCoachingOverlayView = {
+        let arView = ARCoachingOverlayView()
+        arView.translatesAutoresizingMaskIntoConstraints = false
+        return arView
+    }()
+    
+    private lazy var replaceAndPlay: ReplaceAndPlayView = {
+        let view = ReplaceAndPlayView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    var trafficLightComponent: TrafficLightComponent = {
+        let view = TrafficLightComponent(frame: .init(origin: .zero, size: .init(width: 200, height: 100)))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupScene()
-        setupTapGesture()
+        self.setupScene()
+        self.setupViewCode()
     }
     
+    private func configureFocusNode(){
+        focusNode.viewDelegate = sceneView
+        focusNode.childNodes.forEach { $0.removeFromParentNode() }
+        
+        let customNode = createSpeedway()
+        focusNode.addChildNode(customNode)
+        
+        customNode.scale = SCNVector3(0.1, 0.1, 0.1) //remover depois
+        focusNode.isHidden = false
+        sceneView.scene.rootNode.addChildNode(self.focusNode)
+    }
+
+
+    
     func setupTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        sceneView.addGestureRecognizer(tapGesture)
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        sceneView.addGestureRecognizer(tapGesture!)
     }
     
     @objc func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        let location = gestureRecognizer.location(in: sceneView)
-        guard let query = sceneView.raycastQuery(from: location, allowing: .existingPlaneGeometry, alignment: .horizontal) else { return }
+        focusNode.isHidden = true
+        self.replaceAndPlay.isHidden = false
         
-        let results = sceneView.session.raycast(query)
-        guard let hitTestResult = results.first else { return }
-        
-        let position = SCNVector3(x: hitTestResult.worldTransform.columns.3.x,
-                                  y: hitTestResult.worldTransform.columns.3.y,
-                                  z: hitTestResult.worldTransform.columns.3.z)
-        
-        print("Tapped position: \(position)")
-        setupFloor(at: position)
+        setupFloor(at: focusNode.position)
     }
     
     func setupFloor(at position: SCNVector3){
         if isVehicleAdded {
+            print("Ja removido!!!!!")
             return
         }
         
@@ -62,9 +93,7 @@ class GameView: UIViewController, ARSCNViewDelegate, ARSessionDelegate, SCNPhysi
         speedwayNode.position = position
         speedwayNode.position.y -= 0.1
         sceneView.scene.rootNode.addChildNode(speedwayNode)
-        
         setupVehicle(at: position)
-        setupControls()
     }
     
     func setupScene() {
@@ -73,16 +102,22 @@ class GameView: UIViewController, ARSCNViewDelegate, ARSessionDelegate, SCNPhysi
         sceneView.showsStatistics = true
         sceneView.autoenablesDefaultLighting = true
         sceneView.debugOptions = [.showPhysicsShapes]
-        self.view.addSubview(sceneView)
-        
-        let scene = SCNScene()
-        sceneView.scene = scene
         sceneView.scene.physicsWorld.contactDelegate = self
-        
+                
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
+        configuration.planeDetection = [.horizontal, .vertical]
+        
+        coachingOverlay.session = sceneView.session
+        coachingOverlay.delegate = self
+        coachingOverlay.goal = .anyPlane
+
         sceneView.session.run(configuration)
+        
+//        SetupTrafficLight()
+        
+
     }
+    
     
     func createWheel(lado: Lado) -> SCNNode {
         let wheel = lado == .L ? "Ll.usdz" : "Rr.usdz"
@@ -127,7 +162,7 @@ class GameView: UIViewController, ARSCNViewDelegate, ARSessionDelegate, SCNPhysi
         
         return pistaNode
     }
-
+    
     func setupVehicle(at position: SCNVector3) {
         let chassisNode = createChassis()
         let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: chassisNode))
@@ -159,14 +194,12 @@ class GameView: UIViewController, ARSCNViewDelegate, ARSessionDelegate, SCNPhysi
         wheel2.suspensionStiffness = CGFloat(20)
         wheel3.suspensionStiffness = CGFloat(20)
         wheel4.suspensionStiffness = CGFloat(20)
-        
-        // Ajuste o comprimento da suspensão
-        
-        let value = 0.15
-        wheel1.suspensionRestLength = value
-        wheel2.suspensionRestLength = value
-        wheel3.suspensionRestLength = value
-        wheel4.suspensionRestLength = value
+                
+        let suspensionRestLength = 0.15
+        wheel1.suspensionRestLength = suspensionRestLength
+        wheel2.suspensionRestLength = suspensionRestLength
+        wheel3.suspensionRestLength = suspensionRestLength
+        wheel4.suspensionRestLength = suspensionRestLength
         
         chassisNode.addChildNode(wheel1Node)
         chassisNode.addChildNode(wheel2Node)
@@ -187,34 +220,35 @@ class GameView: UIViewController, ARSCNViewDelegate, ARSessionDelegate, SCNPhysi
         
         chassisNode.addComponent(vehicleComponent)
         chassisNode.addComponent(positionComponent)
+        print(chassisNode.getId(), "esse é o uuid do carro gerado")
         isVehicleAdded = true
     }
     
     func setupControls() {
         let leftButton = UIButton(frame: CGRect(x: 20, y: self.view.frame.height - 120, width: 100, height: 50))
         leftButton.backgroundColor = .green
-        leftButton.setTitle("Left", for: .normal)
+        leftButton.setTitle("👈🏽", for: .normal)
         leftButton.addTarget(self, action: #selector(turnLeft), for: .touchDown)
         leftButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
         self.view.addSubview(leftButton)
         
         let rightButton = UIButton(frame: CGRect(x: 130, y: self.view.frame.height - 120, width: 100, height: 50))
         rightButton.backgroundColor = .yellow
-        rightButton.setTitle("Right", for: .normal)
+        rightButton.setTitle("👉🏽", for: .normal)
         rightButton.addTarget(self, action: #selector(turnRight), for: .touchDown)
         rightButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
         self.view.addSubview(rightButton)
         
         let forwardButton = UIButton(frame: CGRect(x: self.view.frame.width - 120, y: self.view.frame.height - 180, width: 100, height: 50))
         forwardButton.backgroundColor = .blue
-        forwardButton.setTitle("Forward", for: .normal)
+        forwardButton.setTitle("👆🏽", for: .normal)
         forwardButton.addTarget(self, action: #selector(moveForward), for: .touchDown)
         forwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
         self.view.addSubview(forwardButton)
         
         let backwardButton = UIButton(frame: CGRect(x: self.view.frame.width - 120, y: self.view.frame.height - 120, width: 100, height: 50))
         backwardButton.backgroundColor = .red
-        backwardButton.setTitle("Backward", for: .normal)
+        backwardButton.setTitle("👇🏼", for: .normal)
         backwardButton.addTarget(self, action: #selector(moveBackward), for: .touchDown)
         backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
         self.view.addSubview(backwardButton)
@@ -250,12 +284,20 @@ class GameView: UIViewController, ARSCNViewDelegate, ARSessionDelegate, SCNPhysi
         renderSystem.update(deltaTime: deltaTime, entities: entities)
     }
     
+    func changed() {
+        self.trafficLightComponent.removeFromSuperview()
+        movementSystem.changed()
+//        setupControls()
+    }
+    
     // Chamar a função de atualização de jogo no loop principal
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         let displayLink = CADisplayLink(target: self, selector: #selector(gameLoop))
         displayLink.add(to: .current, forMode: .default)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     @objc func gameLoop(displayLink: CADisplayLink) {
@@ -281,14 +323,89 @@ class GameView: UIViewController, ARSCNViewDelegate, ARSessionDelegate, SCNPhysi
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         // Registrar algo quando termina o contato aqui
     }
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        self.focusNode.updateFocusNode()
+    }
 }
 
 
-enum Lado{
-    case L
-    case R
+extension ARSCNView: ARSmartHitTest { }
+
+//MARK: - Configuração de animação de scan
+extension GameView: ARCoachingOverlayViewDelegate{
+    func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        print("Vai comecar ✅")
+    }
+    
+    func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        print("Sera que foi agora? 🐐")
+        configureFocusNode()
+        setupTapGesture()
+    }
+    
+//    func coachingOverlayViewDidRequestSessionReset(_ coachingOverlayView: ARCoachingOverlayView) {
+//        print("Pedi para refazer  🚨")
+//    }
 }
 
-extension UIColor {
-    static let transparentLightBlue = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5)
+//MARK: Função de action replace and play button
+extension GameView: NavigationDelegate{
+    func navigationTo(_ tag: Int) {
+        switch tag{
+        case 10:
+            print("Replace")
+            if sceneView.scene.rootNode.childNodes.count > 0{
+                sceneView.scene.rootNode.childNodes.forEach { $0.removeFromParentNode() }
+                self.isVehicleAdded = false
+                self.replaceAndPlay.toggleVisibility()
+                configureFocusNode()
+            }
+        case 11:
+            print("Play")
+            setupControls()
+            self.replaceAndPlay.toggleVisibility()
+            self.tapGesture?.isEnabled = false 
+            self.trafficLightComponent.isHidden = false
+            self.trafficLightComponent.startAnimation()
+            
+        default:
+            print("ERROR in 'GameView->navigationTo': Tag invalida")
+        }
+    }
+}
+
+extension GameView: ViewCode{
+    func addViews() {
+        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent)
+        
+        self.replaceAndPlay.delegate = self
+        self.trafficLightComponent.delegate = self
+    }
+    
+    func addContrains() {
+        NSLayoutConstraint.activate([
+            coachingOverlay.topAnchor.constraint(equalTo: self.view.topAnchor),
+            coachingOverlay.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            coachingOverlay.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            coachingOverlay.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            replaceAndPlay.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            replaceAndPlay.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            replaceAndPlay.heightAnchor.constraint(equalToConstant: 41),
+            replaceAndPlay.widthAnchor.constraint(equalToConstant: 280),
+            
+            trafficLightComponent.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            trafficLightComponent.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+    }
+    
+    func setupStyle() {
+        
+    }
+}
+
+
+#Preview{
+    GameView()
 }

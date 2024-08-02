@@ -15,6 +15,13 @@ extension SCNNode {
         static var components = "components"
     }
     
+    private static var id = UUID()
+    
+    func getId() -> UUID{
+        return SCNNode.id
+    }
+    
+    
     private var components: [Component] {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.components) as? [Component] ?? []
@@ -23,6 +30,8 @@ extension SCNNode {
             objc_setAssociatedObject(self, &AssociatedKeys.components, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
+    
+    private static var components: [Component]?
     
     func addComponent(_ component: Component) {
         var currentComponents = self.components
