@@ -17,13 +17,25 @@ class RenderSystem {
 //            entity.position = position.position
 //            print(position)
 //            print("entity.position", entity.position)
+          
         }
     }
+    
+    
 }
 
-class MovementSystem {
+class MovementSystem: TrafficLightDelegate {
+    func changed() {
+        canMove = true
+    }
+    
+    init(){
+        
+    }
+    
     var steeringAngle: CGFloat = 0.0
     var engineForce: CGFloat = 0.0
+    var canMove: Bool = false
     
     func update(deltaTime: TimeInterval, entities: [Entity]) {
         for entity in entities {
@@ -31,11 +43,14 @@ class MovementSystem {
             
             vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 0)
             vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 1)
-            vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 2)
-            vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 3)
+            if canMove {
+                vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 2)
+                vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 3)
+            }
         }
     }
 }
+
 
 
 
