@@ -29,7 +29,6 @@
 		D995CC802C4EE60B00E391F5 /* ViewCodeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC7F2C4EE60B00E391F5 /* ViewCodeProtocols.swift */; };
 		D995CC832C4EE70400E391F5 /* HapticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC822C4EE70400E391F5 /* HapticsService.swift */; };
 		D995CC882C4EE76A00E391F5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC872C4EE76A00E391F5 /* HomeViewController.swift */; };
-		D995CC8C2C4EE81D00E391F5 /* GamePlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC8B2C4EE81D00E391F5 /* GamePlayViewController.swift */; };
 		D995CC942C4F00D000E391F5 /* TopHomeButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC932C4F00D000E391F5 /* TopHomeButtonsView.swift */; };
 		D995CC962C50189F00E391F5 /* Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC952C50189F00E391F5 /* Delegates.swift */; };
 		D995CC992C501BA100E391F5 /* ConfigPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC982C501BA100E391F5 /* ConfigPopUpViewController.swift */; };
@@ -73,7 +72,6 @@
 		D995CC7F2C4EE60B00E391F5 /* ViewCodeProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCodeProtocols.swift; sourceTree = "<group>"; };
 		D995CC822C4EE70400E391F5 /* HapticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsService.swift; sourceTree = "<group>"; };
 		D995CC872C4EE76A00E391F5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		D995CC8B2C4EE81D00E391F5 /* GamePlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayViewController.swift; sourceTree = "<group>"; };
 		D995CC932C4F00D000E391F5 /* TopHomeButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHomeButtonsView.swift; sourceTree = "<group>"; };
 		D995CC952C50189F00E391F5 /* Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegates.swift; sourceTree = "<group>"; };
 		D995CC982C501BA100E391F5 /* ConfigPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigPopUpViewController.swift; sourceTree = "<group>"; };
@@ -236,17 +234,8 @@
 			isa = PBXGroup;
 			children = (
 				B384A5512C5807E4002FA243 /* GameView */,
-				D995CC8A2C4EE80B00E391F5 /* GamePlay */,
 			);
 			path = Scenes;
-			sourceTree = "<group>";
-		};
-		D995CC8A2C4EE80B00E391F5 /* GamePlay */ = {
-			isa = PBXGroup;
-			children = (
-				D995CC8B2C4EE81D00E391F5 /* GamePlayViewController.swift */,
-			);
-			path = GamePlay;
 			sourceTree = "<group>";
 		};
 		D995CC972C501B8800E391F5 /* Config */ = {
@@ -370,7 +359,6 @@
 				D995CC942C4F00D000E391F5 /* TopHomeButtonsView.swift in Sources */,
 				D995CCAF2C52EEAF00E391F5 /* MenuCollectioViewCell.swift in Sources */,
 				D995CCA22C5033DB00E391F5 /* SwitchViewComponent.swift in Sources */,
-				D995CC8C2C4EE81D00E391F5 /* GamePlayViewController.swift in Sources */,
 				B384A5532C5808C8002FA243 /* GameView.swift in Sources */,
 				D995CCC82C5C0F7000E391F5 /* ReplaceAndPlayView.swift in Sources */,
 				62E91F912C5AAC1900280B20 /* ResultsViewController.swift in Sources */,

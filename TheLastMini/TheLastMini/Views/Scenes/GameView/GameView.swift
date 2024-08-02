@@ -3,7 +3,7 @@ import ARKit
 import FocusNode
 import SmartHitTest
 
-class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate, TrafficLightDelegate {
+class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate {
     var sceneView: ARSCNView = ARSCNView(frame: .zero)
     var isVehicleAdded = false
 
@@ -30,11 +30,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         return view
     }()
     
-    var trafficLightComponent: TrafficLightComponent = {
-        let view = TrafficLightComponent(frame: .init(origin: .zero, size: .init(width: 200, height: 100)))
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    var trafficLightComponent = TrafficLightComponent(frame: .init(origin: .zero, size: .init(width: 200, height: 100)))
+      
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -294,11 +291,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         renderSystem.update(deltaTime: deltaTime, entities: entities)
     }
     
-    func changed() {
-        self.trafficLightComponent.removeFromSuperview()
-        movementSystem.changed()
-//        setupControls()
-    }
+ 
     
     // Chamar a função de atualização de jogo no loop principal
     override func viewWillAppear(_ animated: Bool) {
@@ -336,6 +329,14 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         self.focusNode.updateFocusNode()
+    }
+}
+
+extension GameView: TrafficLightDelegate{
+    func changed() {
+        self.trafficLightComponent.removeFromSuperview()
+        movementSystem.changeCanMove()
+//        setupControls()
     }
 }
 

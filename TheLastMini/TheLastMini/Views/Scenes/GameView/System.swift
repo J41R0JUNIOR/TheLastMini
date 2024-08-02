@@ -22,14 +22,12 @@ class RenderSystem {
     }
 }
 
-class MovementSystem: TrafficLightDelegate {
-    func changed() {
+class MovementSystem {
+    func changeCanMove() {
         canMove = true
     }
     
-    init(){
-        
-    }
+ 
     
     var steeringAngle: CGFloat = 0.0
     var engineForce: CGFloat = 0.0
