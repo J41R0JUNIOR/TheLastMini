@@ -35,7 +35,7 @@ class MovementSystem: TrafficLightDelegate {
     
     var steeringAngle: CGFloat = 0.0
     var engineForce: CGFloat = 0.0
-    var canMove: Bool = true
+    var canMove: Bool = false
     
     func update(deltaTime: TimeInterval, entities: [Entity]) {
         for entity in entities {

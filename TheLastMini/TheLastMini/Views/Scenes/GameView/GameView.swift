@@ -31,7 +31,11 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         return view
     }()
     
-    var trafficLightComponent = TrafficLightComponent(frame: .init(origin: .zero, size: .init(width: 200, height: 100)))
+    var trafficLightComponent: TrafficLightComponent = {
+        let view = TrafficLightComponent(frame: .init(origin: .zero, size: .init(width: 200, height: 100)))
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,13 +114,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         sceneView.session.run(configuration)
         
 //        SetupTrafficLight()
-        trafficLightComponent.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(trafficLightComponent)
         
-        NSLayoutConstraint.activate([
-            trafficLightComponent.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            trafficLightComponent.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-               ])
+
     }
     
     
@@ -270,9 +269,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     
     // Atualizar a lógica de jogo a cada frame
     func update(deltaTime: TimeInterval) {
-        
-
-        
         movementSystem.update(deltaTime: deltaTime, entities: entities)
         renderSystem.update(deltaTime: deltaTime, entities: entities)
     }
@@ -280,7 +276,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     func changed() {
         self.trafficLightComponent.removeFromSuperview()
         movementSystem.changed()
-        
+//        setupControls()
     }
     
     // Chamar a função de atualização de jogo no loop principal
@@ -340,6 +336,8 @@ extension GameView: NavigationDelegate{
             setupControls()
             self.replaceAndPlay.toggleVisibility()
             self.tapGesture?.isEnabled = false 
+            self.trafficLightComponent.isHidden = false
+            self.trafficLightComponent.startAnimation()
             
         default:
             print("ERROR in 'GameView->navigationTo': Tag invalida")
@@ -349,11 +347,10 @@ extension GameView: NavigationDelegate{
 
 extension GameView: ViewCode{
     func addViews() {
-        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay)
+        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent)
         
         self.replaceAndPlay.delegate = self
-        trafficLightComponent.delegate = self 
-
+        self.trafficLightComponent.delegate = self
     }
     
     func addContrains() {
@@ -367,6 +364,9 @@ extension GameView: ViewCode{
             replaceAndPlay.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             replaceAndPlay.heightAnchor.constraint(equalToConstant: 41),
             replaceAndPlay.widthAnchor.constraint(equalToConstant: 280),
+            
+            trafficLightComponent.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            trafficLightComponent.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
     
