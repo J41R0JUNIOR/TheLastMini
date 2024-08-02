@@ -21,8 +21,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         setupScene()
         setupTapGesture()
-        trafficLightComponent.delegate = self
+        trafficLightComponent.delegate = self 
     }
+
 
     
     func setupTapGesture() {
@@ -255,6 +256,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     
     func changed() {
         self.trafficLightComponent.removeFromSuperview()
+        movementSystem.changed()
+        
     }
     
     // Chamar a função de atualização de jogo no loop principal

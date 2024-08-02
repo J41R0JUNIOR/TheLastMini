@@ -61,7 +61,7 @@ class TrafficLightComponent: UIView{
         }
     }
     
-    func lightAnimation(){
+    func lightAnimation() {
         light1.backgroundColor = .yellow
         var count = 0
         let lights = [light1, light2, light3]
@@ -72,15 +72,16 @@ class TrafficLightComponent: UIView{
                 for light in lights {
                     light.backgroundColor = .green
                 }
-            }else if count == 4{
+            } else if count == 4 {
                 self.allGreen = true
                 self.delegate?.changed()
                 timer.invalidate()
-            }else{
+            } else {
                 lights[count].backgroundColor = .yellow
             }
             
             count += 1
         }
     }
+
 }
