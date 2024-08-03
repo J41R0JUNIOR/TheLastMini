@@ -15,7 +15,7 @@ class CarControlComponent: UIView {
      init(movementSystem: MovementSystem, frame: CGRect) {
          self.movementSystem = movementSystem
          super.init(frame: frame)
-         translatesAutoresizingMaskIntoConstraints = false
+//         translatesAutoresizingMaskIntoConstraints = false
          setupControls()
      }
      
@@ -47,7 +47,7 @@ class CarControlComponent: UIView {
          
          let backwardButton = UIButton(frame: .zero)
          backwardButton.backgroundColor = .red
-         backwardButton.setTitle("👇🏼", for: .normal)
+         backwardButton.setTitle("👇🏽", for: .normal)
          backwardButton.addTarget(self, action: #selector(moveBackward), for: .touchDown)
          backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
          addSubview(backwardButton)
