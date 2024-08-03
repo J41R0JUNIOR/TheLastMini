@@ -19,5 +19,12 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSNetworkVolumesUsageDescription</key>
+	<string>To play with others players</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_video-peer._tcp</string>
+		<string>_video-peer._udp</string>
+	</array>
 </dict>
 </plist>

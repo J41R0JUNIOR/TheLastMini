@@ -10,6 +10,7 @@
 		62E91F8F2C5AAC0900280B20 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E91F8E2C5AAC0900280B20 /* ResultsView.swift */; };
 		62E91F912C5AAC1900280B20 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E91F902C5AAC1900280B20 /* ResultsViewController.swift */; };
 		62E91F942C5AB21400280B20 /* PlayerTimeRankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E91F932C5AB21400280B20 /* PlayerTimeRankModel.swift */; };
+		B302B2802C5E91B300859785 /* ConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B27F2C5E91B300859785 /* ConnectionView.swift */; };
 		B384A5532C5808C8002FA243 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B384A5522C5808C8002FA243 /* GameView.swift */; };
 		B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55C2C580D8F002FA243 /* Ll.usdz */; };
 		B384A5602C580D8F002FA243 /* MmR.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55D2C580D8F002FA243 /* MmR.usdz */; };
@@ -52,6 +53,7 @@
 		62E91F8E2C5AAC0900280B20 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		62E91F902C5AAC1900280B20 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		62E91F932C5AB21400280B20 /* PlayerTimeRankModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTimeRankModel.swift; sourceTree = "<group>"; };
+		B302B27F2C5E91B300859785 /* ConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionView.swift; sourceTree = "<group>"; };
 		B384A5522C5808C8002FA243 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		B384A55C2C580D8F002FA243 /* Ll.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Ll.usdz; sourceTree = "<group>"; };
 		B384A55D2C580D8F002FA243 /* MmR.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = MmR.usdz; sourceTree = "<group>"; };
@@ -122,16 +124,24 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		B302B27E2C5E91A500859785 /* ConnectionView */ = {
+			isa = PBXGroup;
+			children = (
+				B302B27F2C5E91B300859785 /* ConnectionView.swift */,
+			);
+			path = ConnectionView;
+			sourceTree = "<group>";
+		};
 		B384A5512C5807E4002FA243 /* GameView */ = {
 			isa = PBXGroup;
 			children = (
 				B39E5E552C5D70BE00D28EAA /* ViewComponents */,
 				B39E5E542C5D6FA900D28EAA /* ARComponents */,
 				B384A5522C5808C8002FA243 /* GameView.swift */,
-				B39E5E462C5A70DC00D28EAA /* Extension.swift */,
 				B39E5E482C5A70FA00D28EAA /* System.swift */,
 				B39E5E4A2C5A715700D28EAA /* Component.swift */,
 				B39E5E522C5C240D00D28EAA /* TrafficLightDelegate.swift */,
+				D995CCC52C5ABFD400E391F5 /* Extensions.swift */,
 			);
 			path = GameView;
 			sourceTree = "<group>";
@@ -208,7 +218,7 @@
 				D995CCA32C50411600E391F5 /* UserDefult.swift */,
 				D995CCB22C541F9D00E391F5 /* Models.swift */,
 				D995CCC32C5AB62D00E391F5 /* Enums.swift */,
-				D995CCC52C5ABFD400E391F5 /* Extensions.swift */,
+				B39E5E462C5A70DC00D28EAA /* Extension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -252,6 +262,7 @@
 		D995CC892C4EE7FB00E391F5 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				B302B27E2C5E91A500859785 /* ConnectionView */,
 				B384A5512C5807E4002FA243 /* GameView */,
 			);
 			path = Scenes;
@@ -387,6 +398,7 @@
 				D995CCC62C5ABFD400E391F5 /* Extensions.swift in Sources */,
 				D995CC9E2C502A7200E391F5 /* ConfigPopUpView.swift in Sources */,
 				D995CCA42C50411600E391F5 /* UserDefult.swift in Sources */,
+				B302B2802C5E91B300859785 /* ConnectionView.swift in Sources */,
 				D995CCC22C5AA97900E391F5 /* GameCenterService.swift in Sources */,
 				B39E5E532C5C240D00D28EAA /* TrafficLightDelegate.swift in Sources */,
 				B39E5E572C5D72BE00D28EAA /* CarControlComponent.swift in Sources */,

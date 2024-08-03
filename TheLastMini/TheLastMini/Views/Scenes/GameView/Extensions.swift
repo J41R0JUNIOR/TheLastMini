@@ -1,11 +1,11 @@
 //
-//  Extension.swift
+//  Extensions.swift
 //  TheLastMini
 //
-//  Created by Jairo Júnior on 31/07/24.
+//  Created by Gustavo Horestee Santos Barros on 31/07/24.
 //
 
-import Foundation
+import UIKit
 import RealityKit
 import SceneKit
 
@@ -42,14 +42,4 @@ extension SCNNode {
     func getComponent<T>(ofType type: T.Type) -> T? {
         return components.first { $0 is T } as? T
     }
-}
-
-extension UIStackView {
-    
-        func addListSubviews(_ views: [UIView]) {
-            for view in views {
-                addArrangedSubview(view)
-            }
-        }
- 
 }
