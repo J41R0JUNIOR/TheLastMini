@@ -7,9 +7,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     var sceneView: ARSCNView = ARSCNView(frame: .zero)
     var isVehicleAdded = false
     
-    // var groundNode: SCNNode?
-    // var invWall1: SCNNode?
-    // var invWall2: SCNNode?
+     var groundNode: SCNNode?
 
     var checkpointsNode: [SCNNode?] = []
     var finishNode: SCNNode?
@@ -34,6 +32,18 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         return view
     }()
     
+    private lazy var lapAndTimer: LapAndTimerView = {
+        let view = LapAndTimerView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var endView: EndRaceView = {
+        let view = EndRaceView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     var trafficLightComponent: TrafficLightComponent = {
         let view = TrafficLightComponent(frame: .init(origin: .zero, size: .init(width: 200, height: 100)))
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +61,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         focusNode.viewDelegate = sceneView
         focusNode.childNodes.forEach { $0.removeFromParentNode() }
         
-        let customNode = createSpeedway()
+        let customNode = createSpeedway(setPhysics: false)
         focusNode.addChildNode(customNode)
         
         customNode.scale = SCNVector3(0.1, 0.1, 0.1) //remover depois
@@ -89,7 +99,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         floorNode.position.y -= 0.2
         sceneView.scene.rootNode.addChildNode(floorNode)
         
-        let speedwayNode = createSpeedway()
+        let speedwayNode = createSpeedway(setPhysics: true)
         speedwayNode.position = position
         speedwayNode.position.y -= 0.1
         sceneView.scene.rootNode.addChildNode(speedwayNode)
@@ -112,12 +122,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         coachingOverlay.goal = .horizontalPlane
 
         sceneView.session.run(configuration)
-        
-//        SetupTrafficLight()
-        
-
     }
-    
     
     func createWheel(lado: Lado) -> SCNNode {
         let wheel = lado == .L ? "Ll.usdz" : "Rr.usdz"
@@ -135,26 +140,47 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         return chassisNode
     }
     
-    func createSpeedway() ->SCNNode{
-        guard let pista = SCNScene(named: "TestCompleteSpeedway.usdz"),
+    func createSpeedway(setPhysics: Bool) ->SCNNode{
+        guard let pista = SCNScene(named: "TestPistaWallMaior.usdz"),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
         }
         
-        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: pistaNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
-        pistaNode.physicsBody = body
+//        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: pistaNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
+//        pistaNode.physicsBody = body
         
-        for i in 1...6 {
-            let checkNode = pistaNode.childNode(withName: "Checkpoint\(i)", recursively: true)
-            checkNode?.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: checkNode!))
-            checkNode?.physicsBody?.categoryBitMask = 1 << 2 // 0010
-            checkNode?.physicsBody?.contactTestBitMask = 1 << 1 // 0001
-            checkNode?.name = "check\(i)"
-            checkpointsNode.append(checkNode)
+        if setPhysics {
+            
+            for i in 1...6 {
+                guard let checkNode = pistaNode.childNode(withName: "Checkpoint\(i)", recursively: true) else { fatalError("Checkpoint\(i) not found") }
+                checkNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+                checkNode.physicsBody?.categoryBitMask = BodyType.check.rawValue
+                checkNode.name = "\(i)"
+                checkpointsNode.append(checkNode)
+            }
+            
+            for i in 1...4 {
+                guard let wallNode = pistaNode.childNode(withName: "InvWall\(i)", recursively: true) else { fatalError("InvWall\(i) not found") }
+                wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode))
+                wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+                //            checkNode.name = "wall\(i)"
+            }
+            
+            guard let finishNode = pistaNode.childNode(withName: "Finish", recursively: true) else { fatalError("Finish Node not found") }
+            finishNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+            finishNode.physicsBody?.categoryBitMask = BodyType.finish.rawValue
+            self.finishNode = finishNode
+            
+            guard let groundNode = pistaNode.childNode(withName: "Ground", recursively: true) else { fatalError("Ground Node not found") }
+            groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+            groundNode.physicsBody?.categoryBitMask = BodyType.ground.rawValue
+            
+            guard let centerWall = pistaNode.childNode(withName: "CenterWall", recursively: true) else { fatalError("CenterWall Node not found") }
+            centerWall.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+            centerWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+            
         }
-        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)
         
-//        groundNode = nodes.childNode(withName: "Ground", recursively: true)
 //        invWall1 = nodes.childNode(withName: "InvWall1", recursively: true)
 //        invWall1?.geometry?.materials.first?.diffuse.contents = UIColor.green.withAlphaComponent(0.5)
 //        invWall2 = nodes.childNode(withName: "InvWall2", recursively: true)
@@ -168,8 +194,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: chassisNode))
         body.mass = 1.0
         chassisNode.physicsBody = body
-        chassisNode.physicsBody?.categoryBitMask = 1 << 1  // 0001
-        chassisNode.physicsBody?.contactTestBitMask = 1 << 2 // 0010
+        chassisNode.physicsBody?.categoryBitMask = BodyType.car.rawValue
+        chassisNode.physicsBody?.contactTestBitMask = BodyType.check.rawValue | BodyType.ground.rawValue | BodyType.wall.rawValue | BodyType.finish.rawValue
         
         let wheel1Node = createWheel(lado: .R)
         let wheel2Node = createWheel(lado: .L)
@@ -287,7 +313,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     func changed() {
         self.trafficLightComponent.removeFromSuperview()
         movementSystem.changed()
-//        setupControls()
+        lapAndTimer.isHidden = false
+        lapAndTimer.playTimer()
     }
     
     // Chamar a função de atualização de jogo no loop principal
@@ -306,18 +333,62 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        print("CONTACT DETECTED!")
-        
         let nodeA = contact.nodeA
         let nodeB = contact.nodeB
         
         // Verificar qual nó é o carrinho e qual é o checkpoint
-        if (nodeA.physicsBody?.categoryBitMask == 1 << 2 && nodeB.physicsBody?.categoryBitMask == 1 << 1) ||
-           (nodeA.physicsBody?.categoryBitMask == 1 << 1 && nodeB.physicsBody?.categoryBitMask == 1 << 2) {
-            let checkpointNode = nodeA.physicsBody?.categoryBitMask == 1 << 2 ? nodeA : nodeB
+        if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.check.rawValue) ||
+           (nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
+            let checkpointNode = nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue ? nodeA : nodeB
             print("Carrinho passou pelo checkpoint: \(checkpointNode.name ?? "nil")")
+            
+            if verifyIsCheckNodes(nodeName: checkpointNode.name ?? "nil"){
+                checkpointNode.isCheck = true
+            }
         }
         
+        if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.finish.rawValue) ||
+            (nodeA.physicsBody?.categoryBitMask == BodyType.finish.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
+            print("Carrinho passou pelo Finish")
+            for node in checkpointsNode {
+                print("Checkpoint \(String(describing: node?.name)): \(String(describing: node?.isCheck))")
+            }
+            
+            if checkpointsNode.allSatisfy({ $0!.isCheck }) {
+                print("Todos os checkpoints estão ativados")
+                for node in checkpointsNode {
+                    node?.isCheck = false
+                }
+                if lapAndTimer.currentLap != 3 {
+                    DispatchQueue.main.async {
+                        self.lapAndTimer.addLap()
+                    }
+                }else {
+                    lapAndTimer.pauseTimer()
+                    DispatchQueue.main.async {
+                        self.endView.isHidden = false
+                    }
+                }
+            }
+            
+        }
+        
+    }
+    
+    private func verifyIsCheckNodes(nodeName: String)-> Bool {
+        for arrayNode in checkpointsNode {
+            if arrayNode?.name == nodeName {
+                if !arrayNode!.isCheck {
+                    return true
+                } else {
+                    break
+                }
+            }
+            if !arrayNode!.isCheck {
+                continue
+            }
+        }
+        return false
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
@@ -377,7 +448,7 @@ extension GameView: NavigationDelegate{
 
 extension GameView: ViewCode{
     func addViews() {
-        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent)
+        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent, lapAndTimer, endView)
         
         self.replaceAndPlay.delegate = self
         self.trafficLightComponent.delegate = self
@@ -397,6 +468,15 @@ extension GameView: ViewCode{
             
             trafficLightComponent.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             trafficLightComponent.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            lapAndTimer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            lapAndTimer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            lapAndTimer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            lapAndTimer.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
+            lapAndTimer.heightAnchor.constraint(equalToConstant: 50),
+            
+            endView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            endView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
     

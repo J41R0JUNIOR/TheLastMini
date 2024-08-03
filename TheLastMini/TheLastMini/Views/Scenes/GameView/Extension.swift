@@ -42,4 +42,15 @@ extension SCNNode {
     func getComponent<T>(ofType type: T.Type) -> T? {
         return components.first { $0 is T } as? T
     }
+    
+    private static var isCheckKey: UInt8 = 0
+        
+    var isCheck: Bool {
+        get {
+            return objc_getAssociatedObject(self, &SCNNode.isCheckKey) as? Bool ?? false
+        }
+        set {
+            objc_setAssociatedObject(self, &SCNNode.isCheckKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
 }

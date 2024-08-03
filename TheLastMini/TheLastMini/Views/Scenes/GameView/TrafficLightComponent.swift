@@ -18,7 +18,6 @@ class TrafficLightComponent: UIView{
     
     private var allGreen = false
 
-
     override init(frame: CGRect) {
         super.init(frame: frame)
        
