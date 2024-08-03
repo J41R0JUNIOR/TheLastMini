@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class TrafficLightComponent: UIView{    
+class TrafficLightComponent: UIView{
     let light1 = UIView()
     let light2 = UIView()
     let light3 = UIView()
@@ -25,6 +25,7 @@ class TrafficLightComponent: UIView{
         self.isHidden = true
         SetupTrafficLight()
 //        lightAnimation()
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init?(coder: NSCoder) {
@@ -67,22 +68,28 @@ class TrafficLightComponent: UIView{
         var count = 0
         let lights = [light1, light2, light3]
         
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            
-            if count == 3 {
-                for light in lights {
-                    light.backgroundColor = .green
+        DispatchQueue.global(qos: .background).async {
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+                
+                DispatchQueue.main.async {
+                    if count == 3 {
+                        for light in lights {
+                            light.backgroundColor = .green
+                        }
+                    } else if count == 4 {
+                        self.allGreen = true
+                        self.delegate?.changed()
+                        timer.invalidate()
+                    } else {
+                        lights[count].backgroundColor = .yellow
+                    }
+                    
+                    count += 1
                 }
-            } else if count == 4 {
-                self.allGreen = true
-                self.delegate?.changed()
-                timer.invalidate()
-            } else {
-                lights[count].backgroundColor = .yellow
             }
-            
-            count += 1
+            RunLoop.current.run()
         }
     }
+
 
 }
