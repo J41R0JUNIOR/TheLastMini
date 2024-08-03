@@ -1,108 +1,125 @@
-//
-//  CarControlComponent.swift
-//  TheLastMini
-//
-//  Created by Jairo Júnior on 02/08/24.
-//
-
 import Foundation
 import UIKit
 
 class CarControlComponent: UIView {
     
-     let movementSystem: MovementSystem
-     
-     init(movementSystem: MovementSystem, frame: CGRect) {
-         self.movementSystem = movementSystem
-         super.init(frame: frame)
-//         translatesAutoresizingMaskIntoConstraints = false
-         setupControls()
-     }
-     
-     required init?(coder: NSCoder) {
-         fatalError("init(coder:) has not been implemented")
-     }
-     
-     private func setupControls() {
-         let leftButton = UIButton(frame: .zero)
-         leftButton.backgroundColor = .green
-         leftButton.setTitle("👈🏽", for: .normal)
-         leftButton.addTarget(self, action: #selector(turnLeft), for: .touchDown)
-         leftButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
-         addSubview(leftButton)
-         
-         let rightButton = UIButton(frame: .zero)
-         rightButton.backgroundColor = .yellow
-         rightButton.setTitle("👉🏽", for: .normal)
-         rightButton.addTarget(self, action: #selector(turnRight), for: .touchDown)
-         rightButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
-         addSubview(rightButton)
-         
-         let forwardButton = UIButton(frame: .zero)
-         forwardButton.backgroundColor = .blue
-         forwardButton.setTitle("👆🏽", for: .normal)
-         forwardButton.addTarget(self, action: #selector(moveForward), for: .touchDown)
-         forwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
-         addSubview(forwardButton)
-         
-         let backwardButton = UIButton(frame: .zero)
-         backwardButton.backgroundColor = .red
-         backwardButton.setTitle("👇🏽", for: .normal)
-         backwardButton.addTarget(self, action: #selector(moveBackward), for: .touchDown)
-         backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
-         addSubview(backwardButton)
-         
-         // Configurar Auto Layout
-         setupConstraints(leftButton: leftButton, rightButton: rightButton, forwardButton: forwardButton, backwardButton: backwardButton)
-     }
-     
-     private func setupConstraints(leftButton: UIButton, rightButton: UIButton, forwardButton: UIButton, backwardButton: UIButton) {
-         leftButton.translatesAutoresizingMaskIntoConstraints = false
-         rightButton.translatesAutoresizingMaskIntoConstraints = false
-         forwardButton.translatesAutoresizingMaskIntoConstraints = false
-         backwardButton.translatesAutoresizingMaskIntoConstraints = false
-         
-         NSLayoutConstraint.activate([
-             // Botão esquerdo
-             leftButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-             leftButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -120),
-             leftButton.widthAnchor.constraint(equalToConstant: 100),
-             leftButton.heightAnchor.constraint(equalToConstant: 50),
-             
-             // Botão direito
-             rightButton.leadingAnchor.constraint(equalTo: leftButton.trailingAnchor, constant: 10),
-             rightButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -120),
-             rightButton.widthAnchor.constraint(equalToConstant: 100),
-             rightButton.heightAnchor.constraint(equalToConstant: 50),
-             
-             // Botão para frente
-             forwardButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-             forwardButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -180),
-             forwardButton.widthAnchor.constraint(equalToConstant: 100),
-             forwardButton.heightAnchor.constraint(equalToConstant: 50),
-             
-             // Botão para trás
-             backwardButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-             backwardButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -120),
-             backwardButton.widthAnchor.constraint(equalToConstant: 100),
-             backwardButton.heightAnchor.constraint(equalToConstant: 50)
-         ])
-     }
+    let movementSystem: MovementSystem
     
-    @objc func moveForward() {
-        movementSystem.engineForce = 1
+    var leftButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.backgroundColor = .green
+        button.setTitle("👈🏽", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    var rightButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.backgroundColor = .yellow
+        button.setTitle("👉🏽", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let forwardButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.backgroundColor = .blue
+        button.setTitle("👆🏽", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    var backwardButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.backgroundColor = .red
+        button.setTitle("👇🏽", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    var leftStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.alignment = .fill
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    var rightStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
+        stack.alignment = .fill
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    init(movementSystem: MovementSystem, frame: CGRect) {
+        self.movementSystem = movementSystem
+        super.init(frame: frame)
+        setupArrowButtons()
     }
     
-    @objc func moveBackward() {
-        movementSystem.engineForce = -1
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func turnRight() {
-        movementSystem.steeringAngle = -0.5
+    private func setupArrowButtons() {
+        leftButton.addTarget(self, action: #selector(turnLeftAction), for: .touchDown)
+        leftButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
+        
+        rightButton.addTarget(self, action: #selector(turnRightAction), for: .touchDown)
+        rightButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
+        
+        forwardButton.addTarget(self, action: #selector(moveForwardAction), for: .touchDown)
+        forwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
+        
+        backwardButton.addTarget(self, action: #selector(moveBackwardAction), for: .touchDown)
+        backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
+        
+        leftStack.addListSubviews([leftButton, rightButton])
+        addSubview(leftStack)
+        
+        rightStack.addListSubviews([forwardButton, backwardButton])
+        addSubview(rightStack)
+        
+        setupConstraints()
     }
     
-    @objc func turnLeft() {
-        movementSystem.steeringAngle = 0.5
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            // Botões na `leftStack`
+            leftStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width * 0.05),
+            leftStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -120),
+            leftStack.widthAnchor.constraint(equalToConstant: 200),
+            leftStack.heightAnchor.constraint(equalToConstant: 50),
+            
+            // Botão para frente
+            rightStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -frame.width * 0.025),
+            rightStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -180),
+            rightStack.widthAnchor.constraint(equalToConstant: 100),
+            rightStack.heightAnchor.constraint(equalToConstant: 100),
+        ])
+        
+//        leftStack.spacing = leftStack.frame.width * 0.1
+//        rightStack.spacing = rightStack.frame.height * 0.05
+    }
+    
+    func moveForward(_ value: CGFloat = 1) {
+        movementSystem.engineForce = value
+    }
+    
+    func moveBackward(_ value: CGFloat = -1) {
+        movementSystem.engineForce = value
+    }
+    
+    func turnRight(_ value: CGFloat = -0.5) {
+        movementSystem.steeringAngle = value
+    }
+    
+    func turnLeft(_ value: CGFloat = 0.5) {
+        movementSystem.steeringAngle = value
     }
     
     @objc func resetOrientation() {
@@ -111,5 +128,21 @@ class CarControlComponent: UIView {
     
     @objc func resetSpeed() {
         movementSystem.engineForce = 0
+    }
+    
+    @objc func moveForwardAction() {
+        moveForward()
+    }
+    
+    @objc func moveBackwardAction() {
+        moveBackward()
+    }
+    
+    @objc func turnRightAction() {
+        turnRight()
+    }
+    
+    @objc func turnLeftAction() {
+        turnLeft()
     }
 }
