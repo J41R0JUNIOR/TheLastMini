@@ -234,61 +234,17 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         isVehicleAdded = true
     }
     
-//    func setupControls() {
-//        let leftButton = UIButton(frame: CGRect(x: 20, y: self.view.frame.height - 120, width: 100, height: 50))
-//        leftButton.backgroundColor = .green
-//        leftButton.setTitle("👈🏽", for: .normal)
-//        leftButton.addTarget(self, action: #selector(turnLeft), for: .touchDown)
-//        leftButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
-//        self.view.addSubview(leftButton)
-//        
-//        let rightButton = UIButton(frame: CGRect(x: 130, y: self.view.frame.height - 120, width: 100, height: 50))
-//        rightButton.backgroundColor = .yellow
-//        rightButton.setTitle("👉🏽", for: .normal)
-//        rightButton.addTarget(self, action: #selector(turnRight), for: .touchDown)
-//        rightButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
-//        self.view.addSubview(rightButton)
-//        
-//        let forwardButton = UIButton(frame: CGRect(x: self.view.frame.width - 120, y: self.view.frame.height - 180, width: 100, height: 50))
-//        forwardButton.backgroundColor = .blue
-//        forwardButton.setTitle("👆🏽", for: .normal)
-//        forwardButton.addTarget(self, action: #selector(moveForward), for: .touchDown)
-//        forwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
-//        self.view.addSubview(forwardButton)
-//        
-//        let backwardButton = UIButton(frame: CGRect(x: self.view.frame.width - 120, y: self.view.frame.height - 120, width: 100, height: 50))
-//        backwardButton.backgroundColor = .red
-//        backwardButton.setTitle("👇🏼", for: .normal)
-//        backwardButton.addTarget(self, action: #selector(moveBackward), for: .touchDown)
-//        backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
-//        self.view.addSubview(backwardButton)
-//        
-//        
-//    }
-    
-//    @objc func moveForward() {
-//        movementSystem.engineForce = 1
-//    }
-//    
-//    @objc func moveBackward() {
-//        movementSystem.engineForce = -1
-//    }
-//    
-//    @objc func turnRight() {
-//        movementSystem.steeringAngle = -0.5
-//    }
-//    
-//    @objc func turnLeft() {
-//        movementSystem.steeringAngle = 0.5
-//    }
-//    
-//    @objc func resetOrientation() {
-//        movementSystem.steeringAngle = 0.0
-//    }
-//    
-//    @objc func resetSpeed() {
-//        movementSystem.engineForce = 0
-//    }
+    func setupControls(){
+        self.view.addSubview(carControlComponent)
+
+        // Configurar restrições para o carControlComponent
+        NSLayoutConstraint.activate([
+            carControlComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            carControlComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            carControlComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            carControlComponent.heightAnchor.constraint(equalToConstant: 200)
+        ])
+    }
     
     // Atualizar a lógica de jogo a cada frame
     func update(deltaTime: TimeInterval) {
@@ -327,6 +283,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         }
         
     }
+    
+    
     
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         // Registrar algo quando termina o contato aqui
@@ -382,8 +340,9 @@ extension GameView: NavigationDelegate{
             }
         case 11:
             print("Play")
-//            setupControls()
-            self.view.addSubview(carControlComponent)
+            setupControls()
+          
+
             
             self.replaceAndPlay.toggleVisibility()
             self.trafficLightComponent.isHidden = false
