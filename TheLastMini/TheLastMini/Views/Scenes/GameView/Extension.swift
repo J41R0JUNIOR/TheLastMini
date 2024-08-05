@@ -43,3 +43,13 @@ extension SCNNode {
         return components.first { $0 is T } as? T
     }
 }
+
+extension UIStackView {
+    
+        func addListSubviews(_ views: [UIView]) {
+            for view in views {
+                addArrangedSubview(view)
+            }
+        }
+ 
+}
