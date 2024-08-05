@@ -23,7 +23,7 @@ class RenderSystem {
 }
 
 class MovementSystem {
-    func changeCanMove() {
+    func changed() {
         canMove = true
     }
     
