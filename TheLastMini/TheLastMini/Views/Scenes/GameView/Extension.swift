@@ -54,3 +54,13 @@ extension SCNNode {
         }
     }
 }
+
+extension UIStackView {
+    
+        func addListSubviews(_ views: [UIView]) {
+            for view in views {
+                addArrangedSubview(view)
+            }
+        }
+ 
+}
