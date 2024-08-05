@@ -27,7 +27,13 @@ class MovementSystem {
         canMove = true
     }
     
+   
  
+    var pilot: UUID
+    
+    init(pilot: UUID){
+        self.pilot = pilot
+    }
     
     var steeringAngle: CGFloat = 0.0
     var engineForce: CGFloat = 0.0
@@ -37,11 +43,13 @@ class MovementSystem {
         for entity in entities {
             guard let vehiclePhysics = entity.getComponent(ofType: VehiclePhysicsComponent.self) else { continue }
             
-            vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 0)
-            vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 1)
-            if canMove {
-                vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 2)
-                vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 3)
+            if vehiclePhysics.pilot == pilot{
+                vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 0)
+                vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 1)
+                if canMove {
+                    vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 2)
+                    vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 3)
+                }
             }
         }
     }

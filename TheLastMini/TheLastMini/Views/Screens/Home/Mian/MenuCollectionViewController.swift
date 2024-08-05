@@ -59,7 +59,7 @@ extension MenuCollectionViewController: NavigationDelegate{
     func navigationTo(_ tag: Int) {
         switch tag{
         case 0:
-            navigationController?.pushViewController(GameView(), animated: true)
+            navigationController?.pushViewController(ConnectionView(), animated: true)
         default:
             print("tag Invalida")
         }

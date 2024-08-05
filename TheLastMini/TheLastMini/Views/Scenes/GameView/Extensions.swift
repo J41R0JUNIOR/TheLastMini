@@ -15,11 +15,7 @@ extension SCNNode {
         static var components = "components"
     }
     
-    private static var id = UUID()
     
-    func getId() -> UUID{
-        return SCNNode.id
-    }
     
     
     private var components: [Component] {

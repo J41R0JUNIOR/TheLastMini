@@ -1,21 +1,37 @@
 import Foundation
+import MultipeerConnectivity
 import ARKit
 import FocusNode
 import SmartHitTest
 
 class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate {
+    var session: MCSession?
+
     var sceneView: ARSCNView = ARSCNView(frame: .zero)
     var isVehicleAdded = false
 
     var checkpointsNode: [SCNNode?] = []
     var finishNode: SCNNode?
     
+    var pilotId = UUID()
+    
     var entities: [Entity] = []
-    let movementSystem = MovementSystem()
+    let movementSystem: MovementSystem
     let renderSystem = RenderSystem()
     let focusNode = FocusNode()
     
     var tapGesture: UITapGestureRecognizer?
+    
+    init(session: MCSession){
+        self.movementSystem = .init(pilot: pilotId)
+        self.session = session
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     ///View de animacao de scan
     private lazy var coachingOverlay: ARCoachingOverlayView = {
@@ -95,7 +111,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let floor = SCNFloor()
         let floorNode = SCNNode(geometry: floor)
         floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: floor, options: nil))
-        floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(1)
+        floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.1)
         floorNode.position = position
         floorNode.position.y -= 0.2
         self.addNodeToScene(node: floorNode)
@@ -225,12 +241,12 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)
         self.entities.append(chassisNode)
         
-        let vehicleComponent = VehiclePhysicsComponent(vehicle: vehicle, wheels: [wheel1, wheel2, wheel3, wheel4])
+        let vehicleComponent = VehiclePhysicsComponent(pilot: pilotId, vehicle: vehicle, wheels: [wheel1, wheel2, wheel3, wheel4])
         let positionComponent = PositionComponent(position: position)
         
         chassisNode.addComponent(vehicleComponent)
         chassisNode.addComponent(positionComponent)
-        print(chassisNode.getId(), "esse é o uuid do carro gerado")
+//        print(chassisNode.getId(), "esse é o uuid do carro gerado")
         isVehicleAdded = true
     }
     
@@ -284,14 +300,43 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
     }
     
+    func sendData(data: Data) {
+        if let session = self.session, !session.connectedPeers.isEmpty {
+            do {
+                try session.send(data, toPeers: session.connectedPeers, with: .reliable)
+            } catch {
+                print("Error sending data: \(error.localizedDescription)")
+            }
+        }
+    }
     
-    
+    func handleReceivedData(data: Data, fromPeer peerID: MCPeerID) {
+        if let position = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SCNVector3 {
+            DispatchQueue.main.async {
+                // Atualizar a entidade correspondente com a nova posição
+                
+            }
+        }
+    }
+
+
+        
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         // Registrar algo quando termina o contato aqui
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         self.focusNode.updateFocusNode()
+        
+        
+        for entity in entities {
+            if let positionComponent = entity.getComponent(ofType: PositionComponent.self) {
+                let positionData = try? NSKeyedArchiver.archivedData(withRootObject: positionComponent.position, requiringSecureCoding: false)
+                if let data = positionData {
+                    sendData(data: data)
+                }
+            }
+        }
     }
 }
 
@@ -384,7 +429,23 @@ extension GameView: ViewCode{
     }
 }
 
-
-#Preview{
-    GameView()
+extension GameView: MCSessionDelegate {
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        // Handle changes in connection state if needed
+    }
+    
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        handleReceivedData(data: data, fromPeer: peerID)
+    }
+    
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) { }
+    
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) { }
+    
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) { }
 }
+
+
+//#Preview{
+//    GameView()
+//}

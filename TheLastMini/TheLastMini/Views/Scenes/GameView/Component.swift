@@ -17,6 +17,7 @@ protocol Component {}
 
 // Componente de física do veículo
 struct VehiclePhysicsComponent: Component {
+    let pilot: UUID
     let vehicle: SCNPhysicsVehicle
     let wheels: [SCNPhysicsVehicleWheel]
 }
@@ -25,3 +26,4 @@ struct VehiclePhysicsComponent: Component {
 struct PositionComponent: Component {
     var position: SCNVector3
 }
+
