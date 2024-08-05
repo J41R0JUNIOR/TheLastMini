@@ -26,8 +26,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         return arView
     }()
     
-    private lazy var replaceAndPlay: ReplaceAndPlayView = {
-        let view = ReplaceAndPlayView()
+    private lazy var replaceAndPlay: ReplaceAndPlayComponent = {
+        let view = ReplaceAndPlayComponent()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

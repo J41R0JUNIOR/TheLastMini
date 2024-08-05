@@ -17,7 +17,6 @@
 		B39E5E472C5A70DC00D28EAA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E462C5A70DC00D28EAA /* Extension.swift */; };
 		B39E5E492C5A70FA00D28EAA /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E482C5A70FA00D28EAA /* System.swift */; };
 		B39E5E4B2C5A715700D28EAA /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E4A2C5A715700D28EAA /* Component.swift */; };
-		B39E5E532C5C240D00D28EAA /* TrafficLightDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E522C5C240D00D28EAA /* TrafficLightDelegate.swift */; };
 		B39E5E572C5D72BE00D28EAA /* CarControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E562C5D72BE00D28EAA /* CarControlComponent.swift */; };
 		C01B33192C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C01B33182C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz */; };
 		C01B331B2C5D532E000C4AE3 /* TestSpeedwayCheckDown1_5.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C01B331A2C5D532D000C4AE3 /* TestSpeedwayCheckDown1_5.usdz */; };
@@ -27,7 +26,7 @@
 		C0BCBCF12C613C8B0035BCC0 /* EndRaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCED2C613C8B0035BCC0 /* EndRaceView.swift */; };
 		C0BCBCF22C613C8B0035BCC0 /* TestPistaWallMaior.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C0BCBCEE2C613C8B0035BCC0 /* TestPistaWallMaior.usdz */; };
 		C0BCBCF32C613C8B0035BCC0 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCEF2C613C8B0035BCC0 /* Enum.swift */; };
-		C0BCBCF62C613D570035BCC0 /* ReplaceAndPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayView.swift */; };
+		C0BCBCF62C613D570035BCC0 /* ReplaceAndPlayComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayComponent.swift */; };
 		C0BCBCF72C613D570035BCC0 /* TrafficLightComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */; };
 		D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC682C4EDA3000E391F5 /* AppDelegate.swift */; };
 		D995CC6B2C4EDA3000E391F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */; };
@@ -63,7 +62,6 @@
 		B39E5E462C5A70DC00D28EAA /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B39E5E482C5A70FA00D28EAA /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		B39E5E4A2C5A715700D28EAA /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
-		B39E5E522C5C240D00D28EAA /* TrafficLightDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficLightDelegate.swift; sourceTree = "<group>"; };
 		B39E5E562C5D72BE00D28EAA /* CarControlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarControlComponent.swift; sourceTree = "<group>"; };
 		C01B33182C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = TestSpeedwayCheckDown1.usdz; sourceTree = "<group>"; };
 		C01B331A2C5D532D000C4AE3 /* TestSpeedwayCheckDown1_5.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = TestSpeedwayCheckDown1_5.usdz; sourceTree = "<group>"; };
@@ -73,8 +71,8 @@
 		C0BCBCED2C613C8B0035BCC0 /* EndRaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EndRaceView.swift; path = TheLastMini/Views/Scenes/GameView/EndRaceView.swift; sourceTree = SOURCE_ROOT; };
 		C0BCBCEE2C613C8B0035BCC0 /* TestPistaWallMaior.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = TestPistaWallMaior.usdz; path = TheLastMini/Views/Scenes/GameView/TestPistaWallMaior.usdz; sourceTree = SOURCE_ROOT; };
 		C0BCBCEF2C613C8B0035BCC0 /* Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Enum.swift; path = TheLastMini/Views/Scenes/GameView/Enum.swift; sourceTree = SOURCE_ROOT; };
-		C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplaceAndPlayView.swift; sourceTree = "<group>"; };
-		C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficLightComponent.swift; sourceTree = "<group>"; };
+		C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReplaceAndPlayComponent.swift; path = ../ReplaceAndPlayComponent.swift; sourceTree = "<group>"; };
+		C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrafficLightComponent.swift; path = ../TrafficLightComponent.swift; sourceTree = "<group>"; };
 		D995CC652C4EDA3000E391F5 /* TheLastMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheLastMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D995CC682C4EDA3000E391F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -139,9 +137,6 @@
 				B39E5E462C5A70DC00D28EAA /* Extension.swift */,
 				B39E5E482C5A70FA00D28EAA /* System.swift */,
 				B39E5E4A2C5A715700D28EAA /* Component.swift */,
-				B39E5E522C5C240D00D28EAA /* TrafficLightDelegate.swift */,
-				C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayView.swift */,
-				C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */,
 			);
 			path = GameView;
 			sourceTree = "<group>";
@@ -168,6 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				B39E5E562C5D72BE00D28EAA /* CarControlComponent.swift */,
+				C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */,
+				C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayComponent.swift */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -393,7 +390,7 @@
 				B39E5E472C5A70DC00D28EAA /* Extension.swift in Sources */,
 				D995CC942C4F00D000E391F5 /* TopHomeButtonsView.swift in Sources */,
 				D995CCAF2C52EEAF00E391F5 /* MenuCollectioViewCell.swift in Sources */,
-				C0BCBCF62C613D570035BCC0 /* ReplaceAndPlayView.swift in Sources */,
+				C0BCBCF62C613D570035BCC0 /* ReplaceAndPlayComponent.swift in Sources */,
 				D995CCA22C5033DB00E391F5 /* SwitchViewComponent.swift in Sources */,
 				B384A5532C5808C8002FA243 /* GameView.swift in Sources */,
 				62E91F912C5AAC1900280B20 /* ResultsViewController.swift in Sources */,
@@ -405,7 +402,6 @@
 				C0BCBCF32C613C8B0035BCC0 /* Enum.swift in Sources */,
 				D995CCA42C50411600E391F5 /* UserDefult.swift in Sources */,
 				D995CCC22C5AA97900E391F5 /* GameCenterService.swift in Sources */,
-				B39E5E532C5C240D00D28EAA /* TrafficLightDelegate.swift in Sources */,
 				B39E5E572C5D72BE00D28EAA /* CarControlComponent.swift in Sources */,
 				D995CC992C501BA100E391F5 /* ConfigPopUpViewController.swift in Sources */,
 			);
@@ -541,7 +537,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SJYF62B3PZ;
+				DEVELOPMENT_TEAM = KV78S9S54R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
@@ -556,7 +552,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini1;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMinii;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -576,7 +572,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SJYF62B3PZ;
+				DEVELOPMENT_TEAM = KV78S9S54R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
@@ -591,7 +587,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini1;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMinii;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

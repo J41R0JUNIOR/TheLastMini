@@ -85,3 +85,8 @@ class TrafficLightComponent: UIView{
     }
 
 }
+
+
+protocol TrafficLightDelegate {
+    func changed()
+}
