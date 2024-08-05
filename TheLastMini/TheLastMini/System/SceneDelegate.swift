@@ -16,9 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-//        Task{
-//           await requestPermission()
-//        }
+        Task{
+           await requestPermission()
+        }
         
         self.window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController(rootViewController: HomeViewController() /*GameView()*/)
