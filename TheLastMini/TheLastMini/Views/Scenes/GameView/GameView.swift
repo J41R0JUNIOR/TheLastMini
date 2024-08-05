@@ -17,6 +17,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     
     var tapGesture: UITapGestureRecognizer?
     
+    private var speedwayNode: SCNNode?
+    
     ///View de animacao de scan
     private lazy var coachingOverlay: ARCoachingOverlayView = {
         let arView = ARCoachingOverlayView()
@@ -41,32 +43,25 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
 
     }
     
-    func loopTest() async {
-        while(true){
-            print("Estou em Looping")
-        }
-    }
     
     private func configureFocusNode(){
         focusNode.childNodes.forEach { $0.removeFromParentNode() }
-        
+
+
         let customNode = createSpeedway()
         print("Estou aqui: ", sceneView.scene.rootNode.childNodes.count, " [-] ", sceneView.scene.rootNode.childNodes)
 
         if customNode.parent != nil {
-            print("Adicionando ao pai")
             focusNode.addChildNode(customNode)
         }
         
         customNode.scale = SCNVector3(0.1, 0.1, 0.1) //remover depois
         focusNode.isHidden = false
         
-        self.addNodeToScene(node: self.focusNode)
-        
-//        if focusNode.parent != nil {
-//            
-//        }
-//        sceneView.scene.rootNode.addChildNode(self.focusNode)
+
+        if focusNode.parent != nil {
+            self.addNodeToScene(node: self.focusNode)
+        }
     }
 
 
@@ -150,6 +145,10 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createSpeedway() -> SCNNode{
+//        if let existingSpeedway = speedwayNode {
+//            return existingSpeedway.clone()
+//        }
+        
         guard let pista = SCNScene(named: "TestCompleteSpeedway.usdz"),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
@@ -167,8 +166,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             checkpointsNode.append(checkNode)
         }
         
-        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)?.parent
+        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)
         pistaNode.name = "pistaNode"
+//        speedwayNode = pistaNode
         return pistaNode
     }
     
@@ -371,13 +371,14 @@ extension GameView: NavigationDelegate{
         case 10:
             print("Replace")
             if sceneView.scene.rootNode.childNodes.count > 0{
-                sceneView.scene.rootNode.childNodes.forEach { $0.removeFromParentNode() }
-                print("TESTEEEEEEEE aaiaiaiaiai")
+                sceneView.scene.rootNode.childNodes.forEach { node in
+                    if node.name != "focusNode"{
+                        node.removeFromParentNode()
+                    }
+                }
                 self.isVehicleAdded = false
                 self.replaceAndPlay.toggleVisibility()
-                print(sceneView.scene.rootNode.childNodes.count, " [-] ", sceneView.scene.rootNode.childNodes)
-                configureFocusNode()
-                print("aaiaiaiaiai")
+                focusNode.isHidden = false
                 self.tapGesture?.isEnabled = true
             }
         case 11:
@@ -400,6 +401,7 @@ extension GameView: ViewCode{
         self.replaceAndPlay.delegate = self
         self.trafficLightComponent.delegate = self
         focusNode.viewDelegate = sceneView
+        self.focusNode.name = "focusNode"
 
     }
     
