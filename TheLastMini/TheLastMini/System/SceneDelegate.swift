@@ -10,6 +10,7 @@ import GameKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    var soundManager: SoundManager = SoundManager.shared
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else {
@@ -17,7 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         Task{
-           await requestPermission()
+            await requestPermission()
+//            await soundManager.playSong(fileName: .countSemaforoInit)
         }
         
         self.window = UIWindow(windowScene: windowScene)

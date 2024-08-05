@@ -6,6 +6,9 @@ import SmartHitTest
 class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate, TrafficLightDelegate {
     var sceneView: ARSCNView = ARSCNView(frame: .zero)
     var isVehicleAdded = false
+    
+    private var shouldHandleResetRequest = false
+    private var soundManager: SoundManager = SoundManager.shared
 
     var checkpointsNode: [SCNNode?] = []
     var finishNode: SCNNode?
@@ -62,6 +65,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
 
     }
     
+    deinit{
+        self.shouldHandleResetRequest = false
+    }
     
     private func configureFocusNode(){
         focusNode.childNodes.forEach { $0.removeFromParentNode() }
@@ -337,6 +343,10 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                     }
                 }else {
                     lapAndTimer.pauseTimer()
+                    Task{
+//                        await self.soundManager.playSong(fileName: .voiceCong)
+                        await self.soundManager.playSong(fileName: .soundCong)
+                    }
                     DispatchQueue.main.async {
                         self.endView.isHidden = false
                     }
@@ -391,14 +401,15 @@ extension GameView: ARCoachingOverlayViewDelegate{
     
     func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
         print("Sera que foi agora? 🐐")
-        configureFocusNode()
-        setupTapGesture()
+        if !shouldHandleResetRequest{
+            shouldHandleResetRequest = true
+            coachingOverlayView.removeFromSuperview()
+            configureFocusNode()
+            setupTapGesture()
+            return
+        }
+        
     }
-    
-//    func coachingOverlayViewDidRequestSessionReset(_ coachingOverlayView: ARCoachingOverlayView) {
-//        print("Pedi para refazer  🚨")
-//    }
-    
 }
 
 //MARK: Função de action replace and play button
@@ -421,9 +432,6 @@ extension GameView: NavigationDelegate{
         case 11:
             print("Play")
             setupControls()
-          
-
-            
             self.replaceAndPlay.toggleVisibility()
             self.trafficLightComponent.isHidden = false
             self.trafficLightComponent.startAnimation()
