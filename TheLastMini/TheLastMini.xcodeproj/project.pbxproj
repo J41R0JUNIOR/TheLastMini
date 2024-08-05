@@ -10,6 +10,7 @@
 		62E91F8F2C5AAC0900280B20 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E91F8E2C5AAC0900280B20 /* ResultsView.swift */; };
 		62E91F912C5AAC1900280B20 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E91F902C5AAC1900280B20 /* ResultsViewController.swift */; };
 		62E91F942C5AB21400280B20 /* PlayerTimeRankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E91F932C5AB21400280B20 /* PlayerTimeRankModel.swift */; };
+		B302B2862C616FDB00859785 /* OnboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2852C616FDB00859785 /* OnboardView.swift */; };
 		B384A5532C5808C8002FA243 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B384A5522C5808C8002FA243 /* GameView.swift */; };
 		B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55C2C580D8F002FA243 /* Ll.usdz */; };
 		B384A5602C580D8F002FA243 /* MmR.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55D2C580D8F002FA243 /* MmR.usdz */; };
@@ -55,6 +56,7 @@
 		62E91F8E2C5AAC0900280B20 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		62E91F902C5AAC1900280B20 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		62E91F932C5AB21400280B20 /* PlayerTimeRankModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTimeRankModel.swift; sourceTree = "<group>"; };
+		B302B2852C616FDB00859785 /* OnboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardView.swift; sourceTree = "<group>"; };
 		B384A5522C5808C8002FA243 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		B384A55C2C580D8F002FA243 /* Ll.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Ll.usdz; sourceTree = "<group>"; };
 		B384A55D2C580D8F002FA243 /* MmR.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = MmR.usdz; sourceTree = "<group>"; };
@@ -126,6 +128,14 @@
 				62E91F932C5AB21400280B20 /* PlayerTimeRankModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		B302B2842C616FCA00859785 /* Onboard */ = {
+			isa = PBXGroup;
+			children = (
+				B302B2852C616FDB00859785 /* OnboardView.swift */,
+			);
+			path = Onboard;
 			sourceTree = "<group>";
 		};
 		B384A5512C5807E4002FA243 /* GameView */ = {
@@ -243,6 +253,7 @@
 		D995CC852C4EE73400E391F5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				B302B2842C616FCA00859785 /* Onboard */,
 				62E91F8D2C5AABD400280B20 /* Results */,
 				D995CC862C4EE73D00E391F5 /* Home */,
 			);
@@ -373,6 +384,7 @@
 			files = (
 				C0BCBCF72C613D570035BCC0 /* TrafficLightComponent.swift in Sources */,
 				D995CC882C4EE76A00E391F5 /* HomeViewController.swift in Sources */,
+				B302B2862C616FDB00859785 /* OnboardView.swift in Sources */,
 				D995CCB32C541F9D00E391F5 /* Models.swift in Sources */,
 				D995CCC42C5AB62D00E391F5 /* Enums.swift in Sources */,
 				62E91F8F2C5AAC0900280B20 /* ResultsView.swift in Sources */,
