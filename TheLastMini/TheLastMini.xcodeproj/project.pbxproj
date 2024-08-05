@@ -70,7 +70,7 @@
 		C0BCBCEC2C613C8B0035BCC0 /* LapAndTimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LapAndTimerView.swift; path = TheLastMini/Views/Scenes/GameView/ViewComponents/LapAndTimerView.swift; sourceTree = SOURCE_ROOT; };
 		C0BCBCED2C613C8B0035BCC0 /* EndRaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EndRaceView.swift; path = TheLastMini/Views/Scenes/GameView/ViewComponents/EndRaceView.swift; sourceTree = SOURCE_ROOT; };
 		C0BCBCEE2C613C8B0035BCC0 /* TestPistaWallMaior.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = TestPistaWallMaior.usdz; path = TheLastMini/Views/Scenes/GameView/TestPistaWallMaior.usdz; sourceTree = SOURCE_ROOT; };
-		C0BCBCEF2C613C8B0035BCC0 /* Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Enum.swift; path = TheLastMini/Views/Scenes/GameView/ViewComponents/Enum.swift; sourceTree = SOURCE_ROOT; };
+		C0BCBCEF2C613C8B0035BCC0 /* Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Enum.swift; path = TheLastMini/Views/Scenes/GameView/Enum.swift; sourceTree = SOURCE_ROOT; };
 		C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReplaceAndPlayComponent.swift; path = ../ReplaceAndPlayComponent.swift; sourceTree = "<group>"; };
 		C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrafficLightComponent.swift; path = ../TrafficLightComponent.swift; sourceTree = "<group>"; };
 		D995CC652C4EDA3000E391F5 /* TheLastMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheLastMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,6 +137,7 @@
 				B39E5E462C5A70DC00D28EAA /* Extension.swift */,
 				B39E5E482C5A70FA00D28EAA /* System.swift */,
 				B39E5E4A2C5A715700D28EAA /* Component.swift */,
+				C0BCBCEF2C613C8B0035BCC0 /* Enum.swift */,
 			);
 			path = GameView;
 			sourceTree = "<group>";
@@ -160,7 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				C0BCBCED2C613C8B0035BCC0 /* EndRaceView.swift */,
-				C0BCBCEF2C613C8B0035BCC0 /* Enum.swift */,
 				C0BCBCEC2C613C8B0035BCC0 /* LapAndTimerView.swift */,
 				B39E5E562C5D72BE00D28EAA /* CarControlComponent.swift */,
 				C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */,
