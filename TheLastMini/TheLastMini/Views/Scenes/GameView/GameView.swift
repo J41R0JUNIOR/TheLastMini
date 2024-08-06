@@ -274,15 +274,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func setupControls(){
-        self.view.addSubview(carControlComponent)
-
-        // Configurar restrições para o carControlComponent
-        NSLayoutConstraint.activate([
-            carControlComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            carControlComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            carControlComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            carControlComponent.heightAnchor.constraint(equalToConstant: 200)
-        ])
+        carControlComponent.isHidden = false
     }
     
     // Atualizar a lógica de jogo a cada frame
@@ -443,12 +435,13 @@ extension GameView: NavigationDelegate{
 
 extension GameView: ViewCode{
     func addViews() {
-        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent, lapAndTimer, endView)
+        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent, lapAndTimer, endView, carControlComponent)
         
         self.replaceAndPlay.delegate = self
         self.trafficLightComponent.delegate = self
         focusNode.viewDelegate = sceneView
         self.focusNode.name = "focusNode"
+        carControlComponent.isHidden = true
 
     }
     
@@ -475,6 +468,11 @@ extension GameView: ViewCode{
             
             endView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             endView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            carControlComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            carControlComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            carControlComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            carControlComponent.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
     
