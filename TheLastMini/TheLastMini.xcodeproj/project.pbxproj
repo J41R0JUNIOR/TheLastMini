@@ -14,7 +14,7 @@
 		B302B28C2C619E4F00859785 /* OnboardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B28B2C619E4F00859785 /* OnboardCollectionViewController.swift */; };
 		B302B28E2C61A23E00859785 /* OnboardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B28D2C61A23E00859785 /* OnboardCollectionView.swift */; };
 		B302B2902C61A52B00859785 /* OnboardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B28F2C61A52B00859785 /* OnboardCollectionViewCell.swift */; };
-		B302B2932C61B77A00859785 /* HelloWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2922C61B77A00859785 /* HelloWorld.swift */; };
+		B302B2932C61B77A00859785 /* BasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2922C61B77A00859785 /* BasicView.swift */; };
 		B384A5532C5808C8002FA243 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B384A5522C5808C8002FA243 /* GameView.swift */; };
 		B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55C2C580D8F002FA243 /* Ll.usdz */; };
 		B384A5602C580D8F002FA243 /* MmR.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55D2C580D8F002FA243 /* MmR.usdz */; };
@@ -64,7 +64,7 @@
 		B302B28B2C619E4F00859785 /* OnboardCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardCollectionViewController.swift; sourceTree = "<group>"; };
 		B302B28D2C61A23E00859785 /* OnboardCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardCollectionView.swift; sourceTree = "<group>"; };
 		B302B28F2C61A52B00859785 /* OnboardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardCollectionViewCell.swift; sourceTree = "<group>"; };
-		B302B2922C61B77A00859785 /* HelloWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloWorld.swift; sourceTree = "<group>"; };
+		B302B2922C61B77A00859785 /* BasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicView.swift; sourceTree = "<group>"; };
 		B384A5522C5808C8002FA243 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		B384A55C2C580D8F002FA243 /* Ll.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Ll.usdz; sourceTree = "<group>"; };
 		B384A55D2C580D8F002FA243 /* MmR.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = MmR.usdz; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 		B302B2912C61B76D00859785 /* OnboardPages */ = {
 			isa = PBXGroup;
 			children = (
-				B302B2922C61B77A00859785 /* HelloWorld.swift */,
+				B302B2922C61B77A00859785 /* BasicView.swift */,
 			);
 			path = OnboardPages;
 			sourceTree = "<group>";
@@ -437,7 +437,7 @@
 				C0BCBCF32C613C8B0035BCC0 /* Enum.swift in Sources */,
 				D995CCA42C50411600E391F5 /* UserDefult.swift in Sources */,
 				D995CCC22C5AA97900E391F5 /* GameCenterService.swift in Sources */,
-				B302B2932C61B77A00859785 /* HelloWorld.swift in Sources */,
+				B302B2932C61B77A00859785 /* BasicView.swift in Sources */,
 				B39E5E572C5D72BE00D28EAA /* CarControlComponent.swift in Sources */,
 				D995CC992C501BA100E391F5 /* ConfigPopUpViewController.swift in Sources */,
 			);
