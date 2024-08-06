@@ -1,11 +1,17 @@
 import UIKit
 
+protocol ResultsViewControllerDelegate {
+    func backTapped()
+}
+
 class ResultsViewController: UIViewController {
     
     private var trackInfoView: TrackInfoView!
     var laps : [TimeInterval]
     var rank : [PlayerTimeRankModel]
     var map : String
+    
+    var delegate: ResultsViewControllerDelegate?
     
     init(laps: [TimeInterval], rank: [PlayerTimeRankModel], map: String) {
         self.laps = laps
@@ -20,7 +26,7 @@ class ResultsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
         
         setupTrackInfoView()
         setupBackButton()
@@ -56,14 +62,16 @@ class ResultsViewController: UIViewController {
         
         // Layout the back button
         NSLayoutConstraint.activate([
-            backButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            backButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: ScreenInfo.shared.getBoundsSize().height * 0.25),
             backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
     @objc private func backButtonTapped() {
         // Handle back button tap
-        dismiss(animated: true, completion: nil)
+        print("Back to home Tapped")
+        dismiss(animated: true)
+        delegate?.backTapped()
     }
 }
 

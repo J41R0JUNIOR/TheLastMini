@@ -129,6 +129,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func setupScene() {
+        
+        
         sceneView = ARSCNView(frame: self.view.frame)
         sceneView.delegate = self
         sceneView.showsStatistics = true
@@ -331,7 +333,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                 for node in checkpointsNode {
                     node?.isCheck = false
                 }
-                if lapAndTimer.currentLap != 3 {
+                if lapAndTimer.currentLap != 2 {
                     DispatchQueue.main.async {
                         self.lapAndTimer.addLap()
                     }
@@ -339,6 +341,11 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                     lapAndTimer.pauseTimer()
                     DispatchQueue.main.async {
                         self.endView.isHidden = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                            let resumoView = ResultsViewController(laps: lapTimes, rank: rankings, map: "Mount Fuji Track")
+                            resumoView.delegate = self
+                            self.present(resumoView, animated: false)
+                        }
                     }
                 }
             }
@@ -473,6 +480,12 @@ extension GameView: ViewCode{
     
     func setupStyle() {
         
+    }
+}
+
+extension GameView: ResultsViewControllerDelegate {
+    func backTapped() {
+        navigationController?.popToRootViewController(animated: true)
     }
 }
 

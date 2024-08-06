@@ -26,10 +26,26 @@ class TrackInfoView: UIView {
         }
     }
     
-    private var titleLabel: UILabel!
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = titleMap
+        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     private var lapLabels: [UILabel] = []
     private var rankingLabels: [UILabel] = []
     private var totalTimeLabel: UILabel?
+    
+    private lazy var background: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 13
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,10 +58,27 @@ class TrackInfoView: UIView {
     }
     
     private func setupInitialLayout() {
+        setupStyle()
+        setupBackground()
         setupTitleLabel()
         setupLapLabels()
         setupTotalTimeLabel()
         setupRankingLabels()
+    }
+    
+    private func setupStyle() {
+        backgroundColor = .black.withAlphaComponent(0.2)
+    }
+    
+    private func setupBackground() {
+        addSubview(background)
+        
+        NSLayoutConstraint.activate([
+            background.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            background.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            background.heightAnchor.constraint(equalToConstant: ScreenInfo.shared.getBoundsSize().height*0.7),
+            background.widthAnchor.constraint(equalToConstant: ScreenInfo.shared.getBoundsSize().width*0.6),
+        ])
     }
     
     private func setupLapLabels() {
@@ -62,8 +95,8 @@ class TrackInfoView: UIView {
             
             // Layout the lap labels
             NSLayoutConstraint.activate([
-                lapLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 130),
-                lapLabel.topAnchor.constraint(equalTo: lastLabel?.bottomAnchor ?? topAnchor, constant: lastLabel == nil ? -60 : 25)
+                lapLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: ScreenInfo.shared.getBoundsSize().width * -0.15),
+                lapLabel.topAnchor.constraint(equalTo: lastLabel?.bottomAnchor ?? topAnchor, constant: lastLabel == nil ? -60 : 5)
             ])
             
             lastLabel = lapLabel
@@ -76,7 +109,7 @@ class TrackInfoView: UIView {
           
           NSLayoutConstraint.activate([
               titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-              titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: -160)
+              titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: ScreenInfo.shared.getBoundsSize().height * -0.3)
           ])
       }
     
@@ -106,7 +139,7 @@ class TrackInfoView: UIView {
         
         // Layout the ranking label
         NSLayoutConstraint.activate([
-            rankingLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -130),
+            rankingLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: ScreenInfo.shared.getBoundsSize().width * 0.15),
             rankingLabel.topAnchor.constraint(equalTo: topAnchor, constant: -80)
         ])
         
@@ -117,8 +150,8 @@ class TrackInfoView: UIView {
             rankingLabels.append(label)
             
             NSLayoutConstraint.activate([
-                label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -80),
-                label.topAnchor.constraint(equalTo: lastLabel.bottomAnchor, constant: 10)
+                label.centerXAnchor.constraint(equalTo: centerXAnchor, constant: ScreenInfo.shared.getBoundsSize().width * 0.15),
+                label.topAnchor.constraint(equalTo: lastLabel.bottomAnchor, constant: 5)
             ])
             lastLabel = label
         }
@@ -127,6 +160,7 @@ class TrackInfoView: UIView {
     private func createLabel(text: String, isBold: Bool = false) -> UILabel {
         let label = UILabel()
         label.text = text
+        label.textColor = .black
         label.font = isBold ? UIFont.boldSystemFont(ofSize: 16) : UIFont.systemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
