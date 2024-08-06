@@ -91,20 +91,25 @@ extension OnboardCollectionView: ViewCode {
         backPageButton.addTarget(self, action: #selector(backIndexPage), for: .touchUpInside)
     }
     
+
     @objc func nextIndexPage(){
-        let nextIndex = pageControl.currentPage < model.count - 1 ? pageControl.currentPage + 1 : pageControl.currentPage + 0
-        let indexPath = IndexPath(item: nextIndex, section: nextIndex)
+        collectionView.isPagingEnabled = false
+        let nextIndex = min(pageControl.currentPage + 1, model.count - 1)
+        let indexPath = IndexPath(item: nextIndex, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         print(indexPath, nextIndex)
+        collectionView.isPagingEnabled = true
         
         pageControl.currentPage = nextIndex
     }
     
     @objc func backIndexPage(){
+        collectionView.isPagingEnabled = false
         let previousIndex = max(pageControl.currentPage - 1, 0)
         let indexPath = IndexPath(item: previousIndex, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         print(indexPath, previousIndex)
+        collectionView.isPagingEnabled = true
         
         pageControl.currentPage = previousIndex
     }
