@@ -52,6 +52,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     
     private lazy var carControlComponent = CarControlComponent(movementSystem: self.movementSystem, frame: self.view.frame)
     
+    private lazy var resumoView: ResultsViewController = {
+        return ResultsViewController(map: "Mount Fuji Track")
+    }()
       
     
     override func viewDidLoad() {
@@ -314,7 +317,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.check.rawValue) ||
            (nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
             let checkpointNode = nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue ? nodeA : nodeB
-            print("Carrinho passou pelo checkpoint: \(checkpointNode.name ?? "nil")")
+//            print("Carrinho passou pelo checkpoint: \(checkpointNode.name ?? "nil")")
             
             if verifyIsCheckNodes(nodeName: checkpointNode.name ?? "nil"){
                 checkpointNode.isCheck = true
@@ -323,18 +326,18 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.finish.rawValue) ||
             (nodeA.physicsBody?.categoryBitMask == BodyType.finish.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
-            print("Carrinho passou pelo Finish")
+//            print("Carrinho passou pelo Finish")
             for node in checkpointsNode {
-                print("Checkpoint \(String(describing: node?.name)): \(String(describing: node?.isCheck))")
+//                print("Checkpoint \(String(describing: node?.name)): \(String(describing: node?.isCheck))")
             }
             
             if checkpointsNode.allSatisfy({ $0!.isCheck }) {
-                print("Todos os checkpoints estão ativados")
+//                print("Todos os checkpoints estão ativados")
                 lapAndTimer.saveLapTime()
                 for node in checkpointsNode {
                     node?.isCheck = false
                 }
-                if lapAndTimer.currentLap != 3 {
+                if lapAndTimer.currentLap != 2 {
                     DispatchQueue.main.async {
                         self.lapAndTimer.addLap()
                     }
@@ -343,9 +346,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                     DispatchQueue.main.async {
                         self.endView.isHidden = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                            let resumoView = ResultsViewController(laps: self.lapAndTimer.lapsTime, map: "Mount Fuji Track")
-                            resumoView.delegate = self
-                            self.present(resumoView, animated: false)
+                            self.resumoView.laps = self.lapAndTimer.lapsTime
+                            self.resumoView.saveTimeRecord()
+                            self.present(self.resumoView, animated: false)
                         }
                     }
                 }
@@ -429,9 +432,6 @@ extension GameView: NavigationDelegate{
         case 11:
             print("Play")
             setupControls()
-          
-
-            
             self.replaceAndPlay.toggleVisibility()
             self.trafficLightComponent.isHidden = false
             self.trafficLightComponent.startAnimation()
@@ -450,6 +450,7 @@ extension GameView: ViewCode{
         self.trafficLightComponent.delegate = self
         focusNode.viewDelegate = sceneView
         self.focusNode.name = "focusNode"
+        self.resumoView.delegate = self
 
     }
     

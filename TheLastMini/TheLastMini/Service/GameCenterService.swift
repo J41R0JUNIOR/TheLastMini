@@ -12,8 +12,9 @@ class GameCenterService: ObservableObject{
      
     static let shared: GameCenterService = GameCenterService()
 
-    private let localPlayer: GKLocalPlayer = {
+    public   let localPlayer: GKLocalPlayer = {
         let player = GKLocalPlayer.local
+        
         return player
     }()
 
@@ -25,7 +26,12 @@ class GameCenterService: ObservableObject{
         self.playersData = []
     }
     
+    private func reseatData(){
+        self.playersData = []
+    }
+    
     public func setNewRecord(recordTime: TimeInterval, leaderboardID: Identifier) async {
+        print("Valor timeInterval: ", recordTime, " [-] Valor int: ", recordTime.toInt)
         do{
             try await GKLeaderboard.submitScore(recordTime.toInt, context: 0, player: self.localPlayer, leaderboardIDs: [leaderboardID.rawValue])
             print("Setado Valor")
@@ -34,7 +40,8 @@ class GameCenterService: ObservableObject{
         }
     }
     
-    public func getDataFromGameCenter(leaderboardID: Identifier) async {
+    public func fetchData(leaderboardID: Identifier) async {
+        self.reseatData()
         do{
             let leaderboards = try await GKLeaderboard.loadLeaderboards(IDs: [leaderboardID.rawValue])
             

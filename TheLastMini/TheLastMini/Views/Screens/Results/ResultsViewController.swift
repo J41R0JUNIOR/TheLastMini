@@ -7,15 +7,18 @@ protocol ResultsViewControllerDelegate {
 class ResultsViewController: UIViewController {
     
     private var trackInfoView: TrackInfoView!
-    var laps : [TimeInterval]
+    var laps: [TimeInterval] = []
     var rank : [PlayerTimeRankModel] = []
     var map : String
     
+    private var gameCenterService = GameCenterService.shared
+    
     var delegate: ResultsViewControllerDelegate?
     
-    init(laps: [TimeInterval], map: String) {
-        self.laps = laps
+    init(/*laps: [TimeInterval], */map: String) {
+//        self.laps = laps
         self.map = map
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -27,20 +30,26 @@ class ResultsViewController: UIViewController {
         super.viewDidLoad()
 //        view.backgroundColor = .white
         
-        saveTimeRecord()
-        setupTrackInfoView()
-        setupBackButton()
+//        saveTimeRecord()
+        
     }
     
-    private func setupRank() {
+    public func setupRank() {
+//        rank = rankings
         Task {
-            await
-            GameCenterService.shared.getDataFromGameCenter(leaderboardID: .recordID)
-            for player in GameCenterService.shared.playersData {
+            await gameCenterService.fetchData(leaderboardID: .recordID)
+            for player in gameCenterService.playersData {
                 rank.append(PlayerTimeRankModel(playerName: player.name, playerBestTime: player.score))
             }
+            setupTrackInfoView()
+            setupBackButton()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        setupRank()
     }
     
     private func setupTrackInfoView() {
@@ -78,14 +87,15 @@ class ResultsViewController: UIViewController {
         ])
     }
     
-    private func saveTimeRecord() {
+    public func saveTimeRecord() {
         let userDefault = UserDefaults.standard
-        
-        if userDefault.timeRecord == 0 || userDefault.timeRecord < sumTotalTime() {
+        print("Record: ", userDefault.timeRecord)
+
+        if userDefault.timeRecord == 0 || userDefault.timeRecord > sumTotalTime() {
             userDefault.timeRecord = sumTotalTime()
+            print("✅ Valor: ", userDefault.timeRecord)
             Task {
-                await
-                GameCenterService.shared.setNewRecord(recordTime: sumTotalTime(), leaderboardID: .recordID)
+                await gameCenterService.setNewRecord(recordTime: sumTotalTime(), leaderboardID: .recordID)
             }
         }
     }
@@ -105,11 +115,11 @@ class ResultsViewController: UIViewController {
 //let lapTimes = [33.561, 28.832, 32.757]
 //let totalTime = 94.061
 //let rankings = [
-//        PlayerTimeRankModel(playerName: "Gustavo", playerBestTime: 92.327),
-//        PlayerTimeRankModel(playerName: "Jairo", playerBestTime: 94.061),
-//        PlayerTimeRankModel(playerName: "Ishida", playerBestTime: 96.943),
-//        PlayerTimeRankModel(playerName: "Fernanda", playerBestTime: 101.755),
-//        PlayerTimeRankModel(playerName: "Andrezin", playerBestTime: 102.322)
+//        PlayerTimeRankModel(playerName: "Gustavo", playerBestTime: "92.327"),
+//        PlayerTimeRankModel(playerName: "Andre", playerBestTime: "92.327"),
+//        PlayerTimeRankModel(playerName: "Carlos", playerBestTime: "92.327"),
+//        PlayerTimeRankModel(playerName: "Mendonca", playerBestTime: "92.327"),
+//
 //]
 //let map = "Mount Fuji Track"
 //#Preview{

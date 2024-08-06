@@ -9,7 +9,7 @@ import Foundation
 
 
 enum Identifier: String{
-    case recordID = "RecordID"
+    case recordID = "RankingTotalTimeID"
 }
 
 enum Lado{
