@@ -19,9 +19,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     let focusNode = FocusNode()
     
     var tapGesture: UITapGestureRecognizer?
-    
-    private var speedwayNode: SCNNode?
-    
+        
     ///View de animacao de scan
     private lazy var coachingOverlay: ARCoachingOverlayView = {
         let arView = ARCoachingOverlayView()
@@ -55,23 +53,41 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     
     private lazy var carControlComponent = CarControlComponent(movementSystem: self.movementSystem, frame: self.view.frame)
     
-      
+    private var idleAudioPlayer: SCNAudioPlayer?
+    private var accelerateAudioPlayer: SCNAudioPlayer?
+    private var startAudioPlayer: SCNAudioPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupScene()
         self.setupViewCode()
-
+        self.setupAudio()
     }
     
     deinit{
         self.shouldHandleResetRequest = false
     }
     
+    private func setupAudio(){
+        self.idleAudioPlayer = SCNAudioPlayer(source: soundManager.loadCarAudio(.idlCar, false))
+        self.startAudioPlayer = SCNAudioPlayer(source: soundManager.loadCarAudio(.startCar, false))
+        self.accelerateAudioPlayer = SCNAudioPlayer(source: soundManager.loadCarAudio(.accelerateCar1, true))
+    }
+    
+    private func playSong(_ audioPlayer: SCNAudioPlayer){
+        guard let carNode = sceneView.scene.rootNode.childNode(withName: "CarNode", recursively: true) else { return }
+        carNode.removeAllAudioPlayers()
+        carNode.addAudioPlayer(audioPlayer)
+    }
+    
+    func stopAllSounds() {
+        guard let carNode = sceneView.scene.rootNode.childNode(withName: "CarNode", recursively: true) else { return }
+        carNode.removeAllAudioPlayers()
+    }
+    
     private func configureFocusNode(){
         focusNode.childNodes.forEach { $0.removeFromParentNode() }
-
 
         let customNode = createSpeedway(setPhysics: false)
         print("Estou aqui: ", sceneView.scene.rootNode.childNodes.count, " [-] ", sceneView.scene.rootNode.childNodes)
@@ -147,7 +163,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         coachingOverlay.session = sceneView.session
         coachingOverlay.delegate = self
-        coachingOverlay.goal = .horizontalPlane
+        coachingOverlay.goal = .anyPlane
 
         sceneView.session.run(configuration)
     }
@@ -266,6 +282,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
 //        sceneView.scene.rootNode.addChildNode(chassisNode)
 
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)
+        chassisNode.name = "CarNode"
         self.entities.append(chassisNode)
         
         let vehicleComponent = VehiclePhysicsComponent(vehicle: vehicle, wheels: [wheel1, wheel2, wheel3, wheel4])
@@ -303,6 +320,13 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         displayLink.add(to: .current, forMode: .default)
         
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.playTimer()
     }
     
     @objc func gameLoop(displayLink: CADisplayLink) {
@@ -318,7 +342,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.check.rawValue) ||
            (nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
             let checkpointNode = nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue ? nodeA : nodeB
-            print("Carrinho passou pelo checkpoint: \(checkpointNode.name ?? "nil")")
+//            print("Carrinho passou pelo checkpoint: \(checkpointNode.name ?? "nil")")
             
             if verifyIsCheckNodes(nodeName: checkpointNode.name ?? "nil"){
                 checkpointNode.isCheck = true
@@ -327,13 +351,13 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.finish.rawValue) ||
             (nodeA.physicsBody?.categoryBitMask == BodyType.finish.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
-            print("Carrinho passou pelo Finish")
+//            print("Carrinho passou pelo Finish")
             for node in checkpointsNode {
-                print("Checkpoint \(String(describing: node?.name)): \(String(describing: node?.isCheck))")
+//                print("Checkpoint \(String(describing: node?.name)): \(String(describing: node?.isCheck))")
             }
             
             if checkpointsNode.allSatisfy({ $0!.isCheck }) {
-                print("Todos os checkpoints estão ativados")
+//                print("Todos os checkpoints estão ativados")
                 for node in checkpointsNode {
                     node?.isCheck = false
                 }
@@ -388,6 +412,18 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         movementSystem.changed()
         lapAndTimer.isHidden = false
         lapAndTimer.playTimer()
+        self.playSong(self.idleAudioPlayer!)
+    }
+    
+    private func playTimer(){
+        Timer.scheduledTimer(withTimeInterval: 6, repeats: true) { time in
+            //label talvez
+            //call function
+            print("✅✅✅⬇️🚨🚨🚨🚨🚨🚨🚨🚨")
+//            if !shouldHandleResetRequest{
+//                
+//            }
+        }
     }
 }
 
@@ -435,7 +471,6 @@ extension GameView: NavigationDelegate{
             self.replaceAndPlay.toggleVisibility()
             self.trafficLightComponent.isHidden = false
             self.trafficLightComponent.startAnimation()
-            
         default:
             print("ERROR in 'GameView->navigationTo': Tag invalida")
         }
@@ -448,9 +483,8 @@ extension GameView: ViewCode{
         
         self.replaceAndPlay.delegate = self
         self.trafficLightComponent.delegate = self
-        focusNode.viewDelegate = sceneView
+        self.focusNode.viewDelegate = sceneView
         self.focusNode.name = "focusNode"
-
     }
     
     func addContrains() {

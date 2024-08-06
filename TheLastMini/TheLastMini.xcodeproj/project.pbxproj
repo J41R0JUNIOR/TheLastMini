@@ -33,6 +33,10 @@
 		D92661E72C6155A4006FC0BB /* voiceCong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661E42C6155A4006FC0BB /* voiceCong.mp3 */; };
 		D92661EA2C616D54006FC0BB /* race_countdown2-106294.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661E82C616D54006FC0BB /* race_countdown2-106294.mp3 */; };
 		D92661EB2C616D54006FC0BB /* race_countdown2-106294-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661E92C616D54006FC0BB /* race_countdown2-106294-2.mp3 */; };
+		D92661EF2C62A928006FC0BB /* 02-nissan_skyline_r34.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661EC2C62A927006FC0BB /* 02-nissan_skyline_r34.mp3 */; };
+		D92661F02C62A928006FC0BB /* 03-nissan_skyline_r34.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661ED2C62A927006FC0BB /* 03-nissan_skyline_r34.mp3 */; };
+		D92661F12C62A928006FC0BB /* 01-nissan_skyline_r34.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661EE2C62A927006FC0BB /* 01-nissan_skyline_r34.mp3 */; };
+		D92661F32C62A977006FC0BB /* car-idle-84718.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */; };
 		D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC682C4EDA3000E391F5 /* AppDelegate.swift */; };
 		D995CC6B2C4EDA3000E391F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */; };
 		D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D995CC712C4EDA3200E391F5 /* Assets.xcassets */; };
@@ -83,6 +87,10 @@
 		D92661E42C6155A4006FC0BB /* voiceCong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voiceCong.mp3; sourceTree = "<group>"; };
 		D92661E82C616D54006FC0BB /* race_countdown2-106294.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "race_countdown2-106294.mp3"; sourceTree = "<group>"; };
 		D92661E92C616D54006FC0BB /* race_countdown2-106294-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "race_countdown2-106294-2.mp3"; sourceTree = "<group>"; };
+		D92661EC2C62A927006FC0BB /* 02-nissan_skyline_r34.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "02-nissan_skyline_r34.mp3"; sourceTree = "<group>"; };
+		D92661ED2C62A927006FC0BB /* 03-nissan_skyline_r34.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "03-nissan_skyline_r34.mp3"; sourceTree = "<group>"; };
+		D92661EE2C62A927006FC0BB /* 01-nissan_skyline_r34.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01-nissan_skyline_r34.mp3"; sourceTree = "<group>"; };
+		D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "car-idle-84718.mp3"; sourceTree = "<group>"; };
 		D995CC652C4EDA3000E391F5 /* TheLastMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheLastMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D995CC682C4EDA3000E391F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -182,6 +190,10 @@
 		D92661DB2C615560006FC0BB /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */,
+				D92661EE2C62A927006FC0BB /* 01-nissan_skyline_r34.mp3 */,
+				D92661EC2C62A927006FC0BB /* 02-nissan_skyline_r34.mp3 */,
+				D92661ED2C62A927006FC0BB /* 03-nissan_skyline_r34.mp3 */,
 				D92661E92C616D54006FC0BB /* race_countdown2-106294-2.mp3 */,
 				D92661E82C616D54006FC0BB /* race_countdown2-106294.mp3 */,
 				D92661E42C6155A4006FC0BB /* voiceCong.mp3 */,
@@ -380,11 +392,15 @@
 				D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */,
 				B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */,
 				C089E0F62C5AD47C0003E40E /* TestCompleteSpeedway.usdz in Resources */,
+				D92661F02C62A928006FC0BB /* 03-nissan_skyline_r34.mp3 in Resources */,
 				B384A5612C580D8F002FA243 /* Rr.usdz in Resources */,
+				D92661F12C62A928006FC0BB /* 01-nissan_skyline_r34.mp3 in Resources */,
+				D92661F32C62A977006FC0BB /* car-idle-84718.mp3 in Resources */,
 				D92661E62C6155A4006FC0BB /* soundCong.mp3 in Resources */,
 				C0BCBCF22C613C8B0035BCC0 /* TestPistaWallMaior.usdz in Resources */,
 				D92661EA2C616D54006FC0BB /* race_countdown2-106294.mp3 in Resources */,
 				C01B331B2C5D532E000C4AE3 /* TestSpeedwayCheckDown1_5.usdz in Resources */,
+				D92661EF2C62A928006FC0BB /* 02-nissan_skyline_r34.mp3 in Resources */,
 				D92661E72C6155A4006FC0BB /* voiceCong.mp3 in Resources */,
 				C01B33192C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz in Resources */,
 				D92661EB2C616D54006FC0BB /* race_countdown2-106294-2.mp3 in Resources */,
