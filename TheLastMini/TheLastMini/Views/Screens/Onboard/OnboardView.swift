@@ -1,53 +1,40 @@
-//
-//  OnboardView.swift
-//  TheLastMini
-//
-//  Created by Jairo Júnior on 05/08/24.
-//
-
-import Foundation
 import UIKit
 
-enum Text: String {
-    case gameName = "TheLastMini"
-}
-
-
-class OnboardCollectionViewCell: UICollectionViewCell{
-    static let identifier = "OnboardCollectionViewCell"
-    
-}
-
-class OnboardCollectionView: UIView {
-    
-    let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-//        layout.itemSize = .init
+class OnboardView: UIViewController {
+    private lazy var carouselOnboardingComponent: OnboardCollectionViewController = {
+        let viewController = OnboardCollectionViewController()
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
         
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.register(OnboardCollectionViewCell.self, forCellWithReuseIdentifier: OnboardCollectionViewCell.identifier)
-        collection.delegate = self
-//        collection.dataSource = self
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        collection.isPagingEnabled = false
-        collection.showsHorizontalScrollIndicator = false
-        collection.backgroundColor = .clear
-        return collection
-    }()
+        return viewController
+    }() 
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupViewCode()
+    }
 }
 
-extension OnboardCollectionView: UICollectionViewDelegate{
+extension OnboardView: ViewCode {
+   
     
+    func addViews() {
+        self.addChild(carouselOnboardingComponent)
+        self.view.addSubview(carouselOnboardingComponent.view)
+        carouselOnboardingComponent.didMove(toParent: self)
+    }
+    
+    func addContrains() {
+        NSLayoutConstraint.activate([
+            carouselOnboardingComponent.view.topAnchor.constraint(equalTo: view.topAnchor),
+            carouselOnboardingComponent.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            carouselOnboardingComponent.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            carouselOnboardingComponent.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+    
+    func setupStyle() {}
 }
-
-
-
-
-
-
 
 #Preview{
-    OnboardCollectionView()
+    OnboardView()
 }
