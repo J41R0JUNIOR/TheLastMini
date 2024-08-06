@@ -145,7 +145,7 @@ class TrackInfoView: UIView {
         
         var lastLabel: UILabel = rankingLabel
         for (index, ranking) in rankings.enumerated() {
-            let label = createLabel(text: "\(index + 1)º - \(ranking.playerName) | \(formatTime(ranking.playerBestTime))")
+            let label = createLabel(text: "\(index + 1)º - \(ranking.playerName) | \(ranking.playerBestTime)")
             addSubview(label)
             rankingLabels.append(label)
             

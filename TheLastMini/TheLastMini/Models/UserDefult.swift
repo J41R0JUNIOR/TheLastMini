@@ -13,6 +13,7 @@ extension UserDefaults{
         case isVibrate
         case soundEffects
         case isActivatedMusic
+        case timeRecord
     }
     
     var soundEffects: Bool {
@@ -42,6 +43,16 @@ extension UserDefaults{
         }
         set{
             setValue(newValue, forKey: UserDefaultsKeys.isVibrate.rawValue)
+        }
+    }
+    
+    var timeRecord: Double {
+        get{
+            let value = value(forKey: UserDefaultsKeys.timeRecord.rawValue) as? Double ?? 0
+            return (value)
+        }
+        set{
+            setValue(newValue, forKey: UserDefaultsKeys.timeRecord.rawValue)
         }
     }
 }

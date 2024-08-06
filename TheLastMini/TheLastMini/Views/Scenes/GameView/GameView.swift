@@ -330,10 +330,11 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             
             if checkpointsNode.allSatisfy({ $0!.isCheck }) {
                 print("Todos os checkpoints estão ativados")
+                lapAndTimer.saveLapTime()
                 for node in checkpointsNode {
                     node?.isCheck = false
                 }
-                if lapAndTimer.currentLap != 2 {
+                if lapAndTimer.currentLap != 3 {
                     DispatchQueue.main.async {
                         self.lapAndTimer.addLap()
                     }
@@ -342,7 +343,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                     DispatchQueue.main.async {
                         self.endView.isHidden = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                            let resumoView = ResultsViewController(laps: lapTimes, rank: rankings, map: "Mount Fuji Track")
+                            let resumoView = ResultsViewController(laps: self.lapAndTimer.lapsTime, map: "Mount Fuji Track")
                             resumoView.delegate = self
                             self.present(resumoView, animated: false)
                         }

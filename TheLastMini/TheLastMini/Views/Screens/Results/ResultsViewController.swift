@@ -8,14 +8,13 @@ class ResultsViewController: UIViewController {
     
     private var trackInfoView: TrackInfoView!
     var laps : [TimeInterval]
-    var rank : [PlayerTimeRankModel]
+    var rank : [PlayerTimeRankModel] = []
     var map : String
     
     var delegate: ResultsViewControllerDelegate?
     
-    init(laps: [TimeInterval], rank: [PlayerTimeRankModel], map: String) {
+    init(laps: [TimeInterval], map: String) {
         self.laps = laps
-        self.rank = rank
         self.map = map
         super.init(nibName: nil, bundle: nil)
     }
@@ -28,8 +27,20 @@ class ResultsViewController: UIViewController {
         super.viewDidLoad()
 //        view.backgroundColor = .white
         
+        saveTimeRecord()
         setupTrackInfoView()
         setupBackButton()
+    }
+    
+    private func setupRank() {
+        Task {
+            await
+            GameCenterService.shared.getDataFromGameCenter(leaderboardID: .recordID)
+            for player in GameCenterService.shared.playersData {
+                rank.append(PlayerTimeRankModel(playerName: player.name, playerBestTime: player.score))
+            }
+        }
+        
     }
     
     private func setupTrackInfoView() {
@@ -39,7 +50,7 @@ class ResultsViewController: UIViewController {
         
         // Example data
         trackInfoView.lapTimes = laps
-        trackInfoView.totalTime = 94.061
+        trackInfoView.totalTime = sumTotalTime()
         trackInfoView.rankings = rank
         trackInfoView.titleMap = map
         
@@ -67,24 +78,40 @@ class ResultsViewController: UIViewController {
         ])
     }
     
+    private func saveTimeRecord() {
+        let userDefault = UserDefaults.standard
+        
+        if userDefault.timeRecord == 0 || userDefault.timeRecord < sumTotalTime() {
+            userDefault.timeRecord = sumTotalTime()
+            Task {
+                await
+                GameCenterService.shared.setNewRecord(recordTime: sumTotalTime(), leaderboardID: .recordID)
+            }
+        }
+    }
+    
     @objc private func backButtonTapped() {
         // Handle back button tap
         print("Back to home Tapped")
         dismiss(animated: true)
         delegate?.backTapped()
     }
+    
+    private func sumTotalTime()-> TimeInterval {
+        return laps.reduce(0, +)
+    }
 }
 
-let lapTimes = [33.561, 28.832, 32.757]
-let totalTime = 94.061
-let rankings = [
-        PlayerTimeRankModel(playerName: "Gustavo", playerBestTime: 92.327),
-        PlayerTimeRankModel(playerName: "Jairo", playerBestTime: 94.061),
-        PlayerTimeRankModel(playerName: "Ishida", playerBestTime: 96.943),
-        PlayerTimeRankModel(playerName: "Fernanda", playerBestTime: 101.755),
-        PlayerTimeRankModel(playerName: "Andrezin", playerBestTime: 102.322)
-]
-let map = "Mount Fuji Track"
-#Preview{
-    ResultsViewController(laps: lapTimes , rank: rankings, map: map)
-}
+//let lapTimes = [33.561, 28.832, 32.757]
+//let totalTime = 94.061
+//let rankings = [
+//        PlayerTimeRankModel(playerName: "Gustavo", playerBestTime: 92.327),
+//        PlayerTimeRankModel(playerName: "Jairo", playerBestTime: 94.061),
+//        PlayerTimeRankModel(playerName: "Ishida", playerBestTime: 96.943),
+//        PlayerTimeRankModel(playerName: "Fernanda", playerBestTime: 101.755),
+//        PlayerTimeRankModel(playerName: "Andrezin", playerBestTime: 102.322)
+//]
+//let map = "Mount Fuji Track"
+//#Preview{
+//    ResultsViewController(laps: lapTimes , rank: rankings, map: map)
+//}
