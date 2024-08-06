@@ -12,7 +12,7 @@ class OnboardCollectionViewCell: UICollectionViewCell {
 //        layer.borderColor = .init(red: 1, green: 0, blue: 0, alpha: 1)
 //        layer.borderWidth = 3
     }
-    
+     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -33,8 +33,12 @@ class OnboardCollectionViewCell: UICollectionViewCell {
         containerView.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            view.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
+//            view.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+//            view.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
+            view.topAnchor.constraint(equalTo: self.topAnchor, constant: self.frame.height * 0.1),
+            view.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            view.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.frame.width * 0.1),
+            view.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(self.frame.width * 0.1))
         ])
     }
 }

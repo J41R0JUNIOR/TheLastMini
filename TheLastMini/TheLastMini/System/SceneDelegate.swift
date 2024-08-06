@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         self.window = UIWindow(windowScene: windowScene)
-        let navigationController = UINavigationController(rootViewController: HomeViewController() /*GameView()*/)
+        let navigationController = UINavigationController(rootViewController: OnboardView())
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
     }
