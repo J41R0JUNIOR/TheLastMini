@@ -27,8 +27,6 @@ class MovementSystem {
         canMove = true
     }
     
- 
-    
     var steeringAngle: CGFloat = 0.0
     var engineForce: CGFloat = 0.0
     var canMove: Bool = false

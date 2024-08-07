@@ -149,7 +149,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createWheel(lado: Lado) -> SCNNode {
-        let wheel = lado == .L ? "Ll.usdz" : "Rr.usdz"
+        let wheel = lado == .L ? "Left_Wheel_3-2.usdz" : "Right_Wheel_3-2.usdz"
         guard let wheelNode = SCNScene(named: wheel)?.rootNode else {
             fatalError("Could not load wheel asset")
         }
@@ -157,7 +157,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createChassis() -> SCNNode {
-        guard let chassis = SCNScene(named: "MmR.usdz"),
+        guard let chassis = SCNScene(named: "Car_Chassis_3-2.usdz"),
               let chassisNode = chassis.rootNode.childNodes.first else {
             fatalError("Could not load chassis asset")
         }
@@ -165,7 +165,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createSpeedway(setPhysics: Bool) ->SCNNode{
-        guard let pista = SCNScene(named: "TestPistaWallMaior.usdz"),
+        guard let pista = SCNScene(named: "pistateste_02.usdz"),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
         }
@@ -175,37 +175,37 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         if setPhysics {
             
-            for i in 1...6 {
-                guard let checkNode = pistaNode.childNode(withName: "Checkpoint\(i)", recursively: true) else { fatalError("Checkpoint\(i) not found") }
+            for i in 1...12 {
+                guard let checkNode = pistaNode.childNode(withName: "CP\(i)", recursively: true) else { fatalError("Checkpoint\(i) not found") }
                 checkNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
                 checkNode.physicsBody?.categoryBitMask = BodyType.check.rawValue
                 checkNode.name = "\(i)"
                 checkpointsNode.append(checkNode)
             }
             
-            for i in 1...4 {
-                guard let wallNode = pistaNode.childNode(withName: "InvWall\(i)", recursively: true) else { fatalError("InvWall\(i) not found") }
-                wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode))
-                wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
-                //            checkNode.name = "wall\(i)"
-            }
+//            for i in 1...4 {
+//                guard let wallNode = pistaNode.childNode(withName: "InvWall\(i)", recursively: true) else { fatalError("InvWall\(i) not found") }
+//                wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode))
+//                wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+//                //            checkNode.name = "wall\(i)"
+//            }
             
-            guard let finishNode = pistaNode.childNode(withName: "Finish", recursively: true) else { fatalError("Finish Node not found") }
-            finishNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-            finishNode.physicsBody?.categoryBitMask = BodyType.finish.rawValue
-            self.finishNode = finishNode
+//            guard let finishNode = pistaNode.childNode(withName: "CP1", recursively: true) else { fatalError("Finish Node not found") }
+//            finishNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+//            finishNode.physicsBody?.categoryBitMask = BodyType.finish.rawValue
+//            self.finishNode = finishNode
             
-            guard let groundNode = pistaNode.childNode(withName: "Ground", recursively: true) else { fatalError("Ground Node not found") }
+            guard let groundNode = pistaNode.childNode(withName: "Pista", recursively: true) else { fatalError("Ground Node not found") }
             groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
             groundNode.physicsBody?.categoryBitMask = BodyType.ground.rawValue
             
-            guard let centerWall = pistaNode.childNode(withName: "CenterWall", recursively: true) else { fatalError("CenterWall Node not found") }
-            centerWall.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-            centerWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+//            guard let centerWall = pistaNode.childNode(withName: "Paredes", recursively: true) else { fatalError("CenterWall Node not found") }
+//            centerWall.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+//            centerWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
             
         }
         
-        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)
+//        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)
         pistaNode.name = "pistaNode"
 //        speedwayNode = pistaNode
         return pistaNode
