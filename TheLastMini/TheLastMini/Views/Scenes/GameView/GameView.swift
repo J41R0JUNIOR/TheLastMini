@@ -165,7 +165,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createSpeedway(setPhysics: Bool) ->SCNNode{
-        guard let pista = SCNScene(named: "pistateste_02.usdz"),
+        guard let pista = SCNScene(named: "testepista02.usdz"),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
         }
@@ -196,12 +196,17 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
 //            self.finishNode = finishNode
             
             guard let groundNode = pistaNode.childNode(withName: "Pista", recursively: true) else { fatalError("Ground Node not found") }
-            groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: groundNode))
+            groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: groundNode, options: nil))
             groundNode.physicsBody?.categoryBitMask = BodyType.ground.rawValue
             
-//            guard let centerWall = pistaNode.childNode(withName: "Paredes", recursively: true) else { fatalError("CenterWall Node not found") }
-//            centerWall.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-//            centerWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+            guard let externalWall = pistaNode.childNode(withName: "Paredes externas", recursively: true) else { fatalError("Paredes externas Node not found") }
+            externalWall.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: externalWall, options: nil))
+            externalWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+            
+            guard let internalWall = pistaNode.childNode(withName: "Paredes internas", recursively: true) else { fatalError("Paredes internas Node not found") }
+            internalWall.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: externalWall, options: nil))
+            internalWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+//            centerWall.isHidden = true
             
         }
         
