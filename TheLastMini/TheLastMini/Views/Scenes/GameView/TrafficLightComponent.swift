@@ -14,8 +14,10 @@ class TrafficLightComponent: UIView{
     let light2 = UIView()
     let light3 = UIView()
     
-     var delegate: TrafficLightDelegate?
+    var delegate: TrafficLightDelegate?
     
+    private let soundManager: SoundManager = SoundManager.shared
+
     private var allGreen = false
 
     override init(frame: CGRect) {
@@ -66,9 +68,13 @@ class TrafficLightComponent: UIView{
         var count = 0
         let lights = [light1, light2, light3]
         
+        
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             
             if count == 3 {
+                Task{
+                    await self.soundManager.playSong(fileName: .countSemaforoFinish)
+                }
                 for light in lights {
                     light.backgroundColor = .green
                 }
@@ -77,6 +83,9 @@ class TrafficLightComponent: UIView{
                 self.delegate?.changed()
                 timer.invalidate()
             } else {
+                Task{
+                    await self.soundManager.playSong(fileName: .countSemaforoInit)
+                }
                 lights[count].backgroundColor = .yellow
             }
             
