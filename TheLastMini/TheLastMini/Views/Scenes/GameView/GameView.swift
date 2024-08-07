@@ -8,6 +8,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     var isVehicleAdded = false
     
     private var shouldHandleResetRequest = false
+    private var isInicialazeCoachi = false
     private var soundManager: SoundManager = SoundManager.shared
 
     var checkpointsNode: [SCNNode?] = []
@@ -56,6 +57,16 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     private lazy var resumoView: ResultsViewController = {
         return ResultsViewController(map: "Mount Fuji Track")
     }()
+    
+    private lazy var label: UILabel = {
+        let label = UILabel()
+        label.text = "Posicione a pista e clique na tela para posicionar"
+        label.font = .systemFont(ofSize: 16, weight: .black)
+        label.textColor = .black
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
       
     private var idleAudioPlayer: SCNAudioPlayer?
     private var accelerateAudioPlayer: SCNAudioPlayer?
@@ -94,7 +105,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         focusNode.childNodes.forEach { $0.removeFromParentNode() }
 
         let customNode = createSpeedway(setPhysics: false)
-        print("Estou aqui: ", sceneView.scene.rootNode.childNodes.count, " [-] ", sceneView.scene.rootNode.childNodes)
+//        print("Estou aqui: ", sceneView.scene.rootNode.childNodes.count, " [-] ", sceneView.scene.rootNode.childNodes)
 
         if customNode.parent != nil {
             focusNode.addChildNode(customNode)
@@ -319,13 +330,14 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         self.playTimer()
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        
+//        self.playTimer()
+//    }
     
     @objc func gameLoop(displayLink: CADisplayLink) {
         let deltaTime = displayLink.duration
@@ -350,9 +362,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.finish.rawValue) ||
             (nodeA.physicsBody?.categoryBitMask == BodyType.finish.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
 //            print("Carrinho passou pelo Finish")
-            for node in checkpointsNode {
-//                print("Checkpoint \(String(describing: node?.name)): \(String(describing: node?.isCheck))")
-            }
+//            for node in checkpointsNode {
+////                print("Checkpoint \(String(describing: node?.name)): \(String(describing: node?.isCheck))")
+//            }
             
             if checkpointsNode.allSatisfy({ $0!.isCheck }) {
 //                print("Todos os checkpoints estão ativados")
@@ -368,7 +380,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                     lapAndTimer.pauseTimer()
                     Task{
 //                        await self.soundManager.playSong(fileName: .voiceCong)
-                        await self.soundManager.playSong(fileName: .soundCong)
+                        await self.soundManager.playSong(fileName: .soundCong, .soundEffect)
                     }
                     DispatchQueue.main.async {
                         self.endView.isHidden = false
@@ -421,14 +433,19 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     private func playTimer(){
-        Timer.scheduledTimer(withTimeInterval: 6, repeats: true) { time in
-            //label talvez
-            //call function
-            print("✅✅✅⬇️🚨🚨🚨🚨🚨🚨🚨🚨")
-//            if !shouldHandleResetRequest{
-//                
-//            }
+        Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { [self] time in
+            if !isInicialazeCoachi/*shouldHandleResetRequest*/{
+                print("✅✅✅⬇️🚨🚨🚨🚨🚨🚨🚨🚨")
+                setupDefualtConfig()
+            }
         }
+    }
+    
+    private func setupDefualtConfig(){
+        self.coachingOverlay.removeFromSuperview()
+        configureFocusNode()
+        setupTapGesture()
+        self.label.isHidden = false
     }
 }
 
@@ -438,18 +455,16 @@ extension ARSCNView: ARSmartHitTest { }
 extension GameView: ARCoachingOverlayViewDelegate{
     func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
         print("Vai comecar ✅")
+        self.isInicialazeCoachi = true
     }
     
     func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
         print("Sera que foi agora? 🐐")
         if !shouldHandleResetRequest{
             shouldHandleResetRequest = true
-            coachingOverlayView.removeFromSuperview()
-            configureFocusNode()
-            setupTapGesture()
+            self.setupDefualtConfig()
             return
         }
-        
     }
 }
 
@@ -484,7 +499,7 @@ extension GameView: NavigationDelegate{
 
 extension GameView: ViewCode{
     func addViews() {
-        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent, lapAndTimer, endView, carControlComponent)
+        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent, lapAndTimer, endView, carControlComponent, label)
         
         self.replaceAndPlay.delegate = self
         self.trafficLightComponent.delegate = self
@@ -492,7 +507,6 @@ extension GameView: ViewCode{
         self.focusNode.name = "focusNode"
         carControlComponent.isHidden = true
         self.resumoView.delegate = self
-
     }
     
     func addContrains() {
@@ -522,7 +536,10 @@ extension GameView: ViewCode{
             carControlComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             carControlComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             carControlComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            carControlComponent.heightAnchor.constraint(equalToConstant: 200)
+            carControlComponent.heightAnchor.constraint(equalToConstant: 200),
+            
+            label.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            label.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
     }
     

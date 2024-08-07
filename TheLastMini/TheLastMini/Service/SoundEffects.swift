@@ -18,13 +18,26 @@ enum FileName: String {
     case accelerateCar3 = "03-nissan_skyline_r34"
 }
 
+enum TypeSound{
+    case soundEffect, music
+}
+
 class SoundManager {
     static let shared = SoundManager()
     private var audioPlayer: AVAudioPlayer?
+    private let userDefualt: UserDefaults = UserDefaults.standard
 
     private init() {}
 
-   public func playSong(fileName: FileName) async {
+    public func playSong(fileName: FileName, _ type: TypeSound) async {
+        if type == .music && userDefualt.isActivatedMusic == true{
+            await self.startSoung(fileName: fileName)
+        }else if type == .soundEffect && userDefualt.soundEffects == true{
+            await self.startSoung(fileName: fileName)
+        }
+    }
+    
+    private func startSoung(fileName: FileName) async{
         await withCheckedContinuation { continuation in
             DispatchQueue.global().async {
                 guard let url = Bundle.main.url(forResource: fileName.rawValue, withExtension: "mp3") else {

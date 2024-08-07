@@ -73,7 +73,7 @@ class TrafficLightComponent: UIView{
             
             if count == 3 {
                 Task{
-                    await self.soundManager.playSong(fileName: .countSemaforoFinish)
+                    await self.soundManager.playSong(fileName: .countSemaforoFinish, .soundEffect)
                 }
                 for light in lights {
                     light.backgroundColor = .green
@@ -84,7 +84,7 @@ class TrafficLightComponent: UIView{
                 timer.invalidate()
             } else {
                 Task{
-                    await self.soundManager.playSong(fileName: .countSemaforoInit)
+                    await self.soundManager.playSong(fileName: .countSemaforoInit, .soundEffect)
                 }
                 lights[count].backgroundColor = .yellow
             }
