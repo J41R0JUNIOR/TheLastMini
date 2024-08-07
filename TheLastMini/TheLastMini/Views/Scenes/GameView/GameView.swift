@@ -337,7 +337,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                 for node in checkpointsNode {
                     node?.isCheck = false
                 }
-                if lapAndTimer.currentLap != 2 {
+                if lapAndTimer.currentLap != 1 {
                     DispatchQueue.main.async {
                         self.lapAndTimer.addLap()
                     }
@@ -348,6 +348,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                             self.resumoView.laps = self.lapAndTimer.lapsTime
                             self.resumoView.saveTimeRecord()
+                            self.resumoView.setupTrackInfoView()
                             self.present(self.resumoView, animated: false)
                         }
                     }

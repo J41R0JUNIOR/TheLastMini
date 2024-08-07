@@ -15,8 +15,7 @@ class ResultsViewController: UIViewController {
     
     var delegate: ResultsViewControllerDelegate?
     
-    init(/*laps: [TimeInterval], */map: String) {
-//        self.laps = laps
+    init(map: String) {
         self.map = map
         
         super.init(nibName: nil, bundle: nil)
@@ -28,14 +27,16 @@ class ResultsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = .white
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-//        saveTimeRecord()
-        
+        setupRank()
     }
     
     public func setupRank() {
-//        rank = rankings
         Task {
             await gameCenterService.fetchData(leaderboardID: .recordID)
             for player in gameCenterService.playersData {
@@ -46,13 +47,8 @@ class ResultsViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        setupRank()
-    }
     
-    private func setupTrackInfoView() {
+    public func setupTrackInfoView() {
         trackInfoView = TrackInfoView()
         trackInfoView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(trackInfoView)
@@ -112,16 +108,3 @@ class ResultsViewController: UIViewController {
     }
 }
 
-//let lapTimes = [33.561, 28.832, 32.757]
-//let totalTime = 94.061
-//let rankings = [
-//        PlayerTimeRankModel(playerName: "Gustavo", playerBestTime: "92.327"),
-//        PlayerTimeRankModel(playerName: "Andre", playerBestTime: "92.327"),
-//        PlayerTimeRankModel(playerName: "Carlos", playerBestTime: "92.327"),
-//        PlayerTimeRankModel(playerName: "Mendonca", playerBestTime: "92.327"),
-//
-//]
-//let map = "Mount Fuji Track"
-//#Preview{
-//    ResultsViewController(laps: lapTimes , rank: rankings, map: map)
-//}

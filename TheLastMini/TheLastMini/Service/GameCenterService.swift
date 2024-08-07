@@ -12,7 +12,7 @@ class GameCenterService: ObservableObject{
      
     static let shared: GameCenterService = GameCenterService()
 
-    public   let localPlayer: GKLocalPlayer = {
+    public let localPlayer: GKLocalPlayer = {
         let player = GKLocalPlayer.local
         
         return player
