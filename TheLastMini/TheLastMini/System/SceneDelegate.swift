@@ -20,6 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
            await requestPermission()
         }
         
+        let user = UserDefaults.standard
+        
+        print(user.timeRecord, " Bla Bla Bla")
         self.window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController(rootViewController: OnboardView())
         self.window?.rootViewController = navigationController
@@ -27,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     public func requestPermission() async {
-        let localPlayer = GKLocalPlayer.local
+        let localPlayer = GameCenterService.shared.localPlayer
         localPlayer.authenticateHandler = { (viewController, error) in
             if let viewController = viewController{
                 viewController.present(viewController, animated: true)
