@@ -199,11 +199,11 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: groundNode, options: nil))
             groundNode.physicsBody?.categoryBitMask = BodyType.ground.rawValue
             
-            guard let externalWall = pistaNode.childNode(withName: "Paredes externas", recursively: true) else { fatalError("Paredes externas Node not found") }
+            guard let externalWall = pistaNode.childNode(withName: "Paredes_externas", recursively: true) else { fatalError("Paredes externas Node not found") }
             externalWall.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: externalWall, options: nil))
             externalWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
             
-            guard let internalWall = pistaNode.childNode(withName: "Paredes internas", recursively: true) else { fatalError("Paredes internas Node not found") }
+            guard let internalWall = pistaNode.childNode(withName: "Paredes_internas", recursively: true) else { fatalError("Paredes internas Node not found") }
             internalWall.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: externalWall, options: nil))
             internalWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
 //            centerWall.isHidden = true
@@ -237,7 +237,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let x: Double = 0.025
         let y: Double = 0
         let zf: Double = 0.0388
-        let zb: Double = 0.0234
+        let zb: Double = 0.02
         
         
 //        let x: Double = 0.19
@@ -262,8 +262,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
 //        wheel4.frictionSlip = 1
                 
         
-        let suspensionRestLength = 0.008
-//        let suspensionRestLength = 0.15
+//        let suspensionRestLength = 0.008
+        let suspensionRestLength = 0.15
 
         
         
