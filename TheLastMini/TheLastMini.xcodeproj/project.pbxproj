@@ -30,6 +30,8 @@
 		C03B0EC02C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C03B0EBD2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz */; };
 		C03B0EC12C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C03B0EBE2C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz */; };
 		C05638C92C596CC200742377 /* speedway.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C05638C82C596CC200742377 /* speedway.usdz */; };
+		C080D18C2C63E3C10096C6EB /* pistateste_02.scn in Resources */ = {isa = PBXBuildFile; fileRef = C080D18B2C63E3C10096C6EB /* pistateste_02.scn */; };
+		C080D18F2C63F7C70096C6EB /* testepista02.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C080D18E2C63F7C70096C6EB /* testepista02.usdz */; };
 		C089E0F62C5AD47C0003E40E /* TestCompleteSpeedway.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C089E0F52C5AD47C0003E40E /* TestCompleteSpeedway.usdz */; };
 		C0BCBCF02C613C8B0035BCC0 /* LapAndTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCEC2C613C8B0035BCC0 /* LapAndTimerView.swift */; };
 		C0BCBCF12C613C8B0035BCC0 /* EndRaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCED2C613C8B0035BCC0 /* EndRaceView.swift */; };
@@ -84,6 +86,9 @@
 		C03B0EBD2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Left_Wheel_3-2.usdz"; sourceTree = "<group>"; };
 		C03B0EBE2C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Car_Chassis_3-2.usdz"; sourceTree = "<group>"; };
 		C05638C82C596CC200742377 /* speedway.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = speedway.usdz; sourceTree = "<group>"; };
+		C080D18B2C63E3C10096C6EB /* pistateste_02.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = pistateste_02.scn; sourceTree = "<group>"; };
+		C080D18D2C63E9F00096C6EB /* LunarRover_English.reality */ = {isa = PBXFileReference; lastKnownFileType = file; path = LunarRover_English.reality; sourceTree = "<group>"; };
+		C080D18E2C63F7C70096C6EB /* testepista02.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = testepista02.usdz; sourceTree = "<group>"; };
 		C089E0F52C5AD47C0003E40E /* TestCompleteSpeedway.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = TestCompleteSpeedway.usdz; sourceTree = "<group>"; };
 		C0BCBCEC2C613C8B0035BCC0 /* LapAndTimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LapAndTimerView.swift; path = TheLastMini/Views/Scenes/GameView/ViewComponents/LapAndTimerView.swift; sourceTree = SOURCE_ROOT; };
 		C0BCBCED2C613C8B0035BCC0 /* EndRaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EndRaceView.swift; path = TheLastMini/Views/Scenes/GameView/ViewComponents/EndRaceView.swift; sourceTree = SOURCE_ROOT; };
@@ -192,9 +197,12 @@
 				C01B33182C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz */,
 				C01B331A2C5D532D000C4AE3 /* TestSpeedwayCheckDown1_5.usdz */,
 				C03B0EB42C62B5B7007C7CB0 /* pistateste_02.usdz */,
+				C080D18B2C63E3C10096C6EB /* pistateste_02.scn */,
 				C03B0EBE2C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz */,
 				C03B0EBD2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz */,
 				C03B0EBC2C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz */,
+				C080D18D2C63E9F00096C6EB /* LunarRover_English.reality */,
+				C080D18E2C63F7C70096C6EB /* testepista02.usdz */,
 			);
 			path = ARAssets;
 			sourceTree = "<group>";
@@ -399,6 +407,7 @@
 				B384A5602C580D8F002FA243 /* MmR.usdz in Resources */,
 				D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */,
 				C03B0EC02C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz in Resources */,
+				C080D18C2C63E3C10096C6EB /* pistateste_02.scn in Resources */,
 				B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */,
 				C089E0F62C5AD47C0003E40E /* TestCompleteSpeedway.usdz in Resources */,
 				B384A5612C580D8F002FA243 /* Rr.usdz in Resources */,
@@ -406,6 +415,7 @@
 				C0BCBCF22C613C8B0035BCC0 /* TestPistaWallMaior.usdz in Resources */,
 				C01B331B2C5D532E000C4AE3 /* TestSpeedwayCheckDown1_5.usdz in Resources */,
 				C01B33192C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz in Resources */,
+				C080D18F2C63F7C70096C6EB /* testepista02.usdz in Resources */,
 				C03B0EC12C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz in Resources */,
 				C03B0EB52C62B5B7007C7CB0 /* pistateste_02.usdz in Resources */,
 			);
