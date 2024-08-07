@@ -196,7 +196,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
 //            self.finishNode = finishNode
             
             guard let groundNode = pistaNode.childNode(withName: "Pista", recursively: true) else { fatalError("Ground Node not found") }
-            groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+            groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: groundNode))
             groundNode.physicsBody?.categoryBitMask = BodyType.ground.rawValue
             
 //            guard let centerWall = pistaNode.childNode(withName: "Paredes", recursively: true) else { fatalError("CenterWall Node not found") }
@@ -229,21 +229,39 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let wheel3 = SCNPhysicsVehicleWheel(node: wheel3Node)
         let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
         
-        let x: Double = 0.19
+        let x: Double = 0.025
         let y: Double = 0
-        let z: Double = 0.25
+        let zf: Double = 0.0388
+        let zb: Double = 0.0234
         
-        wheel1.connectionPosition = SCNVector3(-x, y, z)
-        wheel2.connectionPosition = SCNVector3(x, y, z)
-        wheel3.connectionPosition = SCNVector3(-x, y, -z)
-        wheel4.connectionPosition = SCNVector3(x, y, -z)
+        
+//        let x: Double = 0.19
+//        let y: Double = 0
+//        let zf: Double = 0.25
+//        let zb: Double = 0.25
+
+        
+        wheel1.connectionPosition = SCNVector3(-x, y, zf)
+        wheel2.connectionPosition = SCNVector3(x, y, zf)
+        wheel3.connectionPosition = SCNVector3(-x, y, -zb)
+        wheel4.connectionPosition = SCNVector3(x, y, -zb)
         
         wheel1.suspensionStiffness = CGFloat(20)
         wheel2.suspensionStiffness = CGFloat(20)
         wheel3.suspensionStiffness = CGFloat(20)
         wheel4.suspensionStiffness = CGFloat(20)
+        
+//        wheel1.frictionSlip = 1
+//        wheel2.frictionSlip = 1
+//        wheel3.frictionSlip = 1
+//        wheel4.frictionSlip = 1
                 
-        let suspensionRestLength = 0.15
+        
+        let suspensionRestLength = 0.008
+//        let suspensionRestLength = 0.15
+
+        
+        
         wheel1.suspensionRestLength = suspensionRestLength
         wheel2.suspensionRestLength = suspensionRestLength
         wheel3.suspensionRestLength = suspensionRestLength
@@ -258,6 +276,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         chassisNode.position = position
         chassisNode.position.y += 0.3
+//        chassisNode.position.x -= 1
         self.addNodeToScene(node: chassisNode)
 //        sceneView.scene.rootNode.addChildNode(chassisNode)
 

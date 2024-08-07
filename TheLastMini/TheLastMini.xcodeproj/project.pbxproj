@@ -26,8 +26,8 @@
 		C01B33192C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C01B33182C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz */; };
 		C01B331B2C5D532E000C4AE3 /* TestSpeedwayCheckDown1_5.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C01B331A2C5D532D000C4AE3 /* TestSpeedwayCheckDown1_5.usdz */; };
 		C03B0EB52C62B5B7007C7CB0 /* pistateste_02.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C03B0EB42C62B5B7007C7CB0 /* pistateste_02.usdz */; };
-		C03B0EBF2C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C03B0EBC2C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz */; };
-		C03B0EC02C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C03B0EBD2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz */; };
+		C03B0EBF2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C03B0EBC2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz */; };
+		C03B0EC02C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C03B0EBD2C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz */; };
 		C03B0EC12C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C03B0EBE2C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz */; };
 		C05638C92C596CC200742377 /* speedway.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C05638C82C596CC200742377 /* speedway.usdz */; };
 		C089E0F62C5AD47C0003E40E /* TestCompleteSpeedway.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C089E0F52C5AD47C0003E40E /* TestCompleteSpeedway.usdz */; };
@@ -80,8 +80,8 @@
 		C01B33182C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = TestSpeedwayCheckDown1.usdz; sourceTree = "<group>"; };
 		C01B331A2C5D532D000C4AE3 /* TestSpeedwayCheckDown1_5.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = TestSpeedwayCheckDown1_5.usdz; sourceTree = "<group>"; };
 		C03B0EB42C62B5B7007C7CB0 /* pistateste_02.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pistateste_02.usdz; sourceTree = "<group>"; };
-		C03B0EBC2C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Right_Wheel_3-2.usdz"; sourceTree = "<group>"; };
-		C03B0EBD2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Left_Wheel_3-2.usdz"; sourceTree = "<group>"; };
+		C03B0EBC2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Left_Wheel_3-2.usdz"; sourceTree = "<group>"; };
+		C03B0EBD2C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Right_Wheel_3-2.usdz"; sourceTree = "<group>"; };
 		C03B0EBE2C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Car_Chassis_3-2.usdz"; sourceTree = "<group>"; };
 		C05638C82C596CC200742377 /* speedway.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = speedway.usdz; sourceTree = "<group>"; };
 		C089E0F52C5AD47C0003E40E /* TestCompleteSpeedway.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = TestCompleteSpeedway.usdz; sourceTree = "<group>"; };
@@ -193,8 +193,8 @@
 				C01B331A2C5D532D000C4AE3 /* TestSpeedwayCheckDown1_5.usdz */,
 				C03B0EB42C62B5B7007C7CB0 /* pistateste_02.usdz */,
 				C03B0EBE2C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz */,
-				C03B0EBD2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz */,
-				C03B0EBC2C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz */,
+				C03B0EBD2C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz */,
+				C03B0EBC2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz */,
 			);
 			path = ARAssets;
 			sourceTree = "<group>";
@@ -398,11 +398,11 @@
 				C05638C92C596CC200742377 /* speedway.usdz in Resources */,
 				B384A5602C580D8F002FA243 /* MmR.usdz in Resources */,
 				D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */,
-				C03B0EC02C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz in Resources */,
+				C03B0EC02C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz in Resources */,
 				B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */,
 				C089E0F62C5AD47C0003E40E /* TestCompleteSpeedway.usdz in Resources */,
 				B384A5612C580D8F002FA243 /* Rr.usdz in Resources */,
-				C03B0EBF2C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz in Resources */,
+				C03B0EBF2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz in Resources */,
 				C0BCBCF22C613C8B0035BCC0 /* TestPistaWallMaior.usdz in Resources */,
 				C01B331B2C5D532E000C4AE3 /* TestSpeedwayCheckDown1_5.usdz in Resources */,
 				C01B33192C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz in Resources */,
@@ -589,7 +589,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SJYF62B3PZ;
+				DEVELOPMENT_TEAM = KV78S9S54R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
@@ -604,7 +604,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMinii1;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMiniii;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -624,7 +624,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SJYF62B3PZ;
+				DEVELOPMENT_TEAM = KV78S9S54R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
@@ -639,7 +639,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMinii1;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMiniii;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
