@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         print(user.timeRecord, " Bla Bla Bla")
         self.window = UIWindow(windowScene: windowScene)
-        let navigationController = UINavigationController(rootViewController: OnboardView())
+        let navigationController = UINavigationController(rootViewController: /*OnboardView()*/ HomeViewController())
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
     }
