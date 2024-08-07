@@ -41,10 +41,10 @@ extension HomeViewController: ViewCode{
     
     func addContrains() {
         NSLayoutConstraint.activate([
-            topViewButtons.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            topViewButtons.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            topViewButtons.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            topViewButtons.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
+            topViewButtons.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            topViewButtons.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            topViewButtons.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20),
+            topViewButtons.widthAnchor.constraint(equalTo: view.widthAnchor),
             topViewButtons.heightAnchor.constraint(equalToConstant: 50),
             
             //CAROUSEL

@@ -9,7 +9,7 @@ import UIKit
 
 class SwitchViewComponent: UIView {
     
-    private lazy var switchCuston: UISwitch = {
+    public lazy var switchCuston: UISwitch = {
         let switchC = UISwitch()
         switchC.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
         switchC.translatesAutoresizingMaskIntoConstraints = false
@@ -19,8 +19,8 @@ class SwitchViewComponent: UIView {
     private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "nil"
-        label.font = .systemFont(ofSize: 16, weight: .medium)
-        label.textColor = .black
+        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -50,7 +50,7 @@ extension SwitchViewComponent: ViewCode{
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             
-            switchCuston.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            switchCuston.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 20)
         ])
     }
     

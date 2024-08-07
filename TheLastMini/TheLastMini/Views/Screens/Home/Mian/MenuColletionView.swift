@@ -21,6 +21,7 @@ class MenuColletionView: UIView {
         
         let colletion = UICollectionView(frame: .zero, collectionViewLayout: layout)
         colletion.register(MenuCollectioViewCell.self, forCellWithReuseIdentifier: MenuCollectioViewCell.identifier)
+        colletion.backgroundColor = .red
         colletion.delegate = self
         colletion.dataSource = self
         colletion.translatesAutoresizingMaskIntoConstraints = false
@@ -84,17 +85,19 @@ extension MenuColletionView: UICollectionViewDelegate, UICollectionViewDataSourc
         }
         
         let image = model[indexPath.row].image
-        let label = model[indexPath.row].text
         
-        cell.configure(image, label)
+        cell.configure(image)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Clickei no [\(indexPath.row) - \(model[indexPath.row].text)]")
         delegate?.navigationTo(indexPath.row)
     }
     
 
+}
+
+#Preview{
+    MenuCollectionViewController()
 }

@@ -5,6 +5,7 @@ import SmartHitTest
 
 class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate, TrafficLightDelegate {
     var sceneView: ARSCNView = ARSCNView(frame: .zero)
+    let userDefualt: UserDefaults = UserDefaults.standard
     var isVehicleAdded = false
     
     private var shouldHandleResetRequest = false
@@ -18,6 +19,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     let movementSystem = MovementSystem()
     let renderSystem = RenderSystem()
     let focusNode = FocusNode()
+    
+    private var carNode: SCNNode = SCNNode()
     
     var tapGesture: UITapGestureRecognizer?
         
@@ -80,9 +83,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         self.setupAudio()
     }
     
-    deinit{
-        self.shouldHandleResetRequest = false
-    }
     
     private func setupAudio(){
         self.idleAudioPlayer = SCNAudioPlayer(source: soundManager.loadCarAudio(.idlCar, false))
@@ -91,9 +91,14 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     private func playSong(_ audioPlayer: SCNAudioPlayer){
+        guard userDefualt.soundEffects else {return}
         guard let carNode = sceneView.scene.rootNode.childNode(withName: "CarNode", recursively: true) else { return }
         carNode.removeAllAudioPlayers()
         carNode.addAudioPlayer(audioPlayer)
+        
+//        audioPlayer.didFinishPlayback = { [self] in
+//            playSong(self.accelerateAudioPlayer!)
+//        }
     }
     
     func stopAllSounds() {
@@ -131,6 +136,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         focusNode.isHidden = true
         self.replaceAndPlay.isHidden = false
         self.tapGesture?.isEnabled = false
+        self.label.isHidden = true
 
         setupFloor(at: focusNode.position)
     }
@@ -166,8 +172,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func setupScene() {
-        
-        
         sceneView = ARSCNView(frame: self.view.frame)
         sceneView.delegate = self
         sceneView.showsStatistics = true
@@ -301,10 +305,10 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)
         chassisNode.name = "CarNode"
         self.entities.append(chassisNode)
+        self.carNode = chassisNode
         
         let vehicleComponent = VehiclePhysicsComponent(vehicle: vehicle, wheels: [wheel1, wheel2, wheel3, wheel4])
         let positionComponent = PositionComponent(position: position)
-        
         chassisNode.addComponent(vehicleComponent)
         chassisNode.addComponent(positionComponent)
         print(chassisNode.getId(), "esse é o uuid do carro gerado")
@@ -319,6 +323,12 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     func update(deltaTime: TimeInterval) {
         movementSystem.update(deltaTime: deltaTime, entities: entities)
         renderSystem.update(deltaTime: deltaTime, entities: entities)
+        
+        if let volume = movementSystem.vehiclePhysics?.vehicle.speedInKilometersPerHour, volume > 2{
+            soundManager.changeVolume(accelerateAudioPlayer!, volume*10)
+        }else {
+            playSong(self.idleAudioPlayer!)
+        }
     }
     
     // Chamar a função de atualização de jogo no loop principal
@@ -333,16 +343,16 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         self.playTimer()
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        
-//        self.playTimer()
-//    }
-    
     @objc func gameLoop(displayLink: CADisplayLink) {
         let deltaTime = displayLink.duration
         update(deltaTime: deltaTime)
     }
+    
+//    func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
+//       value += 1
+//        print("Valor e: ", self.carNode.physicsBody?.velocity.x as Any)
+//        
+//    }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         let nodeA = contact.nodeA
@@ -379,11 +389,11 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                 }else {
                     lapAndTimer.pauseTimer()
                     Task{
-//                        await self.soundManager.playSong(fileName: .voiceCong)
                         await self.soundManager.playSong(fileName: .soundCong, .soundEffect)
                     }
                     DispatchQueue.main.async {
                         self.endView.isHidden = false
+                        self.stopAllSounds()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                             self.resumoView.laps = self.lapAndTimer.lapsTime
                             self.resumoView.saveTimeRecord()
@@ -429,13 +439,16 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         movementSystem.changed()
         lapAndTimer.isHidden = false
         lapAndTimer.playTimer()
-        self.playSong(self.idleAudioPlayer!)
+        playSong(startAudioPlayer!)
+        
+        self.startAudioPlayer?.didFinishPlayback = { [self] in
+            playSong(self.accelerateAudioPlayer!)
+        }
     }
     
     private func playTimer(){
         Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { [self] time in
             if !isInicialazeCoachi/*shouldHandleResetRequest*/{
-                print("✅✅✅⬇️🚨🚨🚨🚨🚨🚨🚨🚨")
                 setupDefualtConfig()
             }
         }
@@ -482,7 +495,8 @@ extension GameView: NavigationDelegate{
                 }
                 self.isVehicleAdded = false
                 self.replaceAndPlay.toggleVisibility()
-                focusNode.isHidden = false
+                self.focusNode.isHidden = false
+                self.label.isHidden = false
                 self.tapGesture?.isEnabled = true
             }
         case 11:
@@ -500,12 +514,11 @@ extension GameView: NavigationDelegate{
 extension GameView: ViewCode{
     func addViews() {
         self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent, lapAndTimer, endView, carControlComponent, label)
-        
         self.replaceAndPlay.delegate = self
         self.trafficLightComponent.delegate = self
         self.focusNode.viewDelegate = sceneView
         self.focusNode.name = "focusNode"
-        carControlComponent.isHidden = true
+        self.carControlComponent.isHidden = true
         self.resumoView.delegate = self
     }
     

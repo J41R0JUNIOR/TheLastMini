@@ -7,6 +7,7 @@
 
 import Foundation
 import RealityKit
+import SceneKit
 
 class RenderSystem {
     func update(deltaTime: TimeInterval, entities: [Entity]) {
@@ -23,25 +24,24 @@ class RenderSystem {
 }
 
 class MovementSystem {
+    var steeringAngle: CGFloat = 0.0
+    var engineForce: CGFloat = 0.0
+    var canMove: Bool = false
+    var vehiclePhysics: VehiclePhysicsComponent?
+    
     func changed() {
         canMove = true
     }
     
- 
-    
-    var steeringAngle: CGFloat = 0.0
-    var engineForce: CGFloat = 0.0
-    var canMove: Bool = false
-    
     func update(deltaTime: TimeInterval, entities: [Entity]) {
         for entity in entities {
-            guard let vehiclePhysics = entity.getComponent(ofType: VehiclePhysicsComponent.self) else { continue }
-            
-            vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 0)
-            vehiclePhysics.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 1)
+            vehiclePhysics = entity.getComponent(ofType: VehiclePhysicsComponent.self)
+
+            vehiclePhysics?.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 0)
+            vehiclePhysics?.vehicle.setSteeringAngle(steeringAngle, forWheelAt: 1)
             if canMove {
-                vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 2)
-                vehiclePhysics.vehicle.applyEngineForce(engineForce, forWheelAt: 3)
+                vehiclePhysics?.vehicle.applyEngineForce(engineForce, forWheelAt: 2)
+                vehiclePhysics?.vehicle.applyEngineForce(engineForce, forWheelAt: 3)
             }
         }
     }

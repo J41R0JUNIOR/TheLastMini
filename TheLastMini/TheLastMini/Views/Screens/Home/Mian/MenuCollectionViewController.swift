@@ -47,10 +47,7 @@ extension MenuCollectionViewController: ViewCode{
     }
     
     func setupCells(){
-        let model: [MenuDataModel] = [MenuDataModel(image: UIImage(resource: .interlagos), text: "Interlagos"),
-                                      MenuDataModel(image: UIImage(resource: .r34), text: "Interlagos"),
-                                      MenuDataModel(image: UIImage(resource: .r34), text: "Interlagos")
-        ]
+        let model: [MenuDataModel] = [MenuDataModel(image: UIImage(resource: .bgDrgonRoad))]
         self.menuColletion.configure(model)
     }
 }
@@ -64,4 +61,8 @@ extension MenuCollectionViewController: NavigationDelegate{
             print("tag Invalida")
         }
     }
+}
+
+#Preview{
+    MenuCollectioViewCell()
 }
