@@ -14,7 +14,7 @@
 		B302B28C2C619E4F00859785 /* OnboardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B28B2C619E4F00859785 /* OnboardCollectionViewController.swift */; };
 		B302B28E2C61A23E00859785 /* OnboardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B28D2C61A23E00859785 /* OnboardCollectionView.swift */; };
 		B302B2902C61A52B00859785 /* OnboardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B28F2C61A52B00859785 /* OnboardCollectionViewCell.swift */; };
-		B302B2932C61B77A00859785 /* HelloWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2922C61B77A00859785 /* HelloWorld.swift */; };
+		B302B2932C61B77A00859785 /* BasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2922C61B77A00859785 /* BasicView.swift */; };
 		B384A5532C5808C8002FA243 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B384A5522C5808C8002FA243 /* GameView.swift */; };
 		B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55C2C580D8F002FA243 /* Ll.usdz */; };
 		B384A5602C580D8F002FA243 /* MmR.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55D2C580D8F002FA243 /* MmR.usdz */; };
@@ -41,6 +41,15 @@
 		C0BCBCF32C613C8B0035BCC0 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCEF2C613C8B0035BCC0 /* Enum.swift */; };
 		C0BCBCF62C613D570035BCC0 /* ReplaceAndPlayComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayComponent.swift */; };
 		C0BCBCF72C613D570035BCC0 /* TrafficLightComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */; };
+		D92661DA2C6154C8006FC0BB /* SoundEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92661D92C6154C8006FC0BB /* SoundEffects.swift */; };
+		D92661E62C6155A4006FC0BB /* soundCong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661E32C6155A4006FC0BB /* soundCong.mp3 */; };
+		D92661E72C6155A4006FC0BB /* voiceCong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661E42C6155A4006FC0BB /* voiceCong.mp3 */; };
+		D92661EA2C616D54006FC0BB /* race_countdown2-106294.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661E82C616D54006FC0BB /* race_countdown2-106294.mp3 */; };
+		D92661EB2C616D54006FC0BB /* race_countdown2-106294-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661E92C616D54006FC0BB /* race_countdown2-106294-2.mp3 */; };
+		D92661EF2C62A928006FC0BB /* 02-nissan_skyline_r34.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661EC2C62A927006FC0BB /* 02-nissan_skyline_r34.mp3 */; };
+		D92661F02C62A928006FC0BB /* 03-nissan_skyline_r34.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661ED2C62A927006FC0BB /* 03-nissan_skyline_r34.mp3 */; };
+		D92661F12C62A928006FC0BB /* 01-nissan_skyline_r34.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661EE2C62A927006FC0BB /* 01-nissan_skyline_r34.mp3 */; };
+		D92661F32C62A977006FC0BB /* car-idle-84718.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */; };
 		D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC682C4EDA3000E391F5 /* AppDelegate.swift */; };
 		D995CC6B2C4EDA3000E391F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */; };
 		D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D995CC712C4EDA3200E391F5 /* Assets.xcassets */; };
@@ -72,7 +81,7 @@
 		B302B28B2C619E4F00859785 /* OnboardCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardCollectionViewController.swift; sourceTree = "<group>"; };
 		B302B28D2C61A23E00859785 /* OnboardCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardCollectionView.swift; sourceTree = "<group>"; };
 		B302B28F2C61A52B00859785 /* OnboardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardCollectionViewCell.swift; sourceTree = "<group>"; };
-		B302B2922C61B77A00859785 /* HelloWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloWorld.swift; sourceTree = "<group>"; };
+		B302B2922C61B77A00859785 /* BasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicView.swift; sourceTree = "<group>"; };
 		B384A5522C5808C8002FA243 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		B384A55C2C580D8F002FA243 /* Ll.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Ll.usdz; sourceTree = "<group>"; };
 		B384A55D2C580D8F002FA243 /* MmR.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = MmR.usdz; sourceTree = "<group>"; };
@@ -100,6 +109,15 @@
 		C0BCBCEF2C613C8B0035BCC0 /* Enum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Enum.swift; path = TheLastMini/Views/Scenes/GameView/Enum.swift; sourceTree = SOURCE_ROOT; };
 		C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReplaceAndPlayComponent.swift; path = ../ReplaceAndPlayComponent.swift; sourceTree = "<group>"; };
 		C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrafficLightComponent.swift; path = ../TrafficLightComponent.swift; sourceTree = "<group>"; };
+		D92661D92C6154C8006FC0BB /* SoundEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffects.swift; sourceTree = "<group>"; };
+		D92661E32C6155A4006FC0BB /* soundCong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = soundCong.mp3; sourceTree = "<group>"; };
+		D92661E42C6155A4006FC0BB /* voiceCong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voiceCong.mp3; sourceTree = "<group>"; };
+		D92661E82C616D54006FC0BB /* race_countdown2-106294.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "race_countdown2-106294.mp3"; sourceTree = "<group>"; };
+		D92661E92C616D54006FC0BB /* race_countdown2-106294-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "race_countdown2-106294-2.mp3"; sourceTree = "<group>"; };
+		D92661EC2C62A927006FC0BB /* 02-nissan_skyline_r34.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "02-nissan_skyline_r34.mp3"; sourceTree = "<group>"; };
+		D92661ED2C62A927006FC0BB /* 03-nissan_skyline_r34.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "03-nissan_skyline_r34.mp3"; sourceTree = "<group>"; };
+		D92661EE2C62A927006FC0BB /* 01-nissan_skyline_r34.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01-nissan_skyline_r34.mp3"; sourceTree = "<group>"; };
+		D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "car-idle-84718.mp3"; sourceTree = "<group>"; };
 		D995CC652C4EDA3000E391F5 /* TheLastMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheLastMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D995CC682C4EDA3000E391F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -170,7 +188,7 @@
 		B302B2912C61B76D00859785 /* OnboardPages */ = {
 			isa = PBXGroup;
 			children = (
-				B302B2922C61B77A00859785 /* HelloWorld.swift */,
+				B302B2922C61B77A00859785 /* BasicView.swift */,
 			);
 			path = OnboardPages;
 			sourceTree = "<group>";
@@ -225,6 +243,21 @@
 			path = ViewComponents;
 			sourceTree = "<group>";
 		};
+		D92661DB2C615560006FC0BB /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */,
+				D92661EE2C62A927006FC0BB /* 01-nissan_skyline_r34.mp3 */,
+				D92661EC2C62A927006FC0BB /* 02-nissan_skyline_r34.mp3 */,
+				D92661ED2C62A927006FC0BB /* 03-nissan_skyline_r34.mp3 */,
+				D92661E92C616D54006FC0BB /* race_countdown2-106294-2.mp3 */,
+				D92661E82C616D54006FC0BB /* race_countdown2-106294.mp3 */,
+				D92661E42C6155A4006FC0BB /* voiceCong.mp3 */,
+				D92661E32C6155A4006FC0BB /* soundCong.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		D995CC5C2C4EDA3000E391F5 = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +300,7 @@
 		D995CC7E2C4EE5D800E391F5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D92661DB2C615560006FC0BB /* Sounds */,
 				D995CC7F2C4EE60B00E391F5 /* ViewCodeProtocols.swift */,
 				D995CC952C50189F00E391F5 /* Delegates.swift */,
 				D995CC9F2C502E7E00E391F5 /* ScreenInfo.swift */,
@@ -283,6 +317,7 @@
 			children = (
 				D995CC822C4EE70400E391F5 /* HapticsService.swift */,
 				D995CCC12C5AA97900E391F5 /* GameCenterService.swift */,
+				D92661D92C6154C8006FC0BB /* SoundEffects.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -417,15 +452,23 @@
 				B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */,
 				C080D1932C640C800096C6EB /* pistaWall2.usdz in Resources */,
 				C089E0F62C5AD47C0003E40E /* TestCompleteSpeedway.usdz in Resources */,
+				D92661F02C62A928006FC0BB /* 03-nissan_skyline_r34.mp3 in Resources */,
 				B384A5612C580D8F002FA243 /* Rr.usdz in Resources */,
 				C03B0EBF2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz in Resources */,
+				D92661F12C62A928006FC0BB /* 01-nissan_skyline_r34.mp3 in Resources */,
+				D92661F32C62A977006FC0BB /* car-idle-84718.mp3 in Resources */,
+				D92661E62C6155A4006FC0BB /* soundCong.mp3 in Resources */,
 				C0BCBCF22C613C8B0035BCC0 /* TestPistaWallMaior.usdz in Resources */,
+				D92661EA2C616D54006FC0BB /* race_countdown2-106294.mp3 in Resources */,
 				C01B331B2C5D532E000C4AE3 /* TestSpeedwayCheckDown1_5.usdz in Resources */,
+				D92661EF2C62A928006FC0BB /* 02-nissan_skyline_r34.mp3 in Resources */,
+				D92661E72C6155A4006FC0BB /* voiceCong.mp3 in Resources */,
 				C01B33192C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz in Resources */,
 				C080D18F2C63F7C70096C6EB /* testepista02.usdz in Resources */,
 				C03B0EC12C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz in Resources */,
 				C03B0EB52C62B5B7007C7CB0 /* pistateste_02.usdz in Resources */,
 				C080D1952C640E330096C6EB /* testePista3.usdz in Resources */,
+				D92661EB2C616D54006FC0BB /* race_countdown2-106294-2.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,8 +513,9 @@
 				D995CC9E2C502A7200E391F5 /* ConfigPopUpView.swift in Sources */,
 				C0BCBCF32C613C8B0035BCC0 /* Enum.swift in Sources */,
 				D995CCA42C50411600E391F5 /* UserDefult.swift in Sources */,
+				D92661DA2C6154C8006FC0BB /* SoundEffects.swift in Sources */,
 				D995CCC22C5AA97900E391F5 /* GameCenterService.swift in Sources */,
-				B302B2932C61B77A00859785 /* HelloWorld.swift in Sources */,
+				B302B2932C61B77A00859785 /* BasicView.swift in Sources */,
 				B39E5E572C5D72BE00D28EAA /* CarControlComponent.swift in Sources */,
 				D995CC992C501BA100E391F5 /* ConfigPopUpViewController.swift in Sources */,
 			);

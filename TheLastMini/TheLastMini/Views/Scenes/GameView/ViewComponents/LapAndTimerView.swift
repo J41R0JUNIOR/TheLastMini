@@ -38,9 +38,13 @@ class LapAndTimerView: UIView {
         }
     }
     
-    public var minutos = 0
-    public var segundos = 0
-    public var decimos = 0
+    public var minutos: Double = 0
+    public var segundos: Double = 0
+    public var decimos: Double = 0
+    
+    private var accumulatedTime: Double = 0
+    
+    public var lapsTime: [TimeInterval] = []
 
     init() {
         super.init(frame: .zero)
@@ -75,10 +79,22 @@ class LapAndTimerView: UIView {
             }
         }
         if segundos >= 0 && segundos < 10 {
-            timerLabel.text = "\(minutos):0\(segundos),\(decimos)"
+            timerLabel.text = "\(minutos.formattedWithoutDecimals()):0\(segundos.formattedWithoutDecimals()),\(decimos.formattedWithoutDecimals())"
         } else {
-            timerLabel.text = "\(minutos):\(segundos),\(decimos)"
+            timerLabel.text = "\(minutos.formattedWithoutDecimals()):\(segundos.formattedWithoutDecimals()),\(decimos.formattedWithoutDecimals())"
         }
+    }
+    
+    private func convertToTimeInterval(_ minutes: Double,_ seconds: Double,_ deciseconds: Double) -> TimeInterval {
+        let totalSeconds = (minutes * 60) + seconds + (deciseconds / 10)
+        return TimeInterval(totalSeconds)
+    }
+    
+    public func saveLapTime() {
+        var lapTime = convertToTimeInterval(minutos, segundos, decimos)
+        lapTime -= accumulatedTime
+        accumulatedTime += lapTime
+        lapsTime.append(lapTime)
     }
 
 }

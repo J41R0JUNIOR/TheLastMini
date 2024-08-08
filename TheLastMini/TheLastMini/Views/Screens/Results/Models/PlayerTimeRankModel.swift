@@ -9,5 +9,5 @@ import Foundation
 
 struct PlayerTimeRankModel{
     let playerName :  String
-    let playerBestTime : TimeInterval
+    let playerBestTime : String
 }

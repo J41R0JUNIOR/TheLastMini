@@ -10,6 +10,7 @@ import GameKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    var soundManager: SoundManager = SoundManager.shared
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else {
@@ -17,17 +18,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         Task{
-           await requestPermission()
+            await requestPermission()
+//            await soundManager.playSong(fileName: .countSemaforoInit)
         }
         
+        let user = UserDefaults.standard
+        
+        print(user.timeRecord, " Bla Bla Bla")
         self.window = UIWindow(windowScene: windowScene)
-        let navigationController = UINavigationController(rootViewController: HomeViewController())
+        let navigationController = UINavigationController(rootViewController: /*OnboardView()*/ HomeViewController())
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
     }
     
     public func requestPermission() async {
-        let localPlayer = GKLocalPlayer.local
+        let localPlayer = GameCenterService.shared.localPlayer
         localPlayer.authenticateHandler = { (viewController, error) in
             if let viewController = viewController{
                 viewController.present(viewController, animated: true)

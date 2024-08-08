@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 
 class CarControlComponent: UIView {
@@ -58,7 +57,7 @@ class CarControlComponent: UIView {
     init(movementSystem: MovementSystem, frame: CGRect) {
         self.movementSystem = movementSystem
         super.init(frame: frame)
-        setupArrowButtons()
+        setupViewCode()
     }
     
     required init?(coder: NSCoder) {
@@ -144,5 +143,45 @@ class CarControlComponent: UIView {
     
     @objc func turnLeftAction() {
         turnLeft()
+    }
+}
+
+extension CarControlComponent: ViewCode {
+    func addViews() {
+        leftStack.addArrangedSubview(leftButton)
+        leftStack.addArrangedSubview(rightButton)
+        addSubview(leftStack)
+        
+        rightStack.addArrangedSubview(forwardButton)
+        rightStack.addArrangedSubview(backwardButton)
+        addSubview(rightStack)
+    }
+    
+    func addContrains() {
+        NSLayoutConstraint.activate([
+            leftStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width * 0.05),
+            leftStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -120),
+            leftStack.widthAnchor.constraint(equalToConstant: 200),
+            leftStack.heightAnchor.constraint(equalToConstant: 50),
+            
+            rightStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -frame.width * 0.025),
+            rightStack.bottomAnchor.constraint(equalTo: leftStack.bottomAnchor),
+            rightStack.widthAnchor.constraint(equalToConstant: 100),
+            rightStack.heightAnchor.constraint(equalToConstant: 100),
+        ])
+    }
+    
+    func setupStyle() {
+        leftButton.addTarget(self, action: #selector(turnLeftAction), for: .touchDown)
+        leftButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
+        
+        rightButton.addTarget(self, action: #selector(turnRightAction), for: .touchDown)
+        rightButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
+        
+        forwardButton.addTarget(self, action: #selector(moveForwardAction), for: .touchDown)
+        forwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
+        
+        backwardButton.addTarget(self, action: #selector(moveBackwardAction), for: .touchDown)
+        backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
     }
 }
