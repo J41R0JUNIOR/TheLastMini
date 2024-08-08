@@ -56,14 +56,14 @@ extension GameView: NavigationDelegate{
 
 extension GameView: ViewCode{
     func addViews() {
-        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent, lapAndTimer, endView, carControlComponent)
+        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent, lapAndTimer, endView, carControlViewComponent)
         
         self.replaceAndPlay.delegate = self
         self.trafficLightComponent.delegate = self
         self.focusNode.viewDelegate = sceneView
         self.focusNode.name = "focusNode"
-        carControlComponent.isHidden = true
-        self.resumoView.delegate = self
+        carControlViewComponent.isHidden = true
+        self.resumoViewComponent.delegate = self
 
     }
     
@@ -91,10 +91,10 @@ extension GameView: ViewCode{
             endView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             endView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
-            carControlComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            carControlComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            carControlComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            carControlComponent.heightAnchor.constraint(equalToConstant: 200)
+            carControlViewComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            carControlViewComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            carControlViewComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            carControlViewComponent.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
     

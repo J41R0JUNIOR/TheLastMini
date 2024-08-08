@@ -59,7 +59,9 @@ extension MenuCollectionViewController: NavigationDelegate{
     func navigationTo(_ tag: Int) {
         switch tag{
         case 0:
-            navigationController?.pushViewController(GameView(), animated: true)
+            let carName = "Model1"
+            let carValues = VehicleModel(carName: carName)
+            navigationController?.pushViewController(GameView(vehicleModel: carValues), animated: true)
         default:
             print("tag Invalida")
         }

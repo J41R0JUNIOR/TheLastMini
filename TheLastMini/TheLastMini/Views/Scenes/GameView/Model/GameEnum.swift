@@ -14,3 +14,6 @@ enum BodyType: Int {
     case ground = 8
     case wall = 16
 }
+
+
+

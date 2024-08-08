@@ -4,21 +4,21 @@ import FocusNode
 import SmartHitTest
 
 class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate, TrafficLightDelegate {
-    var sceneView: ARSCNView = ARSCNView(frame: .zero)
-    var isVehicleAdded = false
-    
+    internal var sceneView: ARSCNView = ARSCNView(frame: .zero)
+    internal var isVehicleAdded = false
+    internal let vehicleModel: VehicleModel
     internal var shouldHandleResetRequest = false
     internal var soundManager: SoundManager = SoundManager.shared
-
-    var checkpointsNode: [SCNNode?] = []
-    var finishNode: SCNNode?
-    
-    var entities: [Entity] = []
-    let movementSystem = MovementSystem()
-    let renderSystem = RenderSystem()
-    let focusNode = FocusNode()
-    
-    var tapGesture: UITapGestureRecognizer?
+    internal var checkpointsNode: [SCNNode?] = []
+    private var finishNode: SCNNode?
+    private var entities: [Entity] = []
+    private let movementSystem = MovementSystem()
+    private let renderSystem = RenderSystem()
+    internal let focusNode = FocusNode()
+    internal var tapGesture: UITapGestureRecognizer?
+    private var idleAudioPlayer: SCNAudioPlayer?
+    private var accelerateAudioPlayer: SCNAudioPlayer?
+    private var startAudioPlayer: SCNAudioPlayer?
         
     ///View de animacao de scan
     internal lazy var coachingOverlay: ARCoachingOverlayView = {
@@ -45,21 +45,30 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         return view
     }()
     
-    var trafficLightComponent: TrafficLightComponent = {
+    internal var trafficLightComponent: TrafficLightComponent = {
         let view = TrafficLightComponent(frame: .init(origin: .zero, size: .init(width: 200, height: 100)))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    internal lazy var carControlComponent = CarControlComponent(movementSystem: self.movementSystem, frame: self.view.frame)
+    internal lazy var carControlViewComponent: CarControlComponent = {
+        return CarControlComponent(movementSystem: self.movementSystem, frame: self.view.frame)
+    }()
     
-    internal lazy var resumoView: ResultsViewController = {
+    internal lazy var resumoViewComponent: ResultsViewController = {
         return ResultsViewController(map: "Mount Fuji Track")
     }()
-      
-    private var idleAudioPlayer: SCNAudioPlayer?
-    private var accelerateAudioPlayer: SCNAudioPlayer?
-    private var startAudioPlayer: SCNAudioPlayer?
+    
+    
+    init(vehicleModel: VehicleModel){
+        self.vehicleModel = vehicleModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -176,7 +185,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createWheel(lado: Lado) -> SCNNode {
-        let wheel = lado == .L ? "Left_Wheel_3-2.usdz" : "Right_Wheel_3-2.usdz"
+        let wheel = lado == .L ? vehicleModel.lWheelName : vehicleModel.rWheelName
         guard let wheelNode = SCNScene(named: wheel)?.rootNode else {
             fatalError("Could not load wheel asset")
         }
@@ -184,7 +193,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createChassis() -> SCNNode {
-        guard let chassis = SCNScene(named: "Car_Chassis_3-2.usdz"),
+        guard let chassis = SCNScene(named: vehicleModel.chassisName),
               let chassisNode = chassis.rootNode.childNodes.first else {
             fatalError("Could not load chassis asset")
         }
@@ -268,28 +277,28 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let wheel3 = SCNPhysicsVehicleWheel(node: wheel3Node)
         let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
         
-        let x: Double = 0.025
-        let y: Double = -0.01
-        let zf: Double = 0.0388
-        let zb: Double = 0.02
+        let x: Double = vehicleModel.xWheel
+        let y: Double = vehicleModel.yWheel
+        let zf: Double = vehicleModel.zfWheel
+        let zb: Double = vehicleModel.zbWheel
         
         wheel1.connectionPosition = SCNVector3(-x, y, zf)
         wheel2.connectionPosition = SCNVector3(x, y, zf)
         wheel3.connectionPosition = SCNVector3(-x, y, -zb)
         wheel4.connectionPosition = SCNVector3(x, y, -zb)
         
-        wheel1.suspensionStiffness = CGFloat(50)
-        wheel2.suspensionStiffness = CGFloat(50)
-        wheel3.suspensionStiffness = CGFloat(50)
-        wheel4.suspensionStiffness = CGFloat(50)
+        wheel1.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
+        wheel2.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
+        wheel3.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
+        wheel4.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
         
-        let suspensionRestLength = 0.04
+//        let suspensionRestLength = 0.04
 //        let suspensionRestLength = 0.15
 
-        wheel1.suspensionRestLength = suspensionRestLength
-        wheel2.suspensionRestLength = suspensionRestLength
-        wheel3.suspensionRestLength = suspensionRestLength
-        wheel4.suspensionRestLength = suspensionRestLength
+        wheel1.suspensionRestLength = vehicleModel.suspensionRestLength
+        wheel2.suspensionRestLength = vehicleModel.suspensionRestLength
+        wheel3.suspensionRestLength = vehicleModel.suspensionRestLength
+        wheel4.suspensionRestLength = vehicleModel.suspensionRestLength
         
         chassisNode.addChildNode(wheel1Node)
         chassisNode.addChildNode(wheel2Node)
@@ -322,16 +331,14 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func setupControls(){
-        carControlComponent.isHidden = false
+        carControlViewComponent.isHidden = false
     }
     
-    // Atualizar a lógica de jogo a cada frame
     func update(deltaTime: TimeInterval) {
         movementSystem.update(deltaTime: deltaTime, entities: entities)
         renderSystem.update(deltaTime: deltaTime, entities: entities)
     }
     
-    // Chamar a função de atualização de jogo no loop principal
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -394,17 +401,15 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                     DispatchQueue.main.async {
                         self.endView.isHidden = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                            self.resumoView.laps = self.lapAndTimer.lapsTime
-                            self.resumoView.saveTimeRecord()
-                            self.resumoView.setupTrackInfoView()
-                            self.present(self.resumoView, animated: false)
+                            self.resumoViewComponent.laps = self.lapAndTimer.lapsTime
+                            self.resumoViewComponent.saveTimeRecord()
+                            self.resumoViewComponent.setupTrackInfoView()
+                            self.present(self.resumoViewComponent, animated: false)
                         }
                     }
                 }
             }
-            
         }
-        
     }
     
     private func verifyIsCheckNodes(nodeName: String)-> Bool {
@@ -453,9 +458,3 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
 }
 
-
-
-
-#Preview{
-    GameView()
-}
