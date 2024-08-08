@@ -22,30 +22,17 @@ struct VehicleModel {
     init(carName: String) {
         switch carName {
         case "Model1":
-            let vehicleValues = VehicleValues()
-            self.chassisName = vehicleValues.chassis
-            self.lWheelName = vehicleValues.lWheel
-            self.rWheelName = vehicleValues.rWheel
-            self.xWheel = vehicleValues.x
-            self.yWheel = vehicleValues.y
-            self.zfWheel = vehicleValues.zf
-            self.zbWheel = vehicleValues.zb
-            self.suspensionRestLength = vehicleValues.suspensionRestLength
-            self.suspensionStiffness = vehicleValues.suspensionStiffness
+            self.chassisName = "Car_Chassis_3-2.usdz"
+            self.lWheelName = "Left_Wheel_3-2.usdz"
+            self.rWheelName = "Right_Wheel_3-2.usdz"
+            self.xWheel = 0.025
+            self.yWheel = -0.01
+            self.zfWheel = 0.0388
+            self.zbWheel = 0.02
+            self.suspensionRestLength = 0.04
+            self.suspensionStiffness = 50.0
         default: break
        
         }
     }
-}
-
-struct VehicleValues {
-    let chassis = "Car_Chassis_3-2.usdz"
-    let lWheel = "Left_Wheel_3-2.usdz"
-    let rWheel = "Right_Wheel_3-2.usdz"
-    let x = 0.025
-    let y = -0.01
-    let zf = 0.0388
-    let zb = 0.02
-    let suspensionRestLength = 0.04
-    let suspensionStiffness = 50.0
 }
