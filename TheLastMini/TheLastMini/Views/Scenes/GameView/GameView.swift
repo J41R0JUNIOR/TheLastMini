@@ -312,7 +312,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         }
         
         chassisNode.position = position
-        chassisNode.position.y += 0.1
+//        chassisNode.position.y += 0.1  
 //        chassisNode.position.x -= 1
         self.addNodeToScene(node: chassisNode)
 //        sceneView.scene.rootNode.addChildNode(chassisNode)
