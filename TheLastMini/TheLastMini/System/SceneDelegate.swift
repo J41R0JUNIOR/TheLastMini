@@ -19,14 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         Task{
             await requestPermission()
-//            await soundManager.playSong(fileName: .countSemaforoInit)
         }
         
-        let user = UserDefaults.standard
         
-        print(user.timeRecord, " Bla Bla Bla")
         self.window = UIWindow(windowScene: windowScene)
-        let navigationController = UINavigationController(rootViewController: /*OnboardView()*/ HomeViewController())
+        let navigationController = UINavigationController(rootViewController: /*OnboardView()*/ HomeViewController() /*GameView()*/)
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
     }

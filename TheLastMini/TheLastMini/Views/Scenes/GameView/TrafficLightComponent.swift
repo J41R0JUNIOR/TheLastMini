@@ -14,7 +14,7 @@ class TrafficLightComponent: UIView{
     let light2 = UIView()
     let light3 = UIView()
     
-    var delegate: TrafficLightDelegate?
+    weak var delegate: TrafficLightDelegate?
     
     private let soundManager: SoundManager = SoundManager.shared
 
@@ -25,7 +25,6 @@ class TrafficLightComponent: UIView{
        
         self.isHidden = true
         SetupTrafficLight()
-//        lightAnimation()
     }
     
     required init?(coder: NSCoder) {
@@ -68,9 +67,7 @@ class TrafficLightComponent: UIView{
         var count = 0
         let lights = [light1, light2, light3]
         
-        
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            
             if count == 3 {
                 Task{
                     await self.soundManager.playSong(fileName: .countSemaforoFinish, .soundEffect)
@@ -88,7 +85,6 @@ class TrafficLightComponent: UIView{
                 }
                 lights[count].backgroundColor = .yellow
             }
-            
             count += 1
         }
     }
@@ -96,6 +92,6 @@ class TrafficLightComponent: UIView{
 }
 
 
-protocol TrafficLightDelegate {
+protocol TrafficLightDelegate: AnyObject {
     func changed()
 }

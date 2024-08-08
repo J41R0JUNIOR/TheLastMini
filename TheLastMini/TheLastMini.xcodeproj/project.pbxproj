@@ -44,6 +44,8 @@
 		D92661F32C62A977006FC0BB /* car-idle-84718.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */; };
 		D9752C4C2C640FFF0039F9B6 /* 02-0807.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C4A2C640FFF0039F9B6 /* 02-0807.mp3 */; };
 		D9752C4D2C640FFF0039F9B6 /* 01-0807.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C4B2C640FFF0039F9B6 /* 01-0807.mp3 */; };
+		D9752C4F2C653B6C0039F9B6 /* CarAudioR.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C4E2C653B6C0039F9B6 /* CarAudioR.mp3 */; };
+		D9752C512C653C9B0039F9B6 /* CarAudioV2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C502C653C9B0039F9B6 /* CarAudioV2.mp3 */; };
 		D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC682C4EDA3000E391F5 /* AppDelegate.swift */; };
 		D995CC6B2C4EDA3000E391F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */; };
 		D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D995CC712C4EDA3200E391F5 /* Assets.xcassets */; };
@@ -105,6 +107,8 @@
 		D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "car-idle-84718.mp3"; sourceTree = "<group>"; };
 		D9752C4A2C640FFF0039F9B6 /* 02-0807.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "02-0807.mp3"; sourceTree = "<group>"; };
 		D9752C4B2C640FFF0039F9B6 /* 01-0807.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01-0807.mp3"; sourceTree = "<group>"; };
+		D9752C4E2C653B6C0039F9B6 /* CarAudioR.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CarAudioR.mp3; sourceTree = "<group>"; };
+		D9752C502C653C9B0039F9B6 /* CarAudioV2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CarAudioV2.mp3; sourceTree = "<group>"; };
 		D995CC652C4EDA3000E391F5 /* TheLastMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheLastMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D995CC682C4EDA3000E391F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -224,6 +228,8 @@
 		D92661DB2C615560006FC0BB /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				D9752C502C653C9B0039F9B6 /* CarAudioV2.mp3 */,
+				D9752C4E2C653B6C0039F9B6 /* CarAudioR.mp3 */,
 				D9752C4B2C640FFF0039F9B6 /* 01-0807.mp3 */,
 				D9752C4A2C640FFF0039F9B6 /* 02-0807.mp3 */,
 				D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */,
@@ -425,6 +431,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C05638C92C596CC200742377 /* speedway.usdz in Resources */,
+				D9752C512C653C9B0039F9B6 /* CarAudioV2.mp3 in Resources */,
+				D9752C4F2C653B6C0039F9B6 /* CarAudioR.mp3 in Resources */,
 				B384A5602C580D8F002FA243 /* MmR.usdz in Resources */,
 				D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */,
 				B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */,

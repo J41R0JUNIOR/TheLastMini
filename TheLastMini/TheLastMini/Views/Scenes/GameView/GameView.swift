@@ -58,7 +58,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     private lazy var carControlComponent = CarControlComponent(movementSystem: self.movementSystem, frame: self.view.frame)
     
     private lazy var resumoView: ResultsViewController = {
-        return ResultsViewController(map: "Mount Fuji Track")
+        return ResultsViewController(map: "Dragon Road")
     }()
     
     private lazy var label: UILabel = {
@@ -70,47 +70,19 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-      
-    private var idleAudioPlayer: SCNAudioPlayer?
-    private var accelerateAudioPlayer: SCNAudioPlayer?
-    private var startAudioPlayer: SCNAudioPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupScene()
         self.setupViewCode()
-        self.setupAudio()
     }
     
-    
-    private func setupAudio(){
-        self.idleAudioPlayer = SCNAudioPlayer(source: soundManager.loadCarAudio(.idlCar, false))
-        self.startAudioPlayer = SCNAudioPlayer(source: soundManager.loadCarAudio(.startCar, false))
-        self.accelerateAudioPlayer = SCNAudioPlayer(source: soundManager.loadCarAudio(.accelerateCar1, true))
-    }
-    
-    private func playSong(_ audioPlayer: SCNAudioPlayer){
-        guard userDefualt.soundEffects else {return}
-        guard let carNode = sceneView.scene.rootNode.childNode(withName: "CarNode", recursively: true) else { return }
-        carNode.removeAllAudioPlayers()
-        carNode.addAudioPlayer(audioPlayer)
-        
-//        audioPlayer.didFinishPlayback = { [self] in
-//            playSong(self.accelerateAudioPlayer!)
-//        }
-    }
-    
-    func stopAllSounds() {
-        guard let carNode = sceneView.scene.rootNode.childNode(withName: "CarNode", recursively: true) else { return }
-        carNode.removeAllAudioPlayers()
-    }
     
     private func configureFocusNode(){
         focusNode.childNodes.forEach { $0.removeFromParentNode() }
 
         let customNode = createSpeedway(setPhysics: false)
-//        print("Estou aqui: ", sceneView.scene.rootNode.childNodes.count, " [-] ", sceneView.scene.rootNode.childNodes)
 
         if customNode.parent != nil {
             focusNode.addChildNode(customNode)
@@ -211,8 +183,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             fatalError("Could not load wheel asset")
         }
         
-//        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: pistaNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
-//        pistaNode.physicsBody = body
         
         if setPhysics {
             
@@ -228,7 +198,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                 guard let wallNode = pistaNode.childNode(withName: "InvWall\(i)", recursively: true) else { fatalError("InvWall\(i) not found") }
                 wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode))
                 wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
-                //            checkNode.name = "wall\(i)"
             }
             
             guard let finishNode = pistaNode.childNode(withName: "Finish", recursively: true) else { fatalError("Finish Node not found") }
@@ -248,7 +217,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         finishNode = pistaNode.childNode(withName: "Finish", recursively: true)
         pistaNode.name = "pistaNode"
-//        speedwayNode = pistaNode
         return pistaNode
     }
     
@@ -300,7 +268,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         chassisNode.position = position
         chassisNode.position.y += 0.3
         self.addNodeToScene(node: chassisNode)
-//        sceneView.scene.rootNode.addChildNode(chassisNode)
 
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)
         chassisNode.name = "CarNode"
@@ -324,12 +291,11 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         movementSystem.update(deltaTime: deltaTime, entities: entities)
         renderSystem.update(deltaTime: deltaTime, entities: entities)
         
-        if let volume = movementSystem.vehiclePhysics?.vehicle.speedInKilometersPerHour, volume > 2{
-            soundManager.changeVolume(accelerateAudioPlayer!, volume*10)
-        }else {
-            playSong(self.idleAudioPlayer!)
+        if let volume = movementSystem.vehiclePhysics?.vehicle.speedInKilometersPerHour, volume > 0{
+            soundManager.changeVolume(volume)
         }
     }
+    
     
     // Chamar a função de atualização de jogo no loop principal
     override func viewWillAppear(_ animated: Bool) {
@@ -348,21 +314,13 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         update(deltaTime: deltaTime)
     }
     
-//    func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
-//       value += 1
-//        print("Valor e: ", self.carNode.physicsBody?.velocity.x as Any)
-//        
-//    }
-    
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         let nodeA = contact.nodeA
         let nodeB = contact.nodeB
         
-        // Verificar qual nó é o carrinho e qual é o checkpoint
         if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.check.rawValue) ||
            (nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
             let checkpointNode = nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue ? nodeA : nodeB
-//            print("Carrinho passou pelo checkpoint: \(checkpointNode.name ?? "nil")")
             
             if verifyIsCheckNodes(nodeName: checkpointNode.name ?? "nil"){
                 checkpointNode.isCheck = true
@@ -371,13 +329,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.finish.rawValue) ||
             (nodeA.physicsBody?.categoryBitMask == BodyType.finish.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
-//            print("Carrinho passou pelo Finish")
-//            for node in checkpointsNode {
-////                print("Checkpoint \(String(describing: node?.name)): \(String(describing: node?.isCheck))")
-//            }
             
             if checkpointsNode.allSatisfy({ $0!.isCheck }) {
-//                print("Todos os checkpoints estão ativados")
                 lapAndTimer.saveLapTime()
                 for node in checkpointsNode {
                     node?.isCheck = false
@@ -393,7 +346,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                     }
                     DispatchQueue.main.async {
                         self.endView.isHidden = false
-                        self.stopAllSounds()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                             self.resumoView.laps = self.lapAndTimer.lapsTime
                             self.resumoView.saveTimeRecord()
@@ -439,16 +391,15 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         movementSystem.changed()
         lapAndTimer.isHidden = false
         lapAndTimer.playTimer()
-        playSong(startAudioPlayer!)
         
-        self.startAudioPlayer?.didFinishPlayback = { [self] in
-            playSong(self.accelerateAudioPlayer!)
+        Task{
+            await self.soundManager.playSong(fileName: .accelerateCar1, .soundEffect)
         }
     }
     
     private func playTimer(){
         Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { [self] time in
-            if !isInicialazeCoachi/*shouldHandleResetRequest*/{
+            if !isInicialazeCoachi{
                 setupDefualtConfig()
             }
         }
@@ -504,7 +455,9 @@ extension GameView: NavigationDelegate{
             setupControls()
             self.replaceAndPlay.toggleVisibility()
             self.trafficLightComponent.isHidden = false
-            self.trafficLightComponent.startAnimation()
+            Task{
+                await self.trafficLightComponent.startAnimation()
+            }
         default:
             print("ERROR in 'GameView->navigationTo': Tag invalida")
         }
@@ -568,6 +521,6 @@ extension GameView: ResultsViewControllerDelegate {
 }
 
 
-#Preview{
-    GameView()
-}
+//#Preview{
+//    GameView()
+//}
