@@ -111,13 +111,14 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: floor, options: nil))
         floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.0)
         floorNode.position = position
-        floorNode.position.y -= 0.2
+        floorNode.opacity = 0
+        floorNode.position.y -= 0.1
         self.addNodeToScene(node: floorNode)
         
-        let speedwayNode = createSpeedway(setPhysics: true)
-        speedwayNode.position = position
-        speedwayNode.position.y -= 0.1
-        self.addNodeToScene(node: speedwayNode)
+//        let speedwayNode = createSpeedway(setPhysics: true)
+//        speedwayNode.position = position
+//        speedwayNode.position.y -= 0.1
+//        self.addNodeToScene(node: speedwayNode)
         setupVehicle(at: position)
     }
     
@@ -165,7 +166,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createSpeedway(setPhysics: Bool) ->SCNNode{
-        guard let pista = SCNScene(named: "testepista02.usdz"),
+        guard let pista = SCNScene(named: "pistaWall2.usdz"),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
         }
@@ -183,29 +184,28 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                 checkpointsNode.append(checkNode)
             }
             
-//            for i in 1...4 {
-//                guard let wallNode = pistaNode.childNode(withName: "InvWall\(i)", recursively: true) else { fatalError("InvWall\(i) not found") }
-//                wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode))
-//                wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
-//                //            checkNode.name = "wall\(i)"
-//            }
+            for i in 1...7 {
+                guard let wallNode = pistaNode.childNode(withName: "InvWall\(i)", recursively: true) else { fatalError("InvWall\(i) not found") }
+                wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode, options: nil))
+                wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+            }
             
 //            guard let finishNode = pistaNode.childNode(withName: "CP1", recursively: true) else { fatalError("Finish Node not found") }
 //            finishNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
 //            finishNode.physicsBody?.categoryBitMask = BodyType.finish.rawValue
 //            self.finishNode = finishNode
             
-            guard let groundNode = pistaNode.childNode(withName: "Pista", recursively: true) else { fatalError("Ground Node not found") }
-            groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: groundNode, options: nil))
-            groundNode.physicsBody?.categoryBitMask = BodyType.ground.rawValue
+//            guard let groundNode = pistaNode.childNode(withName: "Pista", recursively: true) else { fatalError("Ground Node not found") }
+//            groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: groundNode, options: nil))
+//            groundNode.physicsBody?.categoryBitMask = BodyType.ground.rawValue
             
-            guard let externalWall = pistaNode.childNode(withName: "Paredes_externas", recursively: true) else { fatalError("Paredes externas Node not found") }
-            externalWall.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: externalWall, options: nil))
-            externalWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+//            guard let externalWall = pistaNode.childNode(withName: "Paredes_externas", recursively: true) else { fatalError("Paredes externas Node not found") }
+//            externalWall.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: externalWall, options: nil))
+//            externalWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
             
-            guard let internalWall = pistaNode.childNode(withName: "Paredes_internas", recursively: true) else { fatalError("Paredes internas Node not found") }
-            internalWall.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: externalWall, options: nil))
-            internalWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+//            guard let internalWall = pistaNode.childNode(withName: "Paredes_internas", recursively: true) else { fatalError("Paredes internas Node not found") }
+//            internalWall.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: internalWall, options: nil))
+//            internalWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
 //            centerWall.isHidden = true
             
         }
@@ -218,7 +218,10 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     
     func setupVehicle(at position: SCNVector3) {
         let chassisNode = createChassis()
-        let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: chassisNode))
+//        let boxGeometry = SCNBox(width: 0.09, height: 0.04, length: 0.12, chamferRadius: 0.0)
+        let boxGeometry = SCNBox(width: 0.09, height: 0.03, length: 0.12, chamferRadius: 0.0)
+        let boxShape = SCNPhysicsShape(geometry: boxGeometry, options: nil)
+        let body = SCNPhysicsBody(type: .dynamic, shape: boxShape)
         body.mass = 1.0
         chassisNode.physicsBody = body
         chassisNode.physicsBody?.categoryBitMask = BodyType.car.rawValue
@@ -235,7 +238,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
         
         let x: Double = 0.025
-        let y: Double = 0
+        let y: Double = -0.01
         let zf: Double = 0.0388
         let zb: Double = 0.02
         
@@ -251,10 +254,10 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         wheel3.connectionPosition = SCNVector3(-x, y, -zb)
         wheel4.connectionPosition = SCNVector3(x, y, -zb)
         
-        wheel1.suspensionStiffness = CGFloat(20)
-        wheel2.suspensionStiffness = CGFloat(20)
-        wheel3.suspensionStiffness = CGFloat(20)
-        wheel4.suspensionStiffness = CGFloat(20)
+        wheel1.suspensionStiffness = CGFloat(50)
+        wheel2.suspensionStiffness = CGFloat(50)
+        wheel3.suspensionStiffness = CGFloat(50)
+        wheel4.suspensionStiffness = CGFloat(50)
         
 //        wheel1.frictionSlip = 1
 //        wheel2.frictionSlip = 1
@@ -262,8 +265,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
 //        wheel4.frictionSlip = 1
                 
         
-//        let suspensionRestLength = 0.008
-        let suspensionRestLength = 0.15
+        let suspensionRestLength = 0.04
+//        let suspensionRestLength = 0.15
 
         
         
@@ -280,7 +283,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let vehicle = SCNPhysicsVehicle(chassisBody: body, wheels: [wheel1, wheel2, wheel3, wheel4])
         
         chassisNode.position = position
-        chassisNode.position.y += 0.3
+        chassisNode.position.y += 0.1
 //        chassisNode.position.x -= 1
         self.addNodeToScene(node: chassisNode)
 //        sceneView.scene.rootNode.addChildNode(chassisNode)

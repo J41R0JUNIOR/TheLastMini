@@ -106,19 +106,19 @@ class CarControlComponent: UIView {
 //        rightStack.spacing = rightStack.frame.height * 0.05
     }
     
-    func moveForward(_ value: CGFloat = 1) {
+    func moveForward(_ value: CGFloat = 0.4) {
         movementSystem.engineForce = value
     }
     
-    func moveBackward(_ value: CGFloat = -1) {
+    func moveBackward(_ value: CGFloat = -0.4) {
         movementSystem.engineForce = value
     }
     
-    func turnRight(_ value: CGFloat = -0.5) {
+    func turnRight(_ value: CGFloat = -0.3) {
         movementSystem.steeringAngle = value
     }
     
-    func turnLeft(_ value: CGFloat = 0.5) {
+    func turnLeft(_ value: CGFloat = 0.3) {
         movementSystem.steeringAngle = value
     }
     
