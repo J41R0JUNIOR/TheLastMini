@@ -9,7 +9,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     
     private var shouldHandleResetRequest = false
     private var soundManager: SoundManager = SoundManager.shared
-
+    
     var checkpointsNode: [SCNNode?] = []
     var finishNode: SCNNode?
     
@@ -19,7 +19,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     let focusNode = FocusNode()
     
     var tapGesture: UITapGestureRecognizer?
-        
+    
     ///View de animacao de scan
     private lazy var coachingOverlay: ARCoachingOverlayView = {
         let arView = ARCoachingOverlayView()
@@ -56,7 +56,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     private lazy var resumoView: ResultsViewController = {
         return ResultsViewController(map: "Mount Fuji Track")
     }()
-      
+    
     private var idleAudioPlayer: SCNAudioPlayer?
     private var accelerateAudioPlayer: SCNAudioPlayer?
     private var startAudioPlayer: SCNAudioPlayer?
@@ -92,24 +92,24 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     
     private func configureFocusNode(){
         focusNode.childNodes.forEach { $0.removeFromParentNode() }
-
+        
         let customNode = createSpeedway(setPhysics: false)
         print("Estou aqui: ", sceneView.scene.rootNode.childNodes.count, " [-] ", sceneView.scene.rootNode.childNodes)
-
+        
         if customNode.parent != nil {
             focusNode.addChildNode(customNode)
         }
         
-        customNode.scale = SCNVector3(0.1, 0.1, 0.1) //remover depois
+        customNode.scale = SCNVector3(0.5, 0.5, 0.5) //remover depois
         focusNode.isHidden = false
         
-
+        
         if focusNode.parent != nil {
             self.addNodeToScene(node: self.focusNode)
         }
     }
-
-
+    
+    
     
     func setupTapGesture() {
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -120,7 +120,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         focusNode.isHidden = true
         self.replaceAndPlay.isHidden = false
         self.tapGesture?.isEnabled = false
-
+        
         setupFloor(at: focusNode.position)
     }
     
@@ -138,13 +138,14 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.0)
         floorNode.position = position
         floorNode.opacity = 0
-        floorNode.position.y -= 0.1
+        //        floorNode.position.y -= 0.1
         self.addNodeToScene(node: floorNode)
         
-//        let speedwayNode = createSpeedway(setPhysics: true)
-//        speedwayNode.position = position
-//        speedwayNode.position.y -= 0.1
-//        self.addNodeToScene(node: speedwayNode)
+        let speedwayNode = createSpeedway(setPhysics: true)
+        speedwayNode.position = position
+        //        speedwayNode.scale = SCNVector3(x: 1.5, y: 1.5, z: 1.5)
+        //        speedwayNode.position.y -= 0.1
+        self.addNodeToScene(node: speedwayNode)
         setupVehicle(at: position)
     }
     
@@ -160,18 +161,18 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         sceneView = ARSCNView(frame: self.view.frame)
         sceneView.delegate = self
-        sceneView.showsStatistics = true
+        //        sceneView.showsStatistics = true
         sceneView.autoenablesDefaultLighting = true
-        sceneView.debugOptions = [.showPhysicsShapes]
+//        sceneView.debugOptions = [.showPhysicsShapes]
         sceneView.scene.physicsWorld.contactDelegate = self
-                
+        
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = [.horizontal]
         
         coachingOverlay.session = sceneView.session
         coachingOverlay.delegate = self
         coachingOverlay.goal = .anyPlane
-
+        
         sceneView.session.run(configuration)
     }
     
@@ -192,60 +193,102 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createSpeedway(setPhysics: Bool) ->SCNNode{
-        guard let pista = SCNScene(named: "pistaWall2.usdz"),
+        guard let pista = SCNScene(named: "pistaV12.usdz"),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
         }
         
-//        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: pistaNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
-//        pistaNode.physicsBody = body
+        //        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: pistaNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
+        //        pistaNode.physicsBody = body
         
-        if setPhysics {
-            
-            for i in 1...12 {
-                guard let checkNode = pistaNode.childNode(withName: "CP\(i)", recursively: true) else { fatalError("Checkpoint\(i) not found") }
+        //        print("PISTANODE CHILD NODES: \n\(pistaNode.childNodes)")
+        
+        //        if setPhysics {
+        
+        pistaNode.scale = SCNVector3(x: 1.5, y: 1, z: 1.5)
+        
+        for i in 1...10 {
+            guard let checkNode = pistaNode.childNode(withName: "Check\(i)", recursively: true) else { fatalError("Checkpoint\(i) not found") }
+            checkNode.opacity = 0
+            if setPhysics {
+                checkNode.position.y -= 0.042
                 checkNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
                 checkNode.physicsBody?.categoryBitMask = BodyType.check.rawValue
                 checkNode.name = "\(i)"
                 checkpointsNode.append(checkNode)
             }
-            
-            for i in 1...7 {
-                guard let wallNode = pistaNode.childNode(withName: "InvWall\(i)", recursively: true) else { fatalError("InvWall\(i) not found") }
+        }
+        
+        
+        //            for i in 0... {
+        //                guard let wallNode = pistaNode.childNode(withName: "Paredes_internas0\(i)", recursively: true) else {
+        //                    print("Não achou a Paredes internas0\(i)")
+        //                    break
+        //                }
+        //                wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode, options: nil))
+        //                wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+        //                wallNode.opacity = 0
+        //            }
+        //
+        //            for i in 0... {
+        //                guard let wallNode = pistaNode.childNode(withName: "Paredes_Externas0\(i)", recursively: true) else {
+        //                    print("Não achou a Paredes Externas0\(i)")
+        //                    break
+        //                }
+        //                wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode, options: nil))
+        //                wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+        //                wallNode.opacity = 0
+        //            }
+        
+        for i in 1... {
+            guard let wallNode = pistaNode.childNode(withName: "InvWall1_\(i)", recursively: true) else {
+                print("Não achou a Paredes internas0\(i)")
+                break
+            }
+            wallNode.opacity = 0
+            if setPhysics {
                 wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode, options: nil))
                 wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
             }
-            
-//            guard let finishNode = pistaNode.childNode(withName: "CP1", recursively: true) else { fatalError("Finish Node not found") }
-//            finishNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-//            finishNode.physicsBody?.categoryBitMask = BodyType.finish.rawValue
-//            self.finishNode = finishNode
-            
-//            guard let groundNode = pistaNode.childNode(withName: "Pista", recursively: true) else { fatalError("Ground Node not found") }
-//            groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: groundNode, options: nil))
-//            groundNode.physicsBody?.categoryBitMask = BodyType.ground.rawValue
-            
-//            guard let externalWall = pistaNode.childNode(withName: "Paredes_externas", recursively: true) else { fatalError("Paredes externas Node not found") }
-//            externalWall.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: externalWall, options: nil))
-//            externalWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
-            
-//            guard let internalWall = pistaNode.childNode(withName: "Paredes_internas", recursively: true) else { fatalError("Paredes internas Node not found") }
-//            internalWall.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: internalWall, options: nil))
-//            internalWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
-//            centerWall.isHidden = true
-            
         }
         
-//        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)
+        if setPhysics {
+            guard let finishNode = pistaNode.childNode(withName: "Finish", recursively: true) else { fatalError("Finish Node not found") }
+            finishNode.position.y -= 0.042
+            finishNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+            finishNode.physicsBody?.categoryBitMask = BodyType.finish.rawValue
+            finishNode.opacity = 0
+            self.finishNode = finishNode
+        }
+        
+        guard let planeNode = pistaNode.childNode(withName: "Plane", recursively: true) else { fatalError("Plane Node not found") }
+//        planeNode.geometry?.materials.first?.diffuse.contents = UIColor.black
+        let boxGeometry = SCNBox(width: 0.15, height: 0.01, length: 0.05, chamferRadius: 0.0)
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.gray // Altere 'yellow' para a cor desejada
+        boxGeometry.materials = [material]
+
+        let node = SCNNode(geometry: boxGeometry)
+        node.position = planeNode.position
+        node.position.y += 0.0005
+        
+        pistaNode.addChildNode(node)
+        //            guard let groundNode = pistaNode.childNode(withName: "Pista", recursively: true) else { fatalError("Ground Node not found") }
+        //            groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: groundNode, options: nil))
+        //            groundNode.physicsBody?.categoryBitMask = BodyType.ground.rawValue
+        
+        //        }
+        
+        //        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)
         pistaNode.name = "pistaNode"
-//        speedwayNode = pistaNode
+        //        speedwayNode = pistaNode
         return pistaNode
     }
     
     func setupVehicle(at position: SCNVector3) {
         let chassisNode = createChassis()
-//        let boxGeometry = SCNBox(width: 0.09, height: 0.04, length: 0.12, chamferRadius: 0.0)
-        let boxGeometry = SCNBox(width: 0.09, height: 0.03, length: 0.12, chamferRadius: 0.0)
+        //        let boxGeometry = SCNBox(width: 0.09, height: 0.04, length: 0.12, chamferRadius: 0.0)
+        let boxGeometry = SCNBox(width: 0.06, height: 0.03, length: 0.12, chamferRadius: 0.0)
         let boxShape = SCNPhysicsShape(geometry: boxGeometry, options: nil)
         let body = SCNPhysicsBody(type: .dynamic, shape: boxShape)
         body.mass = 1.0
@@ -269,11 +312,11 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let zb: Double = 0.02
         
         
-//        let x: Double = 0.19
-//        let y: Double = 0
-//        let zf: Double = 0.25
-//        let zb: Double = 0.25
-
+        //        let x: Double = 0.19
+        //        let y: Double = 0
+        //        let zf: Double = 0.25
+        //        let zb: Double = 0.25
+        
         
         wheel1.connectionPosition = SCNVector3(-x, y, zf)
         wheel2.connectionPosition = SCNVector3(x, y, zf)
@@ -285,15 +328,15 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         wheel3.suspensionStiffness = CGFloat(50)
         wheel4.suspensionStiffness = CGFloat(50)
         
-//        wheel1.frictionSlip = 1
-//        wheel2.frictionSlip = 1
-//        wheel3.frictionSlip = 1
-//        wheel4.frictionSlip = 1
-                
+        //        wheel1.frictionSlip = 1
+        //        wheel2.frictionSlip = 1
+        //        wheel3.frictionSlip = 1
+        //        wheel4.frictionSlip = 1
+        
         
         let suspensionRestLength = 0.04
-//        let suspensionRestLength = 0.15
-
+        //        let suspensionRestLength = 0.15
+        
         
         
         wheel1.suspensionRestLength = suspensionRestLength
@@ -310,10 +353,10 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         chassisNode.position = position
         chassisNode.position.y += 0.1
-//        chassisNode.position.x -= 1
+        //        chassisNode.position.x -= 1
         self.addNodeToScene(node: chassisNode)
-//        sceneView.scene.rootNode.addChildNode(chassisNode)
-
+        //        sceneView.scene.rootNode.addChildNode(chassisNode)
+        
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)
         chassisNode.name = "CarNode"
         self.entities.append(chassisNode)
@@ -365,7 +408,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         // Verificar qual nó é o carrinho e qual é o checkpoint
         if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.check.rawValue) ||
-           (nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
+            (nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
             let checkpointNode = nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue ? nodeA : nodeB
 //            print("Carrinho passou pelo checkpoint: \(checkpointNode.name ?? "nil")")
             
@@ -387,19 +430,19 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                 for node in checkpointsNode {
                     node?.isCheck = false
                 }
-                if lapAndTimer.currentLap != 1 {
+                if lapAndTimer.currentLap != 3 {
                     DispatchQueue.main.async {
                         self.lapAndTimer.addLap()
                     }
                 }else {
                     lapAndTimer.pauseTimer()
                     Task{
-//                        await self.soundManager.playSong(fileName: .voiceCong)
+                        //                        await self.soundManager.playSong(fileName: .voiceCong)
                         await self.soundManager.playSong(fileName: .soundCong)
                     }
                     DispatchQueue.main.async {
                         self.endView.isHidden = false
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                             self.resumoView.laps = self.lapAndTimer.lapsTime
                             self.resumoView.saveTimeRecord()
                             self.resumoView.setupTrackInfoView()
@@ -452,9 +495,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             //label talvez
             //call function
             print("✅✅✅⬇️🚨🚨🚨🚨🚨🚨🚨🚨")
-//            if !shouldHandleResetRequest{
-//                
-//            }
+            //            if !shouldHandleResetRequest{
+            //
+            //            }
         }
     }
 }
@@ -496,6 +539,7 @@ extension GameView: NavigationDelegate{
                 self.replaceAndPlay.toggleVisibility()
                 focusNode.isHidden = false
                 self.tapGesture?.isEnabled = true
+                self.checkpointsNode.removeAll()
             }
         case 11:
             print("Play")
@@ -519,7 +563,7 @@ extension GameView: ViewCode{
         self.focusNode.name = "focusNode"
         carControlComponent.isHidden = true
         self.resumoView.delegate = self
-
+        
     }
     
     func addContrains() {
