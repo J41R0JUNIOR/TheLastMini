@@ -17,6 +17,7 @@
 		B302B2932C61B77A00859785 /* BasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2922C61B77A00859785 /* BasicView.swift */; };
 		B302B2A72C654DB500859785 /* GameViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2A62C654DB500859785 /* GameViewExtensions.swift */; };
 		B302B2A92C6567C500859785 /* CarValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2A82C6567C500859785 /* CarValues.swift */; };
+		B302B2AC2C6686F900859785 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2AB2C6686F900859785 /* Connection.swift */; };
 		B384A5532C5808C8002FA243 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B384A5522C5808C8002FA243 /* GameView.swift */; };
 		B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55C2C580D8F002FA243 /* Ll.usdz */; };
 		B384A5602C580D8F002FA243 /* MmR.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55D2C580D8F002FA243 /* MmR.usdz */; };
@@ -86,6 +87,7 @@
 		B302B2922C61B77A00859785 /* BasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicView.swift; sourceTree = "<group>"; };
 		B302B2A62C654DB500859785 /* GameViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewExtensions.swift; sourceTree = "<group>"; };
 		B302B2A82C6567C500859785 /* CarValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarValues.swift; sourceTree = "<group>"; };
+		B302B2AB2C6686F900859785 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		B384A5522C5808C8002FA243 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		B384A55C2C580D8F002FA243 /* Ll.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Ll.usdz; sourceTree = "<group>"; };
 		B384A55D2C580D8F002FA243 /* MmR.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = MmR.usdz; sourceTree = "<group>"; };
@@ -207,6 +209,14 @@
 				B302B2A82C6567C500859785 /* CarValues.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B302B2AA2C6686E800859785 /* MultipierConnectivicty */ = {
+			isa = PBXGroup;
+			children = (
+				B302B2AB2C6686F900859785 /* Connection.swift */,
+			);
+			path = MultipierConnectivicty;
 			sourceTree = "<group>";
 		};
 		B384A5512C5807E4002FA243 /* GameView */ = {
@@ -348,6 +358,7 @@
 		D995CC852C4EE73400E391F5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				B302B2AA2C6686E800859785 /* MultipierConnectivicty */,
 				B302B2842C616FCA00859785 /* Onboard */,
 				62E91F8D2C5AABD400280B20 /* Results */,
 				D995CC862C4EE73D00E391F5 /* Home */,
@@ -506,6 +517,7 @@
 				D995CC802C4EE60B00E391F5 /* ViewCodeProtocols.swift in Sources */,
 				C0BCBCF12C613C8B0035BCC0 /* EndRaceViewComponent.swift in Sources */,
 				C0BCBCF02C613C8B0035BCC0 /* LapAndTimerViewComponent.swift in Sources */,
+				B302B2AC2C6686F900859785 /* Connection.swift in Sources */,
 				D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */,
 				62E91F942C5AB21400280B20 /* PlayerTimeRankModel.swift in Sources */,
 				D995CC832C4EE70400E391F5 /* HapticsService.swift in Sources */,
