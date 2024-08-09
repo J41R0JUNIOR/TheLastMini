@@ -206,11 +206,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             fatalError("Could not load wheel asset")
         }
         
-        
-        //        print("PISTANODE CHILD NODES: \n\(pistaNode.childNodes)")
-        
-        //        if setPhysics {
-        
         pistaNode.scale = SCNVector3(x: 1.5, y: 1, z: 1.5)
         
         for i in 1...10 {
@@ -224,27 +219,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                 checkpointsNode.append(checkNode)
             }
         }
-        
-        
-        //            for i in 0... {
-        //                guard let wallNode = pistaNode.childNode(withName: "Paredes_internas0\(i)", recursively: true) else {
-        //                    print("Não achou a Paredes internas0\(i)")
-        //                    break
-        //                }
-        //                wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode, options: nil))
-        //                wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
-        //                wallNode.opacity = 0
-        //            }
-        //
-        //            for i in 0... {
-        //                guard let wallNode = pistaNode.childNode(withName: "Paredes_Externas0\(i)", recursively: true) else {
-        //                    print("Não achou a Paredes Externas0\(i)")
-        //                    break
-        //                }
-        //                wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode, options: nil))
-        //                wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
-        //                wallNode.opacity = 0
-        //            }
         
         for i in 1... {
             guard let wallNode = pistaNode.childNode(withName: "InvWall1_\(i)", recursively: true) else {
@@ -268,7 +242,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         }
         
         guard let planeNode = pistaNode.childNode(withName: "Plane", recursively: true) else { fatalError("Plane Node not found") }
-//        planeNode.geometry?.materials.first?.diffuse.contents = UIColor.black
         let boxGeometry = SCNBox(width: 0.15, height: 0.01, length: 0.05, chamferRadius: 0.0)
         let material = SCNMaterial()
         material.diffuse.contents = UIColor.gray // Altere 'yellow' para a cor desejada
@@ -279,13 +252,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         node.position.y += 0.0005
         
         pistaNode.addChildNode(node)
-        //            guard let groundNode = pistaNode.childNode(withName: "Pista", recursively: true) else { fatalError("Ground Node not found") }
-        //            groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: groundNode, options: nil))
-        //            groundNode.physicsBody?.categoryBitMask = BodyType.ground.rawValue
-        
-        //        }
-        
-        //        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)
         pistaNode.name = "pistaNode"
         return pistaNode
     }
