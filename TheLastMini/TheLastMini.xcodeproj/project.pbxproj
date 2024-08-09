@@ -37,8 +37,8 @@
 		C080D1932C640C800096C6EB /* pistaWall2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C080D1922C640C800096C6EB /* pistaWall2.usdz */; };
 		C080D1952C640E330096C6EB /* testePista3.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C080D1942C640E330096C6EB /* testePista3.usdz */; };
 		C089E0F62C5AD47C0003E40E /* TestCompleteSpeedway.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C089E0F52C5AD47C0003E40E /* TestCompleteSpeedway.usdz */; };
-		C0BCBCF02C613C8B0035BCC0 /* LapAndTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCEC2C613C8B0035BCC0 /* LapAndTimerView.swift */; };
-		C0BCBCF12C613C8B0035BCC0 /* EndRaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCED2C613C8B0035BCC0 /* EndRaceView.swift */; };
+		C0BCBCF02C613C8B0035BCC0 /* LapAndTimerViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCEC2C613C8B0035BCC0 /* LapAndTimerViewComponent.swift */; };
+		C0BCBCF12C613C8B0035BCC0 /* EndRaceViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCED2C613C8B0035BCC0 /* EndRaceViewComponent.swift */; };
 		C0BCBCF22C613C8B0035BCC0 /* TestPistaWallMaior.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C0BCBCEE2C613C8B0035BCC0 /* TestPistaWallMaior.usdz */; };
 		C0BCBCF32C613C8B0035BCC0 /* GameEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCEF2C613C8B0035BCC0 /* GameEnum.swift */; };
 		C0BCBCF62C613D570035BCC0 /* ReplaceAndPlayComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayComponent.swift */; };
@@ -107,8 +107,8 @@
 		C080D1922C640C800096C6EB /* pistaWall2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pistaWall2.usdz; sourceTree = "<group>"; };
 		C080D1942C640E330096C6EB /* testePista3.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = testePista3.usdz; sourceTree = "<group>"; };
 		C089E0F52C5AD47C0003E40E /* TestCompleteSpeedway.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = TestCompleteSpeedway.usdz; sourceTree = "<group>"; };
-		C0BCBCEC2C613C8B0035BCC0 /* LapAndTimerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LapAndTimerView.swift; path = TheLastMini/Views/Scenes/GameView/ViewComponents/LapAndTimerView.swift; sourceTree = SOURCE_ROOT; };
-		C0BCBCED2C613C8B0035BCC0 /* EndRaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EndRaceView.swift; path = TheLastMini/Views/Scenes/GameView/ViewComponents/EndRaceView.swift; sourceTree = SOURCE_ROOT; };
+		C0BCBCEC2C613C8B0035BCC0 /* LapAndTimerViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LapAndTimerViewComponent.swift; path = TheLastMini/Views/Scenes/GameView/ViewComponents/LapAndTimerViewComponent.swift; sourceTree = SOURCE_ROOT; };
+		C0BCBCED2C613C8B0035BCC0 /* EndRaceViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EndRaceViewComponent.swift; path = TheLastMini/Views/Scenes/GameView/ViewComponents/EndRaceViewComponent.swift; sourceTree = SOURCE_ROOT; };
 		C0BCBCEE2C613C8B0035BCC0 /* TestPistaWallMaior.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = TestPistaWallMaior.usdz; path = TheLastMini/Views/Scenes/GameView/TestPistaWallMaior.usdz; sourceTree = SOURCE_ROOT; };
 		C0BCBCEF2C613C8B0035BCC0 /* GameEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameEnum.swift; path = TheLastMini/Views/Scenes/GameView/Model/GameEnum.swift; sourceTree = SOURCE_ROOT; };
 		C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReplaceAndPlayComponent.swift; path = ../ReplaceAndPlayComponent.swift; sourceTree = "<group>"; };
@@ -248,8 +248,8 @@
 		B39E5E552C5D70BE00D28EAA /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
-				C0BCBCED2C613C8B0035BCC0 /* EndRaceView.swift */,
-				C0BCBCEC2C613C8B0035BCC0 /* LapAndTimerView.swift */,
+				C0BCBCED2C613C8B0035BCC0 /* EndRaceViewComponent.swift */,
+				C0BCBCEC2C613C8B0035BCC0 /* LapAndTimerViewComponent.swift */,
 				B39E5E562C5D72BE00D28EAA /* CarControlComponent.swift */,
 				C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */,
 				C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayComponent.swift */,
@@ -504,8 +504,8 @@
 				B302B2A72C654DB500859785 /* GameViewExtensions.swift in Sources */,
 				D995CCA02C502E7E00E391F5 /* ScreenInfo.swift in Sources */,
 				D995CC802C4EE60B00E391F5 /* ViewCodeProtocols.swift in Sources */,
-				C0BCBCF12C613C8B0035BCC0 /* EndRaceView.swift in Sources */,
-				C0BCBCF02C613C8B0035BCC0 /* LapAndTimerView.swift in Sources */,
+				C0BCBCF12C613C8B0035BCC0 /* EndRaceViewComponent.swift in Sources */,
+				C0BCBCF02C613C8B0035BCC0 /* LapAndTimerViewComponent.swift in Sources */,
 				D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */,
 				62E91F942C5AB21400280B20 /* PlayerTimeRankModel.swift in Sources */,
 				D995CC832C4EE70400E391F5 /* HapticsService.swift in Sources */,
