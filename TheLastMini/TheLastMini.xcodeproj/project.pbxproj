@@ -112,7 +112,6 @@
 		C03B0EBE2C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Car_Chassis_3-2.usdz"; sourceTree = "<group>"; };
 		C051967A2C66A532000ECE5F /* ReplaceAndPlayComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplaceAndPlayComponent.swift; sourceTree = "<group>"; };
 		C051967B2C66A532000ECE5F /* TrafficLightComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficLightComponent.swift; sourceTree = "<group>"; };
-		C051967E2C66A64F000ECE5F /* pistaV12.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pistaV12.usdz; sourceTree = "<group>"; };
 		C05638C82C596CC200742377 /* speedway.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = speedway.usdz; sourceTree = "<group>"; };
 		C080D18B2C63E3C10096C6EB /* pistateste_02.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = pistateste_02.scn; sourceTree = "<group>"; };
 		C080D18D2C63E9F00096C6EB /* LunarRover_English.reality */ = {isa = PBXFileReference; lastKnownFileType = file; path = LunarRover_English.reality; sourceTree = "<group>"; };
@@ -276,7 +275,6 @@
 				C080D18E2C63F7C70096C6EB /* testepista02.usdz */,
 				C080D1922C640C800096C6EB /* pistaWall2.usdz */,
 				C080D1942C640E330096C6EB /* testePista3.usdz */,
-				C051967E2C66A64F000ECE5F /* pistaV12.usdz */,
 			);
 			path = ARAssets;
 			sourceTree = "<group>";
@@ -542,7 +540,6 @@
 				D92661E72C6155A4006FC0BB /* voiceCong.mp3 in Resources */,
 				C01B33192C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz in Resources */,
 				C080D18F2C63F7C70096C6EB /* testepista02.usdz in Resources */,
-				C051967F2C66A64F000ECE5F /* pistaV12.usdz in Resources */,
 				C03B0EC12C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz in Resources */,
 				C03B0EB52C62B5B7007C7CB0 /* pistateste_02.usdz in Resources */,
 				C080D1952C640E330096C6EB /* testePista3.usdz in Resources */,
