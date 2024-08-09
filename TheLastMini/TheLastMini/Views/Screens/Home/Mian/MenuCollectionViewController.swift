@@ -8,6 +8,7 @@
 import UIKit
 
 class MenuCollectionViewController: UICollectionViewController {
+   
 
     private lazy var menuColletion: MenuColletionView = {
         let view = MenuColletionView()
@@ -59,8 +60,7 @@ extension MenuCollectionViewController: NavigationDelegate{
     func navigationTo(_ tag: Int) {
         switch tag{
         case 0:
-            let carName = "Model1"
-            let carValues = VehicleModel(carName: carName)
+            let carValues = VehicleModel(carName: Cars.models.names[tag])
             navigationController?.pushViewController(GameView(vehicleModel: carValues), animated: true)
         default:
             print("tag Invalida")

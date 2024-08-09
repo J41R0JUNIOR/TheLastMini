@@ -35,3 +35,15 @@ struct VehicleModel {
         }
     }
 }
+
+enum Cars {
+    case models
+    
+    var names: [String] {
+        switch self {
+        case .models:
+            return ["Model1", "Model1 Variant"]
+
+        }
+    }
+}
