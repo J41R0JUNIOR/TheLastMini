@@ -55,10 +55,10 @@
 		D92661F32C62A977006FC0BB /* car-idle-84718.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */; };
 		D93A082C2C66837900BF4F1F /* Kanit-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D93A082A2C6682F200BF4F1F /* Kanit-MediumItalic.ttf */; };
 		D93A082D2C66857900BF4F1F /* Kanit-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D93A08242C6682F100BF4F1F /* Kanit-BoldItalic.ttf */; };
+		D94ACB9C2C669DC700B85807 /* CarAudioV3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D94ACB9B2C669DC700B85807 /* CarAudioV3.mp3 */; };
 		D9752C4C2C640FFF0039F9B6 /* 02-0807.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C4A2C640FFF0039F9B6 /* 02-0807.mp3 */; };
 		D9752C4D2C640FFF0039F9B6 /* 01-0807.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C4B2C640FFF0039F9B6 /* 01-0807.mp3 */; };
 		D9752C4F2C653B6C0039F9B6 /* CarAudioR.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C4E2C653B6C0039F9B6 /* CarAudioR.mp3 */; };
-		D9752C512C653C9B0039F9B6 /* CarAudioV2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C502C653C9B0039F9B6 /* CarAudioV2.mp3 */; };
 		D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC682C4EDA3000E391F5 /* AppDelegate.swift */; };
 		D995CC6B2C4EDA3000E391F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */; };
 		D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D995CC712C4EDA3200E391F5 /* Assets.xcassets */; };
@@ -138,10 +138,10 @@
 		D93A08282C6682F200BF4F1F /* Kanit-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-BlackItalic.ttf"; sourceTree = "<group>"; };
 		D93A08292C6682F200BF4F1F /* Kanit-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		D93A082A2C6682F200BF4F1F /* Kanit-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-MediumItalic.ttf"; sourceTree = "<group>"; };
+		D94ACB9B2C669DC700B85807 /* CarAudioV3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CarAudioV3.mp3; sourceTree = "<group>"; };
 		D9752C4A2C640FFF0039F9B6 /* 02-0807.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "02-0807.mp3"; sourceTree = "<group>"; };
 		D9752C4B2C640FFF0039F9B6 /* 01-0807.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01-0807.mp3"; sourceTree = "<group>"; };
 		D9752C4E2C653B6C0039F9B6 /* CarAudioR.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CarAudioR.mp3; sourceTree = "<group>"; };
-		D9752C502C653C9B0039F9B6 /* CarAudioV2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CarAudioV2.mp3; sourceTree = "<group>"; };
 		D995CC652C4EDA3000E391F5 /* TheLastMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheLastMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D995CC682C4EDA3000E391F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -288,7 +288,7 @@
 		D92661DB2C615560006FC0BB /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				D9752C502C653C9B0039F9B6 /* CarAudioV2.mp3 */,
+				D94ACB9B2C669DC700B85807 /* CarAudioV3.mp3 */,
 				D9752C4E2C653B6C0039F9B6 /* CarAudioR.mp3 */,
 				D9752C4B2C640FFF0039F9B6 /* 01-0807.mp3 */,
 				D9752C4A2C640FFF0039F9B6 /* 02-0807.mp3 */,
@@ -508,7 +508,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C05638C92C596CC200742377 /* speedway.usdz in Resources */,
-				D9752C512C653C9B0039F9B6 /* CarAudioV2.mp3 in Resources */,
 				D9752C4F2C653B6C0039F9B6 /* CarAudioR.mp3 in Resources */,
 				B384A5602C580D8F002FA243 /* MmR.usdz in Resources */,
 				D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */,
@@ -520,6 +519,7 @@
 				C089E0F62C5AD47C0003E40E /* TestCompleteSpeedway.usdz in Resources */,
 				D9752C4C2C640FFF0039F9B6 /* 02-0807.mp3 in Resources */,
 				D92661F02C62A928006FC0BB /* 03-nissan_skyline_r34.mp3 in Resources */,
+				D94ACB9C2C669DC700B85807 /* CarAudioV3.mp3 in Resources */,
 				B384A5612C580D8F002FA243 /* Rr.usdz in Resources */,
 				C03B0EBF2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz in Resources */,
 				D92661F12C62A928006FC0BB /* 01-nissan_skyline_r34.mp3 in Resources */,
@@ -723,11 +723,12 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KV78S9S54R;
+				DEVELOPMENT_TEAM = 335BRL9A43;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to enable augmented reality features, allowing you to interact with virtual objects in the real world.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -738,7 +739,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMiniii;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -758,11 +759,12 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KV78S9S54R;
+				DEVELOPMENT_TEAM = 335BRL9A43;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to enable augmented reality features, allowing you to interact with virtual objects in the real world.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -773,7 +775,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMiniii;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

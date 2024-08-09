@@ -4,24 +4,23 @@ import FocusNode
 import SmartHitTest
 
 
+
 extension ARSCNView: ARSmartHitTest { }
 
 //MARK: - Configuração de animação de scan
 extension GameView: ARCoachingOverlayViewDelegate{
     func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
         print("Vai comecar ✅")
+        self.isInicialazeCoach = true
     }
     
     func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
         print("Sera que foi agora? 🐐")
         if !shouldHandleResetRequest{
             shouldHandleResetRequest = true
-            coachingOverlayView.removeFromSuperview()
-            configureFocusNode()
-            setupTapGesture()
+            self.setupDefualtConfig()
             return
         }
-        
     }
 }
 
@@ -39,7 +38,8 @@ extension GameView: NavigationDelegate{
                 }
                 self.isVehicleAdded = false
                 self.replaceAndPlay.toggleVisibility()
-                focusNode.isHidden = false
+                self.focusNode.isHidden = false
+                self.label.isHidden = false
                 self.tapGesture?.isEnabled = true
             }
         case 11:
@@ -47,7 +47,9 @@ extension GameView: NavigationDelegate{
             setupControls()
             self.replaceAndPlay.toggleVisibility()
             self.trafficLightComponent.isHidden = false
-            self.trafficLightComponent.startAnimation()
+            Task{
+                await self.trafficLightComponent.startAnimation()
+            }
         default:
             print("ERROR in 'GameView->navigationTo': Tag invalida")
         }
@@ -56,15 +58,13 @@ extension GameView: NavigationDelegate{
 
 extension GameView: ViewCode{
     func addViews() {
-        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent, lapAndTimer, endView, carControlViewComponent)
-        
+        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent, lapAndTimer, endView, carControlViewComponent, label)
         self.replaceAndPlay.delegate = self
         self.trafficLightComponent.delegate = self
         self.focusNode.viewDelegate = sceneView
         self.focusNode.name = "focusNode"
-        carControlViewComponent.isHidden = true
-        self.resumoViewComponent.delegate = self
-
+        self.carControlViewComponent.isHidden = true
+        self.resumoView.delegate = self
     }
     
     func addContrains() {
@@ -94,7 +94,10 @@ extension GameView: ViewCode{
             carControlViewComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             carControlViewComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             carControlViewComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            carControlViewComponent.heightAnchor.constraint(equalToConstant: 200)
+            carControlViewComponent.heightAnchor.constraint(equalToConstant: 200),
+            
+            label.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            label.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
     }
     
@@ -108,3 +111,8 @@ extension GameView: ResultsViewControllerDelegate {
         navigationController?.popToRootViewController(animated: true)
     }
 }
+
+
+//#Preview{
+//    GameView()
+//}

@@ -8,7 +8,7 @@ enum FileName: String {
     case soundCong = "soundCong"
     case idlCar = "02-0807"
     case startCar = "01-nissan_skyline_r34"
-    case accelerateCar1 = "CarAudioV2"
+    case accelerateCar1 = "CarAudioV3"
     case accelerateCar3 = "03-nissan_skyline_r34"
 }
 
