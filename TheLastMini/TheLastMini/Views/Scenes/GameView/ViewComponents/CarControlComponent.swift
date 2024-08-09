@@ -64,19 +64,60 @@ class CarControlComponent: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func moveForward(_ value: CGFloat = 1) {
+    private func setupArrowButtons() {
+        leftButton.addTarget(self, action: #selector(turnLeftAction), for: .touchDown)
+        leftButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
+        
+        rightButton.addTarget(self, action: #selector(turnRightAction), for: .touchDown)
+        rightButton.addTarget(self, action: #selector(resetOrientation), for: .touchUpInside)
+        
+        forwardButton.addTarget(self, action: #selector(moveForwardAction), for: .touchDown)
+        forwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
+        
+        backwardButton.addTarget(self, action: #selector(moveBackwardAction), for: .touchDown)
+        backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
+        
+        leftStack.addListSubviews([leftButton, rightButton])
+        addSubview(leftStack)
+        
+        rightStack.addListSubviews([forwardButton, backwardButton])
+        addSubview(rightStack)
+        
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            // Botões na `leftStack`
+            leftStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width * 0.05),
+            leftStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -120),
+            leftStack.widthAnchor.constraint(equalToConstant: 200),
+            leftStack.heightAnchor.constraint(equalToConstant: 50),
+            
+            // Botão para frente
+            rightStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -frame.width * 0.025),
+            rightStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -180),
+            rightStack.widthAnchor.constraint(equalToConstant: 100),
+            rightStack.heightAnchor.constraint(equalToConstant: 100),
+        ])
+        
+//        leftStack.spacing = leftStack.frame.width * 0.1
+//        rightStack.spacing = rightStack.frame.height * 0.05
+    }
+    
+    func moveForward(_ value: CGFloat = 0.4) {
         movementSystem.engineForce = value
     }
     
-    func moveBackward(_ value: CGFloat = -1) {
+    func moveBackward(_ value: CGFloat = -0.4) {
         movementSystem.engineForce = value
     }
     
-    func turnRight(_ value: CGFloat = -0.5) {
+    func turnRight(_ value: CGFloat = -0.3) {
         movementSystem.steeringAngle = value
     }
     
-    func turnLeft(_ value: CGFloat = 0.5) {
+    func turnLeft(_ value: CGFloat = 0.3) {
         movementSystem.steeringAngle = value
     }
     

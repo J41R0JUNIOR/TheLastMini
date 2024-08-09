@@ -4,58 +4,58 @@ import FocusNode
 import SmartHitTest
 
 class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate, TrafficLightDelegate {
-    var sceneView: ARSCNView = ARSCNView(frame: .zero)
-    let userDefualt: UserDefaults = UserDefaults.standard
-    var isVehicleAdded = false
-    
-    private var shouldHandleResetRequest = false
-    private var isInicialazeCoachi = false
-    private var soundManager: SoundManager = SoundManager.shared
+    internal var sceneView: ARSCNView = ARSCNView(frame: .zero)
+    internal var isVehicleAdded = false
+    internal let vehicleModel: VehicleModel
+    internal var shouldHandleResetRequest = false
+    internal var soundManager: SoundManager = SoundManager.shared
+    internal var checkpointsNode: [SCNNode?] = []
+    private var finishNode: SCNNode?
+    private var entities: [Entity] = []
+    private let movementSystem = MovementSystem()
+    private let renderSystem = RenderSystem()
+    internal let focusNode = FocusNode()
+    internal var tapGesture: UITapGestureRecognizer?
+    private var idleAudioPlayer: SCNAudioPlayer?
+    private var accelerateAudioPlayer: SCNAudioPlayer?
+    private var startAudioPlayer: SCNAudioPlayer?
+    private let userDefualt: UserDefaults = UserDefaults.standard
 
-    var checkpointsNode: [SCNNode?] = []
-    var finishNode: SCNNode?
-    
-    var entities: [Entity] = []
-    let movementSystem = MovementSystem()
-    let renderSystem = RenderSystem()
-    let focusNode = FocusNode()
-    
-    private var carNode: SCNNode = SCNNode()
-    
-    var tapGesture: UITapGestureRecognizer?
         
     ///View de animacao de scan
-    private lazy var coachingOverlay: ARCoachingOverlayView = {
+    internal lazy var coachingOverlay: ARCoachingOverlayView = {
         let arView = ARCoachingOverlayView()
         arView.translatesAutoresizingMaskIntoConstraints = false
         return arView
     }()
     
-    private lazy var replaceAndPlay: ReplaceAndPlayComponent = {
+    internal lazy var replaceAndPlay: ReplaceAndPlayComponent = {
         let view = ReplaceAndPlayComponent()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var lapAndTimer: LapAndTimerView = {
+    internal lazy var lapAndTimer: LapAndTimerView = {
         let view = LapAndTimerView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var endView: EndRaceView = {
+    internal lazy var endView: EndRaceView = {
         let view = EndRaceView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    var trafficLightComponent: TrafficLightComponent = {
+    internal var trafficLightComponent: TrafficLightComponent = {
         let view = TrafficLightComponent(frame: .init(origin: .zero, size: .init(width: 200, height: 100)))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var carControlComponent = CarControlComponent(movementSystem: self.movementSystem, frame: self.view.frame)
+    internal lazy var carControlViewComponent: CarControlComponent = {
+        return CarControlComponent(movementSystem: self.movementSystem, frame: self.view.frame)
+    }()
     
     private lazy var resumoView: ResultsViewController = {
         return ResultsViewController(map: "Dragon Road")
@@ -69,7 +69,17 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }()
+    }()    
+    
+    init(vehicleModel: VehicleModel){
+        self.vehicleModel = vehicleModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +89,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     
-    private func configureFocusNode(){
+    internal func configureFocusNode(){
         focusNode.childNodes.forEach { $0.removeFromParentNode() }
 
         let customNode = createSpeedway(setPhysics: false)
@@ -126,13 +136,14 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: floor, options: nil))
         floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.0)
         floorNode.position = position
-        floorNode.position.y -= 0.2
+        floorNode.opacity = 0
+        floorNode.position.y -= 0.1
         self.addNodeToScene(node: floorNode)
         
-        let speedwayNode = createSpeedway(setPhysics: true)
-        speedwayNode.position = position
-        speedwayNode.position.y -= 0.1
-        self.addNodeToScene(node: speedwayNode)
+//        let speedwayNode = createSpeedway(setPhysics: true)
+//        speedwayNode.position = position
+//        speedwayNode.position.y -= 0.1
+//        self.addNodeToScene(node: speedwayNode)
         setupVehicle(at: position)
     }
     
@@ -162,7 +173,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createWheel(lado: Lado) -> SCNNode {
-        let wheel = lado == .L ? "Ll.usdz" : "Rr.usdz"
+        let wheel = lado == .L ? vehicleModel.lWheelName : vehicleModel.rWheelName
         guard let wheelNode = SCNScene(named: wheel)?.rootNode else {
             fatalError("Could not load wheel asset")
         }
@@ -170,15 +181,26 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createChassis() -> SCNNode {
-        guard let chassis = SCNScene(named: "MmR.usdz"),
+        guard let chassis = SCNScene(named: vehicleModel.chassisName),
               let chassisNode = chassis.rootNode.childNodes.first else {
             fatalError("Could not load chassis asset")
         }
+        
+        let boxGeometry = SCNBox(width: 0.06, height: 0.03, length: 0.12, chamferRadius: 0.0)
+        let boxShape = SCNPhysicsShape(geometry: boxGeometry, options: nil)
+        let body = SCNPhysicsBody(type: .dynamic, shape: boxShape)
+        body.mass = 1.0
+        
+        chassisNode.name = "CarNode"
+        chassisNode.physicsBody = body
+        chassisNode.physicsBody?.categoryBitMask = BodyType.car.rawValue
+        chassisNode.physicsBody?.contactTestBitMask = BodyType.check.rawValue | BodyType.ground.rawValue | BodyType.wall.rawValue | BodyType.finish.rawValue
+        
         return chassisNode
     }
     
     func createSpeedway(setPhysics: Bool) ->SCNNode{
-        guard let pista = SCNScene(named: "TestPistaWallMaior.usdz"),
+        guard let pista = SCNScene(named: "pistaWall2.usdz"),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
         }
@@ -186,47 +208,49 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         if setPhysics {
             
-            for i in 1...6 {
-                guard let checkNode = pistaNode.childNode(withName: "Checkpoint\(i)", recursively: true) else { fatalError("Checkpoint\(i) not found") }
+            for i in 1...12 {
+                guard let checkNode = pistaNode.childNode(withName: "CP\(i)", recursively: true) else { fatalError("Checkpoint\(i) not found") }
                 checkNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
                 checkNode.physicsBody?.categoryBitMask = BodyType.check.rawValue
                 checkNode.name = "\(i)"
                 checkpointsNode.append(checkNode)
             }
             
-            for i in 1...4 {
+            for i in 1...7 {
                 guard let wallNode = pistaNode.childNode(withName: "InvWall\(i)", recursively: true) else { fatalError("InvWall\(i) not found") }
-                wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode))
+                wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode, options: nil))
                 wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
             }
             
-            guard let finishNode = pistaNode.childNode(withName: "Finish", recursively: true) else { fatalError("Finish Node not found") }
-            finishNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-            finishNode.physicsBody?.categoryBitMask = BodyType.finish.rawValue
-            self.finishNode = finishNode
+//            guard let finishNode = pistaNode.childNode(withName: "CP1", recursively: true) else { fatalError("Finish Node not found") }
+//            finishNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+//            finishNode.physicsBody?.categoryBitMask = BodyType.finish.rawValue
+//            self.finishNode = finishNode
             
-            guard let groundNode = pistaNode.childNode(withName: "Ground", recursively: true) else { fatalError("Ground Node not found") }
-            groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-            groundNode.physicsBody?.categoryBitMask = BodyType.ground.rawValue
+//            guard let groundNode = pistaNode.childNode(withName: "Pista", recursively: true) else { fatalError("Ground Node not found") }
+//            groundNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: groundNode, options: nil))
+//            groundNode.physicsBody?.categoryBitMask = BodyType.ground.rawValue
             
-            guard let centerWall = pistaNode.childNode(withName: "CenterWall", recursively: true) else { fatalError("CenterWall Node not found") }
-            centerWall.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-            centerWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+//            guard let externalWall = pistaNode.childNode(withName: "Paredes_externas", recursively: true) else { fatalError("Paredes externas Node not found") }
+//            externalWall.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: externalWall, options: nil))
+//            externalWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+            
+//            guard let internalWall = pistaNode.childNode(withName: "Paredes_internas", recursively: true) else { fatalError("Paredes internas Node not found") }
+//            internalWall.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: internalWall, options: nil))
+//            internalWall.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+//            centerWall.isHidden = true
             
         }
         
-        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)
+//        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)
         pistaNode.name = "pistaNode"
         return pistaNode
     }
     
     func setupVehicle(at position: SCNVector3) {
         let chassisNode = createChassis()
-        let body = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: chassisNode))
-        body.mass = 1.0
-        chassisNode.physicsBody = body
-        chassisNode.physicsBody?.categoryBitMask = BodyType.car.rawValue
-        chassisNode.physicsBody?.contactTestBitMask = BodyType.check.rawValue | BodyType.ground.rawValue | BodyType.wall.rawValue | BodyType.finish.rawValue
+//        let boxGeometry = SCNBox(width: 0.09, height: 0.04, length: 0.12, chamferRadius: 0.0)
+           
         
         let wheel1Node = createWheel(lado: .R)
         let wheel2Node = createWheel(lado: .L)
@@ -238,39 +262,43 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let wheel3 = SCNPhysicsVehicleWheel(node: wheel3Node)
         let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
         
-        let x: Double = 0.19
-        let y: Double = 0
-        let z: Double = 0.25
         
-        wheel1.connectionPosition = SCNVector3(-x, y, z)
-        wheel2.connectionPosition = SCNVector3(x, y, z)
-        wheel3.connectionPosition = SCNVector3(-x, y, -z)
-        wheel4.connectionPosition = SCNVector3(x, y, -z)
+        wheel1.connectionPosition = SCNVector3(-vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel)
+        wheel2.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel)
+        wheel3.connectionPosition = SCNVector3(-vehicleModel.xWheel, vehicleModel.yWheel, -vehicleModel.zbWheel)
+        wheel4.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, -vehicleModel.zbWheel)
         
-        wheel1.suspensionStiffness = CGFloat(20)
-        wheel2.suspensionStiffness = CGFloat(20)
-        wheel3.suspensionStiffness = CGFloat(20)
-        wheel4.suspensionStiffness = CGFloat(20)
-                
-        let suspensionRestLength = 0.15
-        wheel1.suspensionRestLength = suspensionRestLength
-        wheel2.suspensionRestLength = suspensionRestLength
-        wheel3.suspensionRestLength = suspensionRestLength
-        wheel4.suspensionRestLength = suspensionRestLength
+        wheel1.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
+        wheel2.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
+        wheel3.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
+        wheel4.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
+        
+//        let suspensionRestLength = 0.04
+//        let suspensionRestLength = 0.15
+
+        wheel1.suspensionRestLength = vehicleModel.suspensionRestLength
+        wheel2.suspensionRestLength = vehicleModel.suspensionRestLength
+        wheel3.suspensionRestLength = vehicleModel.suspensionRestLength
+        wheel4.suspensionRestLength = vehicleModel.suspensionRestLength
         
         chassisNode.addChildNode(wheel1Node)
         chassisNode.addChildNode(wheel2Node)
         chassisNode.addChildNode(wheel3Node)
         chassisNode.addChildNode(wheel4Node)
         
-        let vehicle = SCNPhysicsVehicle(chassisBody: body, wheels: [wheel1, wheel2, wheel3, wheel4])
+        var vehicle = SCNPhysicsVehicle()
+        
+        if let vehiclePhysicsBody = chassisNode.physicsBody {
+            vehicle = SCNPhysicsVehicle(chassisBody: vehiclePhysicsBody, wheels: [wheel1, wheel2, wheel3, wheel4])
+        }
         
         chassisNode.position = position
-        chassisNode.position.y += 0.3
+//        chassisNode.position.y += 0.1
+//        chassisNode.position.x -= 1
         self.addNodeToScene(node: chassisNode)
 
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)
-        chassisNode.name = "CarNode"
+      
         self.entities.append(chassisNode)
         self.carNode = chassisNode
         
@@ -283,10 +311,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func setupControls(){
-        carControlComponent.isHidden = false
+        carControlViewComponent.isHidden = false
     }
     
-    // Atualizar a lógica de jogo a cada frame
     func update(deltaTime: TimeInterval) {
         movementSystem.update(deltaTime: deltaTime, entities: entities)
         renderSystem.update(deltaTime: deltaTime, entities: entities)
@@ -347,17 +374,15 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                     DispatchQueue.main.async {
                         self.endView.isHidden = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                            self.resumoView.laps = self.lapAndTimer.lapsTime
-                            self.resumoView.saveTimeRecord()
-                            self.resumoView.setupTrackInfoView()
-                            self.present(self.resumoView, animated: false)
+                            self.resumoViewComponent.laps = self.lapAndTimer.lapsTime
+                            self.resumoViewComponent.saveTimeRecord()
+                            self.resumoViewComponent.setupTrackInfoView()
+                            self.present(self.resumoViewComponent, animated: false)
                         }
                     }
                 }
             }
-            
         }
-        
     }
     
     private func verifyIsCheckNodes(nodeName: String)-> Bool {
