@@ -278,10 +278,10 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
         
         
-        wheel1.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel)
+        wheel1.connectionPosition = SCNVector3(-vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel)
         wheel2.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel)
-        wheel3.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zbWheel)
-        wheel4.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zbWheel)
+        wheel3.connectionPosition = SCNVector3(-vehicleModel.xWheel, vehicleModel.yWheel, -vehicleModel.zbWheel)
+        wheel4.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, -vehicleModel.zbWheel)
         
         wheel1.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
         wheel2.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)

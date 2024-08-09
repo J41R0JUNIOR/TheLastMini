@@ -42,7 +42,7 @@ enum Cars {
     var names: [String] {
         switch self {
         case .models:
-            return ["Model1", "Model1 Variant"]
+            return ["Model1"]
 
         }
     }
