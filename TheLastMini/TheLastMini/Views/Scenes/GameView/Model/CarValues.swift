@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct VehicleModel {
     var chassisName: String = ""
     var lWheelName: String = ""

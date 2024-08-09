@@ -277,15 +277,11 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let wheel3 = SCNPhysicsVehicleWheel(node: wheel3Node)
         let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
         
-        let x: Double = vehicleModel.xWheel
-        let y: Double = vehicleModel.yWheel
-        let zf: Double = vehicleModel.zfWheel
-        let zb: Double = vehicleModel.zbWheel
         
-        wheel1.connectionPosition = SCNVector3(-x, y, zf)
-        wheel2.connectionPosition = SCNVector3(x, y, zf)
-        wheel3.connectionPosition = SCNVector3(-x, y, -zb)
-        wheel4.connectionPosition = SCNVector3(x, y, -zb)
+        wheel1.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel)
+        wheel2.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel)
+        wheel3.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zbWheel)
+        wheel4.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zbWheel)
         
         wheel1.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
         wheel2.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
@@ -312,7 +308,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         }
         
         chassisNode.position = position
-//        chassisNode.position.y += 0.1  
+//        chassisNode.position.y += 0.1
 //        chassisNode.position.x -= 1
         self.addNodeToScene(node: chassisNode)
 //        sceneView.scene.rootNode.addChildNode(chassisNode)
