@@ -393,7 +393,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         lapAndTimer.playTimer()
         
         Task{
-            await self.soundManager.playSong(fileName: .accelerateCar1, .soundEffect)
+            await self.soundManager.playSgit sgit aong(fileName: .accelerateCar1, .soundEffect)
         }
     }
     
