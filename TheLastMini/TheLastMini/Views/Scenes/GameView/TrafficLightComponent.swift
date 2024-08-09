@@ -14,7 +14,7 @@ class TrafficLightComponent: UIView{
     let light2 = UIView()
     let light3 = UIView()
     
-    var delegate: TrafficLightDelegate?
+    weak var delegate: TrafficLightDelegate?
     
     private let soundManager: SoundManager = SoundManager.shared
 
@@ -25,7 +25,6 @@ class TrafficLightComponent: UIView{
        
         self.isHidden = true
         SetupTrafficLight()
-//        lightAnimation()
     }
     
     required init?(coder: NSCoder) {
@@ -48,13 +47,11 @@ class TrafficLightComponent: UIView{
         
         addSubview(trafficLightStackView)
         
-        // Configuração das constraints do stackView
         NSLayoutConstraint.activate([
             trafficLightStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             trafficLightStackView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
         
-        // Configuração das luzes
         [light1, light2, light3].forEach { light in
             light.widthAnchor.constraint(equalToConstant: lightSize).isActive = true
             light.heightAnchor.constraint(equalToConstant: lightSize).isActive = true
@@ -68,12 +65,10 @@ class TrafficLightComponent: UIView{
         var count = 0
         let lights = [light1, light2, light3]
         
-        
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            
             if count == 3 {
                 Task{
-                    await self.soundManager.playSong(fileName: .countSemaforoFinish)
+                    await self.soundManager.playSong(fileName: .countSemaforoFinish, .soundEffect)
                 }
                 for light in lights {
                     light.backgroundColor = .green
@@ -84,11 +79,10 @@ class TrafficLightComponent: UIView{
                 timer.invalidate()
             } else {
                 Task{
-                    await self.soundManager.playSong(fileName: .countSemaforoInit)
+                    await self.soundManager.playSong(fileName: .countSemaforoInit, .soundEffect)
                 }
                 lights[count].backgroundColor = .yellow
             }
-            
             count += 1
         }
     }
@@ -96,6 +90,6 @@ class TrafficLightComponent: UIView{
 }
 
 
-protocol TrafficLightDelegate {
+protocol TrafficLightDelegate: AnyObject {
     func changed()
 }

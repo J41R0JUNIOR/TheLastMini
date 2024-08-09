@@ -12,6 +12,11 @@ enum Identifier: String{
     case recordID = "RankingTotalTimeID"
 }
 
+enum FontsCuston: String{
+    case fontMediumItalick = "Kanit-MediumItalic"
+    case fontBoldItalick = "Kanit-BoldItalic"
+}
+
 enum Lado{
     case L
     case R

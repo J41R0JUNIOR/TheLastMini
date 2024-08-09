@@ -8,6 +8,7 @@
 import UIKit
 
 class MenuCollectionViewController: UICollectionViewController {
+   
 
     private lazy var menuColletion: MenuColletionView = {
         let view = MenuColletionView()
@@ -43,14 +44,11 @@ extension MenuCollectionViewController: ViewCode{
     }
     
     func setupStyle() {
-
+        self.view.backgroundColor = .clear
     }
     
     func setupCells(){
-        let model: [MenuDataModel] = [MenuDataModel(image: UIImage(resource: .interlagos), text: "Interlagos"),
-                                      MenuDataModel(image: UIImage(resource: .r34), text: "Interlagos"),
-                                      MenuDataModel(image: UIImage(resource: .r34), text: "Interlagos")
-        ]
+        let model: [MenuDataModel] = [MenuDataModel(image: UIImage(resource: .pista))]
         self.menuColletion.configure(model)
     }
 }
@@ -59,9 +57,14 @@ extension MenuCollectionViewController: NavigationDelegate{
     func navigationTo(_ tag: Int) {
         switch tag{
         case 0:
-            navigationController?.pushViewController(GameView(), animated: true)
+            let carValues = VehicleModel(carName: Cars.models.names[0])
+            navigationController?.pushViewController(GameView(vehicleModel: carValues), animated: true)
         default:
             print("tag Invalida")
         }
     }
+}
+
+#Preview{
+    MenuCollectionViewController()
 }

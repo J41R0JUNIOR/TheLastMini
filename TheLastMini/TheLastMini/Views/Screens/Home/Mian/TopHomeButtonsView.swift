@@ -11,10 +11,8 @@ class TopHomeButtonsView: UIView {
 
     private lazy var configButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "gear"), for: .normal)
+        button.setImage(UIImage(resource: .settinsButton), for: .normal)
         button.contentMode = .scaleAspectFill
-        button.backgroundColor = .lightGray.withAlphaComponent(0.5)
-        button.layer.cornerRadius = 3.0
         button.tag = 0
         button.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -23,10 +21,8 @@ class TopHomeButtonsView: UIView {
     
     private lazy var gameCenterButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "gamecontroller.fill"), for: .normal)
+        button.setImage(UIImage(resource: .gameButton), for: .normal)
         button.contentMode = .scaleAspectFill
-        button.backgroundColor = .lightGray.withAlphaComponent(0.5)
-        button.layer.cornerRadius = 3.0
         button.tag = 1
         button.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -35,11 +31,27 @@ class TopHomeButtonsView: UIView {
     
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.text = "Selecione um Mapa"
-        label.font = .systemFont(ofSize: 26, weight: .black)
-        label.textColor = .black
+        label.text = "Dragon Road"
+        label.font = UIFont(name: FontsCuston.fontBoldItalick.rawValue, size: 26)
+        label.textColor = UIColor(resource: .amarelo)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    private lazy var labelJapon: UILabel = {
+        let label = UILabel()
+        label.text = "竜の道"
+        label.font = UIFont(name: FontsCuston.fontBoldItalick.rawValue, size: 20)
+        label.textColor = UIColor(resource: .amarelo)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var stoke: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(resource: .amarelo).withAlphaComponent(0.37)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     public weak var delegate: NavigationDelegate?
@@ -60,21 +72,29 @@ class TopHomeButtonsView: UIView {
 // MARK: - ViewCode Protocol Methods
 extension TopHomeButtonsView: ViewCode{
     func addViews() {
-        addListSubviews(configButton, gameCenterButton, label)
+        addListSubviews(configButton, gameCenterButton, label, stoke, labelJapon)
     }
     
     func addContrains() {
         NSLayoutConstraint.activate([
-            gameCenterButton.widthAnchor.constraint(equalToConstant: 40),
-            gameCenterButton.heightAnchor.constraint(equalToConstant: 40),
+            gameCenterButton.widthAnchor.constraint(equalToConstant: 60),
+            gameCenterButton.heightAnchor.constraint(equalToConstant: 60),
             gameCenterButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             
             label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            label.topAnchor.constraint(equalTo: self.topAnchor),
-
-            configButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-            configButton.widthAnchor.constraint(equalToConstant: 40),
-            configButton.heightAnchor.constraint(equalToConstant: 40)
+            label.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
+            
+            stoke.centerXAnchor.constraint(equalTo: label.centerXAnchor),
+            stoke.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 5),
+            stoke.widthAnchor.constraint(equalToConstant: 180),
+            stoke.heightAnchor.constraint(equalToConstant: 2),
+            
+            labelJapon.centerXAnchor.constraint(equalTo: stoke.centerXAnchor),
+            labelJapon.topAnchor.constraint(equalTo: stoke.bottomAnchor, constant: 5),
+            
+            configButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            configButton.widthAnchor.constraint(equalToConstant: 60),
+            configButton.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
     
@@ -91,4 +111,9 @@ extension TopHomeButtonsView{
         print("DEBUG: Clickei no Botão -> ", sender.tag)
         delegate?.navigationTo(sender.tag)
     }
+}
+
+
+#Preview{
+    TopHomeButtonsView()
 }

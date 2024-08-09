@@ -4,98 +4,96 @@ import FocusNode
 import SmartHitTest
 
 class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate, TrafficLightDelegate {
-    var sceneView: ARSCNView = ARSCNView(frame: .zero)
-    var isVehicleAdded = false
-    
-    private var shouldHandleResetRequest = false
-    private var soundManager: SoundManager = SoundManager.shared
-    
-    var checkpointsNode: [SCNNode?] = []
-    var finishNode: SCNNode?
-    
-    var entities: [Entity] = []
-    let movementSystem = MovementSystem()
-    let renderSystem = RenderSystem()
-    let focusNode = FocusNode()
-    
-    var tapGesture: UITapGestureRecognizer?
-    
+    internal var sceneView: ARSCNView = ARSCNView(frame: .zero)
+    internal var isVehicleAdded = false
+    internal let vehicleModel: VehicleModel
+    internal var shouldHandleResetRequest = false
+    internal var isInicialazeCoach: Bool = false
+    internal var soundManager: SoundManager = SoundManager.shared
+    internal var checkpointsNode: [SCNNode?] = []
+    private var finishNode: SCNNode?
+    private var entities: [Entity] = []
+    private let movementSystem = MovementSystem()
+    private let renderSystem = RenderSystem()
+    internal let focusNode = FocusNode()
+    internal var tapGesture: UITapGestureRecognizer?
+    private var idleAudioPlayer: SCNAudioPlayer?
+    private var accelerateAudioPlayer: SCNAudioPlayer?
+    private var startAudioPlayer: SCNAudioPlayer?
+    private let userDefualt: UserDefaults = UserDefaults.standard
+
+        
     ///View de animacao de scan
-    private lazy var coachingOverlay: ARCoachingOverlayView = {
+    internal lazy var coachingOverlay: ARCoachingOverlayView = {
         let arView = ARCoachingOverlayView()
         arView.translatesAutoresizingMaskIntoConstraints = false
         return arView
     }()
     
-    private lazy var replaceAndPlay: ReplaceAndPlayComponent = {
+    internal lazy var replaceAndPlay: ReplaceAndPlayComponent = {
         let view = ReplaceAndPlayComponent()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var lapAndTimer: LapAndTimerView = {
+    internal lazy var lapAndTimer: LapAndTimerView = {
         let view = LapAndTimerView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var endView: EndRaceView = {
+    internal lazy var endView: EndRaceView = {
         let view = EndRaceView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    var trafficLightComponent: TrafficLightComponent = {
+    internal var trafficLightComponent: TrafficLightComponent = {
         let view = TrafficLightComponent(frame: .init(origin: .zero, size: .init(width: 200, height: 100)))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var carControlComponent = CarControlComponent(movementSystem: self.movementSystem, frame: self.view.frame)
-    
-    private lazy var resumoView: ResultsViewController = {
-        return ResultsViewController(map: "Mount Fuji Track")
+    internal lazy var carControlViewComponent: CarControlComponent = {
+        return CarControlComponent(movementSystem: self.movementSystem, frame: self.view.frame)
     }()
     
-    private var idleAudioPlayer: SCNAudioPlayer?
-    private var accelerateAudioPlayer: SCNAudioPlayer?
-    private var startAudioPlayer: SCNAudioPlayer?
+    internal lazy var resumoView: ResultsViewController = {
+        return ResultsViewController(map: "Dragon Road")
+    }()
+    
+    internal lazy var label: UILabel = {
+        let label = UILabel()
+        label.text = "Posicione a pista e clique na tela para posicionar"
+        label.font = .systemFont(ofSize: 16, weight: .black)
+        label.textColor = .black
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()    
+    
+    init(vehicleModel: VehicleModel){
+        self.vehicleModel = vehicleModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupScene()
         self.setupViewCode()
-        self.setupAudio()
     }
     
-    deinit{
-        self.shouldHandleResetRequest = false
-    }
     
-    private func setupAudio(){
-        self.idleAudioPlayer = SCNAudioPlayer(source: soundManager.loadCarAudio(.idlCar, false))
-        self.startAudioPlayer = SCNAudioPlayer(source: soundManager.loadCarAudio(.startCar, false))
-        self.accelerateAudioPlayer = SCNAudioPlayer(source: soundManager.loadCarAudio(.accelerateCar1, true))
-    }
-    
-    private func playSong(_ audioPlayer: SCNAudioPlayer){
-        guard let carNode = sceneView.scene.rootNode.childNode(withName: "CarNode", recursively: true) else { return }
-        carNode.removeAllAudioPlayers()
-        carNode.addAudioPlayer(audioPlayer)
-    }
-    
-    func stopAllSounds() {
-        guard let carNode = sceneView.scene.rootNode.childNode(withName: "CarNode", recursively: true) else { return }
-        carNode.removeAllAudioPlayers()
-    }
-    
-    private func configureFocusNode(){
+    internal func configureFocusNode(){
         focusNode.childNodes.forEach { $0.removeFromParentNode() }
         
         let customNode = createSpeedway(setPhysics: false)
-        print("Estou aqui: ", sceneView.scene.rootNode.childNodes.count, " [-] ", sceneView.scene.rootNode.childNodes)
-        
         if customNode.parent != nil {
             focusNode.addChildNode(customNode)
         }
@@ -120,7 +118,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         focusNode.isHidden = true
         self.replaceAndPlay.isHidden = false
         self.tapGesture?.isEnabled = false
-        
+        self.label.isHidden = true
+
         setupFloor(at: focusNode.position)
     }
     
@@ -157,8 +156,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func setupScene() {
-        
-        
         sceneView = ARSCNView(frame: self.view.frame)
         sceneView.delegate = self
         //        sceneView.showsStatistics = true
@@ -177,7 +174,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createWheel(lado: Lado) -> SCNNode {
-        let wheel = lado == .L ? "Left_Wheel_3-2.usdz" : "Right_Wheel_3-2.usdz"
+        let wheel = lado == .L ? vehicleModel.lWheelName : vehicleModel.rWheelName
         guard let wheelNode = SCNScene(named: wheel)?.rootNode else {
             fatalError("Could not load wheel asset")
         }
@@ -185,10 +182,21 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createChassis() -> SCNNode {
-        guard let chassis = SCNScene(named: "Car_Chassis_3-2.usdz"),
+        guard let chassis = SCNScene(named: vehicleModel.chassisName),
               let chassisNode = chassis.rootNode.childNodes.first else {
             fatalError("Could not load chassis asset")
         }
+        
+        let boxGeometry = SCNBox(width: 0.06, height: 0.03, length: 0.12, chamferRadius: 0.0)
+        let boxShape = SCNPhysicsShape(geometry: boxGeometry, options: nil)
+        let body = SCNPhysicsBody(type: .dynamic, shape: boxShape)
+        body.mass = 1.0
+        
+        chassisNode.name = "CarNode"
+        chassisNode.physicsBody = body
+        chassisNode.physicsBody?.categoryBitMask = BodyType.car.rawValue
+        chassisNode.physicsBody?.contactTestBitMask = BodyType.check.rawValue | BodyType.ground.rawValue | BodyType.wall.rawValue | BodyType.finish.rawValue
+        
         return chassisNode
     }
     
@@ -198,8 +206,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             fatalError("Could not load wheel asset")
         }
         
-        //        let body = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: pistaNode, options: [SCNPhysicsShape.Option.keepAsCompound: true]))
-        //        pistaNode.physicsBody = body
         
         //        print("PISTANODE CHILD NODES: \n\(pistaNode.childNodes)")
         
@@ -281,7 +287,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         //        finishNode = pistaNode.childNode(withName: "Finish", recursively: true)
         pistaNode.name = "pistaNode"
-        //        speedwayNode = pistaNode
         return pistaNode
     }
     
@@ -306,50 +311,35 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let wheel3 = SCNPhysicsVehicleWheel(node: wheel3Node)
         let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
         
-        let x: Double = 0.025
-        let y: Double = -0.01
-        let zf: Double = 0.0388
-        let zb: Double = 0.02
         
+        wheel1.connectionPosition = SCNVector3(-vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel)
+        wheel2.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel)
+        wheel3.connectionPosition = SCNVector3(-vehicleModel.xWheel, vehicleModel.yWheel, -vehicleModel.zbWheel)
+        wheel4.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, -vehicleModel.zbWheel)
         
-        //        let x: Double = 0.19
-        //        let y: Double = 0
-        //        let zf: Double = 0.25
-        //        let zb: Double = 0.25
+        wheel1.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
+        wheel2.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
+        wheel3.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
+        wheel4.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
         
-        
-        wheel1.connectionPosition = SCNVector3(-x, y, zf)
-        wheel2.connectionPosition = SCNVector3(x, y, zf)
-        wheel3.connectionPosition = SCNVector3(-x, y, -zb)
-        wheel4.connectionPosition = SCNVector3(x, y, -zb)
-        
-        wheel1.suspensionStiffness = CGFloat(50)
-        wheel2.suspensionStiffness = CGFloat(50)
-        wheel3.suspensionStiffness = CGFloat(50)
-        wheel4.suspensionStiffness = CGFloat(50)
-        
-        //        wheel1.frictionSlip = 1
-        //        wheel2.frictionSlip = 1
-        //        wheel3.frictionSlip = 1
-        //        wheel4.frictionSlip = 1
-        
-        
-        let suspensionRestLength = 0.04
-        //        let suspensionRestLength = 0.15
-        
-        
-        
-        wheel1.suspensionRestLength = suspensionRestLength
-        wheel2.suspensionRestLength = suspensionRestLength
-        wheel3.suspensionRestLength = suspensionRestLength
-        wheel4.suspensionRestLength = suspensionRestLength
+//        let suspensionRestLength = 0.04
+//        let suspensionRestLength = 0.15
+
+        wheel1.suspensionRestLength = vehicleModel.suspensionRestLength
+        wheel2.suspensionRestLength = vehicleModel.suspensionRestLength
+        wheel3.suspensionRestLength = vehicleModel.suspensionRestLength
+        wheel4.suspensionRestLength = vehicleModel.suspensionRestLength
         
         chassisNode.addChildNode(wheel1Node)
         chassisNode.addChildNode(wheel2Node)
         chassisNode.addChildNode(wheel3Node)
         chassisNode.addChildNode(wheel4Node)
         
-        let vehicle = SCNPhysicsVehicle(chassisBody: body, wheels: [wheel1, wheel2, wheel3, wheel4])
+        var vehicle = SCNPhysicsVehicle()
+        
+        if let vehiclePhysicsBody = chassisNode.physicsBody {
+            vehicle = SCNPhysicsVehicle(chassisBody: vehiclePhysicsBody, wheels: [wheel1, wheel2, wheel3, wheel4])
+        }
         
         chassisNode.position = position
         chassisNode.position.y += 0.1
@@ -358,12 +348,11 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         //        sceneView.scene.rootNode.addChildNode(chassisNode)
         
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)
-        chassisNode.name = "CarNode"
+      
         self.entities.append(chassisNode)
         
         let vehicleComponent = VehiclePhysicsComponent(vehicle: vehicle, wheels: [wheel1, wheel2, wheel3, wheel4])
         let positionComponent = PositionComponent(position: position)
-        
         chassisNode.addComponent(vehicleComponent)
         chassisNode.addComponent(positionComponent)
         print(chassisNode.getId(), "esse é o uuid do carro gerado")
@@ -371,14 +360,18 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func setupControls(){
-        carControlComponent.isHidden = false
+        carControlViewComponent.isHidden = false
     }
     
-    // Atualizar a lógica de jogo a cada frame
     func update(deltaTime: TimeInterval) {
         movementSystem.update(deltaTime: deltaTime, entities: entities)
         renderSystem.update(deltaTime: deltaTime, entities: entities)
+        
+        if let volume = movementSystem.vehiclePhysics?.vehicle.speedInKilometersPerHour, volume > 0{
+            soundManager.changeVolume(volume)
+        }
     }
+    
     
     // Chamar a função de atualização de jogo no loop principal
     override func viewWillAppear(_ animated: Bool) {
@@ -388,11 +381,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         displayLink.add(to: .current, forMode: .default)
         
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         self.playTimer()
     }
@@ -406,11 +394,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let nodeA = contact.nodeA
         let nodeB = contact.nodeB
         
-        // Verificar qual nó é o carrinho e qual é o checkpoint
         if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.check.rawValue) ||
             (nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
             let checkpointNode = nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue ? nodeA : nodeB
-//            print("Carrinho passou pelo checkpoint: \(checkpointNode.name ?? "nil")")
             
             if verifyIsCheckNodes(nodeName: checkpointNode.name ?? "nil"){
                 checkpointNode.isCheck = true
@@ -419,13 +405,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.finish.rawValue) ||
             (nodeA.physicsBody?.categoryBitMask == BodyType.finish.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
-//            print("Carrinho passou pelo Finish")
-            for node in checkpointsNode {
-//                print("Checkpoint \(String(describing: node?.name)): \(String(describing: node?.isCheck))")
-            }
             
             if checkpointsNode.allSatisfy({ $0!.isCheck }) {
-//                print("Todos os checkpoints estão ativados")
                 lapAndTimer.saveLapTime()
                 for node in checkpointsNode {
                     node?.isCheck = false
@@ -437,8 +418,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                 }else {
                     lapAndTimer.pauseTimer()
                     Task{
-                        //                        await self.soundManager.playSong(fileName: .voiceCong)
-                        await self.soundManager.playSong(fileName: .soundCong)
+                        await self.soundManager.playSong(fileName: .soundCong, .soundEffect)
                     }
                     DispatchQueue.main.async {
                         self.endView.isHidden = false
@@ -451,9 +431,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                     }
                 }
             }
-            
         }
-        
     }
     
     private func verifyIsCheckNodes(nodeName: String)-> Bool {
@@ -487,128 +465,25 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         movementSystem.changed()
         lapAndTimer.isHidden = false
         lapAndTimer.playTimer()
-        self.playSong(self.idleAudioPlayer!)
+        
+        Task{
+            await self.soundManager.playSong(fileName: .accelerateCar1, .soundEffect)
+        }
     }
     
     private func playTimer(){
-        Timer.scheduledTimer(withTimeInterval: 6, repeats: true) { time in
-            //label talvez
-            //call function
-            print("✅✅✅⬇️🚨🚨🚨🚨🚨🚨🚨🚨")
-            //            if !shouldHandleResetRequest{
-            //
-            //            }
-        }
-    }
-}
-
-extension ARSCNView: ARSmartHitTest { }
-
-//MARK: - Configuração de animação de scan
-extension GameView: ARCoachingOverlayViewDelegate{
-    func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
-        print("Vai comecar ✅")
-    }
-    
-    func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
-        print("Sera que foi agora? 🐐")
-        if !shouldHandleResetRequest{
-            shouldHandleResetRequest = true
-            coachingOverlayView.removeFromSuperview()
-            configureFocusNode()
-            setupTapGesture()
-            return
-        }
-        
-    }
-}
-
-//MARK: Função de action replace and play button
-extension GameView: NavigationDelegate{
-    func navigationTo(_ tag: Int) {
-        switch tag{
-        case 10:
-            print("Replace")
-            if sceneView.scene.rootNode.childNodes.count > 0{
-                sceneView.scene.rootNode.childNodes.forEach { node in
-                    if node.name != "focusNode"{
-                        node.removeFromParentNode()
-                    }
-                }
-                self.isVehicleAdded = false
-                self.replaceAndPlay.toggleVisibility()
-                focusNode.isHidden = false
-                self.tapGesture?.isEnabled = true
-                self.checkpointsNode.removeAll()
+        Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { [self] time in
+            if !isInicialazeCoach{
+                setupDefualtConfig()
             }
-        case 11:
-            print("Play")
-            setupControls()
-            self.replaceAndPlay.toggleVisibility()
-            self.trafficLightComponent.isHidden = false
-            self.trafficLightComponent.startAnimation()
-        default:
-            print("ERROR in 'GameView->navigationTo': Tag invalida")
         }
     }
-}
-
-extension GameView: ViewCode{
-    func addViews() {
-        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent, lapAndTimer, endView, carControlComponent)
-        
-        self.replaceAndPlay.delegate = self
-        self.trafficLightComponent.delegate = self
-        self.focusNode.viewDelegate = sceneView
-        self.focusNode.name = "focusNode"
-        carControlComponent.isHidden = true
-        self.resumoView.delegate = self
-        
-    }
     
-    func addContrains() {
-        NSLayoutConstraint.activate([
-            coachingOverlay.topAnchor.constraint(equalTo: self.view.topAnchor),
-            coachingOverlay.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            coachingOverlay.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            coachingOverlay.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            
-            replaceAndPlay.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            replaceAndPlay.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            replaceAndPlay.heightAnchor.constraint(equalToConstant: 41),
-            replaceAndPlay.widthAnchor.constraint(equalToConstant: 280),
-            
-            trafficLightComponent.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            trafficLightComponent.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            
-            lapAndTimer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            lapAndTimer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            lapAndTimer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            lapAndTimer.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
-            lapAndTimer.heightAnchor.constraint(equalToConstant: 50),
-            
-            endView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            endView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            
-            carControlComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            carControlComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            carControlComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            carControlComponent.heightAnchor.constraint(equalToConstant: 200)
-        ])
-    }
-    
-    func setupStyle() {
-        
+    internal func setupDefualtConfig(){
+        self.coachingOverlay.removeFromSuperview()
+        configureFocusNode()
+        setupTapGesture()
+        self.label.isHidden = false
     }
 }
 
-extension GameView: ResultsViewControllerDelegate {
-    func backTapped() {
-        navigationController?.popToRootViewController(animated: true)
-    }
-}
-
-
-#Preview{
-    GameView()
-}
