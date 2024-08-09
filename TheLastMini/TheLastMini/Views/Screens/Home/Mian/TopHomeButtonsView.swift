@@ -32,7 +32,7 @@ class TopHomeButtonsView: UIView {
     private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "Dragon Road"
-        label.font = .systemFont(ofSize: 26, weight: .black)
+        label.font = UIFont(name: FontsCuston.fontBoldItalick.rawValue, size: 26)
         label.textColor = UIColor(resource: .amarelo)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -41,7 +41,7 @@ class TopHomeButtonsView: UIView {
     private lazy var labelJapon: UILabel = {
         let label = UILabel()
         label.text = "竜の道"
-        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont(name: FontsCuston.fontBoldItalick.rawValue, size: 20)
         label.textColor = UIColor(resource: .amarelo)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -85,15 +85,14 @@ extension TopHomeButtonsView: ViewCode{
             label.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             
             stoke.centerXAnchor.constraint(equalTo: label.centerXAnchor),
-            stoke.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 10),
-            stoke.widthAnchor.constraint(equalToConstant: 155),
+            stoke.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 5),
+            stoke.widthAnchor.constraint(equalToConstant: 180),
             stoke.heightAnchor.constraint(equalToConstant: 2),
             
             labelJapon.centerXAnchor.constraint(equalTo: stoke.centerXAnchor),
             labelJapon.topAnchor.constraint(equalTo: stoke.bottomAnchor, constant: 5),
             
-
-            configButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            configButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             configButton.widthAnchor.constraint(equalToConstant: 60),
             configButton.heightAnchor.constraint(equalToConstant: 60)
         ])

@@ -42,6 +42,8 @@
 		D92661F02C62A928006FC0BB /* 03-nissan_skyline_r34.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661ED2C62A927006FC0BB /* 03-nissan_skyline_r34.mp3 */; };
 		D92661F12C62A928006FC0BB /* 01-nissan_skyline_r34.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661EE2C62A927006FC0BB /* 01-nissan_skyline_r34.mp3 */; };
 		D92661F32C62A977006FC0BB /* car-idle-84718.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */; };
+		D93A082C2C66837900BF4F1F /* Kanit-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D93A082A2C6682F200BF4F1F /* Kanit-MediumItalic.ttf */; };
+		D93A082D2C66857900BF4F1F /* Kanit-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D93A08242C6682F100BF4F1F /* Kanit-BoldItalic.ttf */; };
 		D9752C4C2C640FFF0039F9B6 /* 02-0807.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C4A2C640FFF0039F9B6 /* 02-0807.mp3 */; };
 		D9752C4D2C640FFF0039F9B6 /* 01-0807.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C4B2C640FFF0039F9B6 /* 01-0807.mp3 */; };
 		D9752C4F2C653B6C0039F9B6 /* CarAudioR.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C4E2C653B6C0039F9B6 /* CarAudioR.mp3 */; };
@@ -105,6 +107,14 @@
 		D92661ED2C62A927006FC0BB /* 03-nissan_skyline_r34.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "03-nissan_skyline_r34.mp3"; sourceTree = "<group>"; };
 		D92661EE2C62A927006FC0BB /* 01-nissan_skyline_r34.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01-nissan_skyline_r34.mp3"; sourceTree = "<group>"; };
 		D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "car-idle-84718.mp3"; sourceTree = "<group>"; };
+		D93A08232C6682F100BF4F1F /* Kanit-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		D93A08242C6682F100BF4F1F /* Kanit-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-BoldItalic.ttf"; sourceTree = "<group>"; };
+		D93A08252C6682F100BF4F1F /* Kanit-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-ThinItalic.ttf"; sourceTree = "<group>"; };
+		D93A08262C6682F200BF4F1F /* Kanit-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-LightItalic.ttf"; sourceTree = "<group>"; };
+		D93A08272C6682F200BF4F1F /* Kanit-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		D93A08282C6682F200BF4F1F /* Kanit-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-BlackItalic.ttf"; sourceTree = "<group>"; };
+		D93A08292C6682F200BF4F1F /* Kanit-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		D93A082A2C6682F200BF4F1F /* Kanit-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-MediumItalic.ttf"; sourceTree = "<group>"; };
 		D9752C4A2C640FFF0039F9B6 /* 02-0807.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "02-0807.mp3"; sourceTree = "<group>"; };
 		D9752C4B2C640FFF0039F9B6 /* 01-0807.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01-0807.mp3"; sourceTree = "<group>"; };
 		D9752C4E2C653B6C0039F9B6 /* CarAudioR.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CarAudioR.mp3; sourceTree = "<group>"; };
@@ -244,6 +254,21 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		D93A082B2C6682F500BF4F1F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D93A08282C6682F200BF4F1F /* Kanit-BlackItalic.ttf */,
+				D93A08242C6682F100BF4F1F /* Kanit-BoldItalic.ttf */,
+				D93A08232C6682F100BF4F1F /* Kanit-ExtraBoldItalic.ttf */,
+				D93A08292C6682F200BF4F1F /* Kanit-ExtraLightItalic.ttf */,
+				D93A08272C6682F200BF4F1F /* Kanit-SemiBoldItalic.ttf */,
+				D93A08252C6682F100BF4F1F /* Kanit-ThinItalic.ttf */,
+				D93A08262C6682F200BF4F1F /* Kanit-LightItalic.ttf */,
+				D93A082A2C6682F200BF4F1F /* Kanit-MediumItalic.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		D995CC5C2C4EDA3000E391F5 = {
 			isa = PBXGroup;
 			children = (
@@ -286,6 +311,7 @@
 		D995CC7E2C4EE5D800E391F5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D93A082B2C6682F500BF4F1F /* Fonts */,
 				D92661DB2C615560006FC0BB /* Sounds */,
 				D995CC7F2C4EE60B00E391F5 /* ViewCodeProtocols.swift */,
 				D995CC952C50189F00E391F5 /* Delegates.swift */,
@@ -435,12 +461,14 @@
 				D9752C4F2C653B6C0039F9B6 /* CarAudioR.mp3 in Resources */,
 				B384A5602C580D8F002FA243 /* MmR.usdz in Resources */,
 				D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */,
+				D93A082D2C66857900BF4F1F /* Kanit-BoldItalic.ttf in Resources */,
 				B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */,
 				C089E0F62C5AD47C0003E40E /* TestCompleteSpeedway.usdz in Resources */,
 				D9752C4C2C640FFF0039F9B6 /* 02-0807.mp3 in Resources */,
 				D92661F02C62A928006FC0BB /* 03-nissan_skyline_r34.mp3 in Resources */,
 				B384A5612C580D8F002FA243 /* Rr.usdz in Resources */,
 				D92661F12C62A928006FC0BB /* 01-nissan_skyline_r34.mp3 in Resources */,
+				D93A082C2C66837900BF4F1F /* Kanit-MediumItalic.ttf in Resources */,
 				D92661F32C62A977006FC0BB /* car-idle-84718.mp3 in Resources */,
 				D92661E62C6155A4006FC0BB /* soundCong.mp3 in Resources */,
 				C0BCBCF22C613C8B0035BCC0 /* TestPistaWallMaior.usdz in Resources */,

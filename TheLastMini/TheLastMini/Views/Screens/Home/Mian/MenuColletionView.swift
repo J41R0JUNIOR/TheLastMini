@@ -17,17 +17,16 @@ class MenuColletionView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = .init(width: size.width*0.3, height: size.width*0.2)
-        layout.sectionInset = UIEdgeInsets(top: 40, left: size.width/3.5, bottom: 0, right: size.width/3.8)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: size.width/3.7, bottom: 0, right: size.width/3.8)
         
         let colletion = UICollectionView(frame: .zero, collectionViewLayout: layout)
         colletion.register(MenuCollectioViewCell.self, forCellWithReuseIdentifier: MenuCollectioViewCell.identifier)
-        colletion.backgroundColor = .red
+        colletion.backgroundColor = .clear
         colletion.delegate = self
         colletion.dataSource = self
         colletion.translatesAutoresizingMaskIntoConstraints = false
         colletion.isPagingEnabled = false
         colletion.showsHorizontalScrollIndicator = false
-        colletion.backgroundColor = .clear
         return colletion
     }()
 
@@ -54,7 +53,7 @@ extension MenuColletionView: ViewCode{
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: size.height*0.6)
+            collectionView.heightAnchor.constraint(equalToConstant: size.height*0.47)
         ])
     }
     
@@ -83,16 +82,14 @@ extension MenuColletionView: UICollectionViewDelegate, UICollectionViewDataSourc
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuCollectioViewCell.identifier, for: indexPath) as? MenuCollectioViewCell else {
             fatalError("Error in MenuColletionView")
         }
-        
         let image = model[indexPath.row].image
-        
         cell.configure(image)
-        
+
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.navigationTo(indexPath.row)
+//        delegate?.navigationTo(indexPath.row)
     }
     
 

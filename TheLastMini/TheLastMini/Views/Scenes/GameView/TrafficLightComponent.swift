@@ -47,13 +47,11 @@ class TrafficLightComponent: UIView{
         
         addSubview(trafficLightStackView)
         
-        // Configuração das constraints do stackView
         NSLayoutConstraint.activate([
             trafficLightStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             trafficLightStackView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
         
-        // Configuração das luzes
         [light1, light2, light3].forEach { light in
             light.widthAnchor.constraint(equalToConstant: lightSize).isActive = true
             light.heightAnchor.constraint(equalToConstant: lightSize).isActive = true

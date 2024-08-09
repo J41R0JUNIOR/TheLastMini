@@ -30,29 +30,29 @@ class SoundManager{
             await self.startSong(fileName: fileName)
         }
     }
+    
+    private func startSong(fileName: FileName) async {
+         await withCheckedContinuation { continuation in
+             DispatchQueue.global().async {
+                 guard let url = Bundle.main.url(forResource: fileName.rawValue, withExtension: "mp3") else {
+                     print("Erro ao encontrar o arquivo \(fileName.rawValue).mp3")
+                     continuation.resume()
+                     return
+                 }
 
-    public func startSong(fileName: FileName) async {
-        await withCheckedContinuation { continuation in
-            DispatchQueue.global().async {
-                guard let url = Bundle.main.url(forResource: fileName.rawValue, withExtension: "mp3") else {
-                    print("Erro ao encontrar o arquivo \(fileName.rawValue)")
-                    continuation.resume()
-                    return
-                }
-
-                do {
-                    self.audioPlayer = try AVAudioPlayer(contentsOf: url)
-                    self.audioPlayer?.volume = self.setupVolume(fileName: fileName)
-                    self.audioPlayer?.prepareToPlay()
-                    self.audioPlayer?.play()
-                    continuation.resume()
-                } catch {
-                    print("Erro ao inicializar o AVAudioPlayer: \(error.localizedDescription)")
-                    continuation.resume()
-                }
-            }
-        }
-    }
+                 do {
+                     self.audioPlayer = try AVAudioPlayer(contentsOf: url)
+                     self.audioPlayer?.prepareToPlay()
+                     self.audioPlayer?.play()
+                     continuation.resume()
+                 } catch {
+                     print("Erro ao inicializar o AVAudioPlayer: \(error.localizedDescription)")
+                     continuation.resume()
+                 }
+             }
+         }
+     }
+    
 
     private func setupVolume(fileName: FileName) -> Float {
         if fileName == .accelerateCar1 || fileName == .accelerateCar3 {
@@ -78,6 +78,7 @@ class SoundManager{
             return
         }
         player.volume = Float(volumeInt) / 100.0
+        player.rate = 1
     }
 }
 

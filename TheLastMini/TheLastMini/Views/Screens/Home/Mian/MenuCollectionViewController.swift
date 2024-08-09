@@ -43,11 +43,11 @@ extension MenuCollectionViewController: ViewCode{
     }
     
     func setupStyle() {
-
+        self.view.backgroundColor = .clear
     }
     
     func setupCells(){
-        let model: [MenuDataModel] = [MenuDataModel(image: UIImage(resource: .bgDrgonRoad))]
+        let model: [MenuDataModel] = [MenuDataModel(image: UIImage(resource: .pista))]
         self.menuColletion.configure(model)
     }
 }
@@ -64,5 +64,5 @@ extension MenuCollectionViewController: NavigationDelegate{
 }
 
 #Preview{
-    MenuCollectioViewCell()
+    MenuCollectionViewController()
 }

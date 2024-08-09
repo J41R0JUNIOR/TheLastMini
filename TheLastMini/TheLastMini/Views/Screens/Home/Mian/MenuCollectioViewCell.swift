@@ -24,8 +24,8 @@ class MenuCollectioViewCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "questionmark.app.fill")
-        image.layer.masksToBounds = true
-        image.layer.cornerRadius = 15
+//        image.layer.masksToBounds = true
+//        image.layer.cornerRadius = 15
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -52,7 +52,7 @@ extension MenuCollectioViewCell: ViewCode{
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: size.width*0.3),
+            imageView.widthAnchor.constraint(equalToConstant: size.width*0.4),
             imageView.heightAnchor.constraint(equalToConstant: size.width*0.2),
             
 //            label.bottomAnchor.constraint(equalTo: imageView.topAnchor),
@@ -69,4 +69,8 @@ extension MenuCollectioViewCell{
     public func configure(_ image: UIImage){
         self.imageView.image = image
     }
+}
+
+#Preview{
+    MenuCollectioViewCell()
 }
