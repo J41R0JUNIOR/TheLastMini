@@ -10,6 +10,7 @@
 	<array>
 		<string>Kanit-MediumItalic.ttf</string>
 		<string>Kanit-BoldItalic.ttf</string>
+		<string>Kanit-LightItalic.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

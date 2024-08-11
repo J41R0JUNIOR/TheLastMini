@@ -50,7 +50,7 @@ class GameCenterService: ObservableObject{
                 return
             }
             
-            let entries = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...5))
+            let entries = try await leaderboard.loadEntries(for: .global, timeScope: .allTime, range: NSRange(1...4))
             
             if !entries.1.isEmpty{
                 entries.1.forEach { playerData in

@@ -13,8 +13,8 @@ class LapAndTimerView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Lap 1/3"
+        label.font = UIFont(name: FontsCuston.fontBoldItalick.rawValue, size: 20)
         label.textColor = .white
-        label.font = .systemFont(ofSize: 25, weight: .bold)
         return label
     }()
     
@@ -22,8 +22,8 @@ class LapAndTimerView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "0:00,0"
+        label.font = UIFont(name: FontsCuston.fontBoldItalick.rawValue, size: 20)
         label.textColor = .white
-        label.font = .systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     

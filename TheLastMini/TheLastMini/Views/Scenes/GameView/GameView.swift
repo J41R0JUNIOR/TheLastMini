@@ -55,7 +55,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }()
     
     internal lazy var carControlViewComponent: CarControlComponent = {
-        return CarControlComponent(movementSystem: self.movementSystem, frame: self.view.frame)
+        let view = CarControlComponent(movementSystem: self.movementSystem)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     internal lazy var resumoView: ResultsViewController = {
@@ -64,9 +66,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     
     internal lazy var label: UILabel = {
         let label = UILabel()
-        label.text = "Posicione a pista e clique na tela para posicionar"
-        label.font = .systemFont(ofSize: 16, weight: .black)
-        label.textColor = .black
+        label.text = "Position the track and click on the screen to position"
+        label.font = UIFont(name: FontsCuston.fontBoldItalick.rawValue, size: 22)
+        label.textColor = .amarelo
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -98,7 +100,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             focusNode.addChildNode(customNode)
         }
         
-        customNode.scale = SCNVector3(0.5, 0.5, 0.5) //remover depois
+        customNode.scale = SCNVector3(0.5, 0.5, 0.5) 
         focusNode.isHidden = false
         
         
@@ -137,13 +139,10 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.0)
         floorNode.position = position
         floorNode.opacity = 0
-        //        floorNode.position.y -= 0.1
         self.addNodeToScene(node: floorNode)
         
         let speedwayNode = createSpeedway(setPhysics: true)
         speedwayNode.position = position
-        //        speedwayNode.scale = SCNVector3(x: 1.5, y: 1.5, z: 1.5)
-        //        speedwayNode.position.y -= 0.1
         self.addNodeToScene(node: speedwayNode)
         setupVehicle(at: position)
     }
@@ -158,9 +157,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     func setupScene() {
         sceneView = ARSCNView(frame: self.view.frame)
         sceneView.delegate = self
-        //        sceneView.showsStatistics = true
         sceneView.autoenablesDefaultLighting = true
-//        sceneView.debugOptions = [.showPhysicsShapes]
         sceneView.scene.physicsWorld.contactDelegate = self
         
         let configuration = ARWorldTrackingConfiguration()
@@ -258,7 +255,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     
     func setupVehicle(at position: SCNVector3) {
         let chassisNode = createChassis()
-        //        let boxGeometry = SCNBox(width: 0.09, height: 0.04, length: 0.12, chamferRadius: 0.0)
         let boxGeometry = SCNBox(width: 0.06, height: 0.03, length: 0.12, chamferRadius: 0.0)
         let boxShape = SCNPhysicsShape(geometry: boxGeometry, options: nil)
         let body = SCNPhysicsBody(type: .dynamic, shape: boxShape)
@@ -288,8 +284,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         wheel3.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
         wheel4.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
         
-//        let suspensionRestLength = 0.04
-//        let suspensionRestLength = 0.15
 
         wheel1.suspensionRestLength = vehicleModel.suspensionRestLength
         wheel2.suspensionRestLength = vehicleModel.suspensionRestLength
@@ -309,9 +303,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         chassisNode.position = position
         chassisNode.position.y += 0.1
-        //        chassisNode.position.x -= 1
         self.addNodeToScene(node: chassisNode)
-        //        sceneView.scene.rootNode.addChildNode(chassisNode)
         
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)
       
@@ -377,7 +369,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                 for node in checkpointsNode {
                     node?.isCheck = false
                 }
-                if lapAndTimer.currentLap != 3 {
+                if lapAndTimer.currentLap != 1 {
                     DispatchQueue.main.async {
                         self.lapAndTimer.addLap()
                     }
@@ -388,10 +380,10 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                     }
                     DispatchQueue.main.async {
                         self.endView.isHidden = false
+                        HapticsService.shared.addHapticFeedbackFromViewController(type: .success)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            self.resumoView.laps = self.lapAndTimer.lapsTime
+                            self.resumoView.setupTrackInfoView(self.lapAndTimer.lapsTime)
                             self.resumoView.saveTimeRecord()
-                            self.resumoView.setupTrackInfoView()
                             self.present(self.resumoView, animated: false)
                         }
                     }
@@ -438,7 +430,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     private func playTimer(){
-        Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { [self] time in
+        Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { [self] time in
             if !isInicialazeCoach{
                 setupDefualtConfig()
             }
@@ -452,4 +444,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         self.label.isHidden = false
     }
 }
+
+//#Preview{
+//    GameView()
+//}
 

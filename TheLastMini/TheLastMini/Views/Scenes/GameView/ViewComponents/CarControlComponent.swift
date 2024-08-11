@@ -6,32 +6,28 @@ class CarControlComponent: UIView {
     
     var leftButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.backgroundColor = .green
-        button.setTitle("👈🏽", for: .normal)
+        button.setImage(UIImage(resource: .esquerda), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     var rightButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.backgroundColor = .yellow
-        button.setTitle("👉🏽", for: .normal)
+        button.setImage(UIImage(resource: .direita), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     let forwardButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.backgroundColor = .blue
-        button.setTitle("👆🏽", for: .normal)
+        button.setImage(UIImage(resource: .acelerar), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     var backwardButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.backgroundColor = .red
-        button.setTitle("👇🏽", for: .normal)
+        button.setImage(UIImage(resource: .freiar), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -54,9 +50,9 @@ class CarControlComponent: UIView {
         return stack
     }()
     
-    init(movementSystem: MovementSystem, frame: CGRect) {
+    init(movementSystem: MovementSystem) {
         self.movementSystem = movementSystem
-        super.init(frame: frame)
+        super.init(frame: .zero)
         setupViewCode()
     }
     
@@ -152,21 +148,23 @@ extension CarControlComponent: ViewCode {
         leftStack.addArrangedSubview(rightButton)
         addSubview(leftStack)
         
-        rightStack.addArrangedSubview(forwardButton)
         rightStack.addArrangedSubview(backwardButton)
+        rightStack.addArrangedSubview(forwardButton)
+        rightStack.axis = .horizontal
+//        rightStack.backgroundColor = .red
         addSubview(rightStack)
     }
     
     func addContrains() {
         NSLayoutConstraint.activate([
             leftStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: frame.width * 0.05),
-            leftStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -120),
+            leftStack.centerYAnchor.constraint(equalTo: centerYAnchor),
             leftStack.widthAnchor.constraint(equalToConstant: 200),
             leftStack.heightAnchor.constraint(equalToConstant: 50),
             
             rightStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -frame.width * 0.025),
-            rightStack.bottomAnchor.constraint(equalTo: leftStack.bottomAnchor),
-            rightStack.widthAnchor.constraint(equalToConstant: 100),
+            rightStack.centerYAnchor.constraint(equalTo: centerYAnchor),
+            rightStack.widthAnchor.constraint(equalToConstant: 160),
             rightStack.heightAnchor.constraint(equalToConstant: 100),
         ])
     }
@@ -183,5 +181,11 @@ extension CarControlComponent: ViewCode {
         
         backwardButton.addTarget(self, action: #selector(moveBackwardAction), for: .touchDown)
         backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
+        
+//        self.backgroundColor = .red
     }
+}
+
+#Preview{
+    CarControlComponent(movementSystem: MovementSystem())
 }

@@ -40,11 +40,17 @@ class HomeViewController: UIViewController{
     }()
     
     public var gameCenterVC: GKGameCenterViewController?
+    private let haptics: HapticsService = HapticsService.shared
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupViewCode()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         
     }
 }
@@ -86,7 +92,7 @@ extension HomeViewController: ViewCode{
     }
     
     func setupStyle() {
-        view.backgroundColor = UIColor(resource: .bg)
+        view.backgroundColor = UIColor(resource: .bgBlue)
     }
     
     
@@ -104,9 +110,14 @@ extension HomeViewController: ViewCode{
 
 extension HomeViewController: NavigationDelegate{
     func navigationTo(_ tag: Int) {
+        haptics.feedback(for: .light)
         switch tag{
         case 0:
-            present(ConfigPopUpViewController(), animated: false)
+            UIView.animate(withDuration: 0.1, delay: 0.08, options: .curveLinear, animations: {
+                self.view.alpha = 1
+            }, completion: { _ in
+                self.present(ConfigPopUpViewController(), animated: false)
+            })
         case 1:
             newInstanceGameCenter()
             present(gameCenterVC!, animated: true)
@@ -121,6 +132,7 @@ extension HomeViewController: NavigationDelegate{
 
 extension HomeViewController: GKGameCenterControllerDelegate{
     func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+        HapticsService.shared.addHapticFeedbackFromViewController(type: .error)
         gameCenterVC?.dismiss(animated: true)
         gameCenterVC = nil
     }

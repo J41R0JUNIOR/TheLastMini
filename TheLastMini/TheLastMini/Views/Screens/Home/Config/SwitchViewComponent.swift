@@ -19,7 +19,7 @@ class SwitchViewComponent: UIView {
     private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "nil"
-        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.font = UIFont(name: FontsCuston.fontBoldItalick.rawValue, size: 24)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -80,3 +80,5 @@ extension SwitchViewComponent{
         switchCuston.isOn = valueTogle
     }
 }
+
+

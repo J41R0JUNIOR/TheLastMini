@@ -11,7 +11,7 @@ class ConfigPopUpView: UIView {
 
     private lazy var background: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "bgColor")
+        view.backgroundColor = /*UIColor(named: "bgColor")*/ .clear
         view.clipsToBounds = true
         view.layer.cornerRadius = 13
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +39,7 @@ class ConfigPopUpView: UIView {
     private lazy var labelConfig: UILabel = {
         let label = UILabel()
         label.text = "Settings"
-        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.font = UIFont(name: FontsCuston.fontBoldItalick.rawValue, size: 26)
         label.textColor = UIColor(named: "amarelo")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -90,40 +90,39 @@ extension ConfigPopUpView: ViewCode{
         NSLayoutConstraint.activate([
             background.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             background.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            background.heightAnchor.constraint(equalToConstant: ScreenInfo.shared.getBoundsSize().height*0.58),
-            background.widthAnchor.constraint(equalToConstant: ScreenInfo.shared.getBoundsSize().width*0.48),
+            background.heightAnchor.constraint(equalToConstant: ScreenInfo.shared.getBoundsSize().height*0.63),
+            background.widthAnchor.constraint(equalToConstant: ScreenInfo.shared.getBoundsSize().width*0.53),
             
             image.centerXAnchor.constraint(equalTo: self.background.centerXAnchor),
             image.centerYAnchor.constraint(equalTo: self.background.centerYAnchor),
             
-            buttonBack.topAnchor.constraint(equalTo: background.topAnchor, constant: 3),
-            buttonBack.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -3),
+            buttonBack.topAnchor.constraint(equalTo: background.topAnchor, constant: 10),
+            buttonBack.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -20),
             
-            labelConfig.topAnchor.constraint(equalTo: background.topAnchor, constant: 10),
-            labelConfig.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 20),
+            labelConfig.topAnchor.constraint(equalTo: background.topAnchor, constant: 20),
+            labelConfig.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 40),
             
-            switchMusic.topAnchor.constraint(equalTo: labelConfig.bottomAnchor, constant: 30),
-            switchMusic.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 20),
+            switchMusic.topAnchor.constraint(equalTo: labelConfig.bottomAnchor, constant: 10),
+            switchMusic.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 40),
             switchMusic.heightAnchor.constraint(equalToConstant: 35),
             switchMusic.widthAnchor.constraint(equalToConstant: ScreenInfo.shared.getBoundsSize().width*0.35),
             
-            switchMusic.switchCuston.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 125),
+            switchMusic.switchCuston.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 145),
             
-            switchSoundEfects.topAnchor.constraint(equalTo: switchMusic.bottomAnchor),
+            switchSoundEfects.topAnchor.constraint(equalTo: switchMusic.bottomAnchor, constant: 10),
             switchSoundEfects.heightAnchor.constraint(equalToConstant: 35),
             switchSoundEfects.widthAnchor.constraint(equalToConstant: ScreenInfo.shared.getBoundsSize().width*0.35),
-            switchSoundEfects.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 20),
+            switchSoundEfects.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 40),
 
-            switchHaptics.topAnchor.constraint(equalTo: switchSoundEfects.bottomAnchor),
+            switchHaptics.topAnchor.constraint(equalTo: switchSoundEfects.bottomAnchor, constant: 10),
             switchHaptics.heightAnchor.constraint(equalToConstant: 35),
             switchHaptics.widthAnchor.constraint(equalToConstant: ScreenInfo.shared.getBoundsSize().width*0.35),
-            switchHaptics.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 20),
-
+            switchHaptics.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 40),
         ])
     }
     
     func setupStyle() {
-        backgroundColor = .black.withAlphaComponent(0.4)
+        backgroundColor = .black.withAlphaComponent(0.5)
     }
 }
 

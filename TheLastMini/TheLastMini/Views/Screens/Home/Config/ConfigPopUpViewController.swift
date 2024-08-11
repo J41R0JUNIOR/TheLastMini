@@ -2,12 +2,14 @@
 //  ConfigPopUpViewController.swift
 //  TheLastMini
 //
-//  Created by Gustavo Horestee Santos Barros on 23/07/24.
+//  Created by Gustavo Horestee on 23/07/24.
 //
 
 import UIKit
 
 class ConfigPopUpViewController: UIViewController {
+    
+    private let soundManager: SoundManager = SoundManager.shared
     
     private lazy var configView: ConfigPopUpView = {
         let view = ConfigPopUpView()
@@ -43,20 +45,20 @@ extension ConfigPopUpViewController: ViewCode{
     }
     
     func setupStyle() {
-        navigationItem.title = "Config"
+        
     }
 }
 
 extension ConfigPopUpViewController: NavigationDelegate{
     func navigationTo(_ tag: Int) {
         if tag == 4{
-            UIView.animate(withDuration: 0.3, delay: 0.1, options: .curveLinear, animations: {
+            UIView.animate(withDuration: 0.1, delay: 0.08, options: .curveLinear, animations: {
                 self.view.alpha = 0
             }, completion: { _ in
                 self.dismiss(animated: false)
             })
         }
-        HapticsService.shared.addHapticFeedbackFromViewController(type: .error)
+        HapticsService.shared.feedback(for: .medium)
     }
 }
 
@@ -68,6 +70,13 @@ extension ConfigPopUpViewController: ActionDelegate{
         case 0:
             let music = userDefautl.isActivatedMusic
             userDefautl.isActivatedMusic = !music
+            if userDefautl.isActivatedMusic{
+                Task{
+                    await soundManager.playSong(fileName: .musicaFoda, .music)
+                }
+            }else{
+                soundManager.stop()
+            }
         case 1:
             let soundEffects = userDefautl.soundEffects
             userDefautl.soundEffects = !soundEffects
@@ -77,4 +86,8 @@ extension ConfigPopUpViewController: ActionDelegate{
             print("Tag Invalida")
         }
     }
+}
+
+#Preview{
+    ConfigPopUpView()
 }

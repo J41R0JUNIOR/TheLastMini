@@ -1,22 +1,37 @@
 import UIKit
 
-protocol ResultsViewControllerDelegate {
+protocol ResultsViewControllerDelegate: AnyObject {
     func backTapped()
 }
 
 class ResultsViewController: UIViewController {
     
-    private var trackInfoView: TrackInfoView!
-    var laps: [TimeInterval] = []
-    var rank : [PlayerTimeRankModel] = []
-    var map : String
+    private lazy var trackInfoView: TrackInfoView = {
+        let view = TrackInfoView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var backButton: UIButton = {
+        let backButton = UIButton()
+        backButton.setImage(UIImage(resource: .goBack), for: .normal)
+        backButton.contentMode = .scaleAspectFill
+        backButton.addTarget(self, action: #selector(handle), for: .touchUpInside)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        return backButton
+    }()
+    
+    
+    private var laps: [TimeInterval] = []
+    private var rank : [PlayerTimeRankModel] = []
+    private var map : String
     
     private var gameCenterService = GameCenterService.shared
     
-    var delegate: ResultsViewControllerDelegate?
+    weak var delegate: ResultsViewControllerDelegate?
     
     init(map: String) {
-        self.map = map
+        self.map = mockMapTitle
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -27,7 +42,8 @@ class ResultsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.setupViewCode()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,63 +58,38 @@ class ResultsViewController: UIViewController {
             for player in gameCenterService.playersData {
                 rank.append(PlayerTimeRankModel(playerName: player.name, playerBestTime: player.score))
             }
-            setupTrackInfoView()
-            setupBackButton()
+            setupTrackInfoView(mockLapTimes)
+//            setupBackButton()
         }
     }
     
     
-    public func setupTrackInfoView() {
-        trackInfoView = TrackInfoView()
-        trackInfoView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(trackInfoView)
-        
-        // Example data
+    public func setupTrackInfoView(_ laps: [TimeInterval]) {
         trackInfoView.lapTimes = laps
         trackInfoView.totalTime = sumTotalTime()
         trackInfoView.rankings = rank
         trackInfoView.titleMap = map
         
-        // Layout the track info view
-        NSLayoutConstraint.activate([
-            trackInfoView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            trackInfoView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            trackInfoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            trackInfoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ])
-    }
-    
-    private func setupBackButton() {
-        let backButton = UIButton(type: .system)
-        backButton.setTitle("Back to home", for: .normal)
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(backButton)
-        
-        // Layout the back button
-        NSLayoutConstraint.activate([
-            backButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: ScreenInfo.shared.getBoundsSize().height * 0.25),
-            backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
+//        trackInfoView.lapTimes = mockLapTimes
+//        trackInfoView.totalTime = mockTotalTime
+//        trackInfoView.rankings = mockRankings
+//        trackInfoView.titleMap = mockMapTitle
     }
     
     public func saveTimeRecord() {
         let userDefault = UserDefaults.standard
-        print("Record: ", userDefault.timeRecord)
 
         if userDefault.timeRecord == 0 || userDefault.timeRecord > sumTotalTime() {
             userDefault.timeRecord = sumTotalTime()
-            print("✅ Valor: ", userDefault.timeRecord)
             Task {
                 await gameCenterService.setNewRecord(recordTime: sumTotalTime(), leaderboardID: .recordID)
             }
         }
     }
     
-    @objc private func backButtonTapped() {
-        // Handle back button tap
-        print("Back to home Tapped")
+    @objc
+    private func handle() {
+        HapticsService.shared.addHapticFeedbackFromViewController(type: .success)
         dismiss(animated: true)
         delegate?.backTapped()
     }
@@ -108,3 +99,47 @@ class ResultsViewController: UIViewController {
     }
 }
 
+extension ResultsViewController: ViewCode{
+    func addViews() {
+        self.view.addListSubviews(trackInfoView, backButton)
+    }
+    
+    func addContrains() {
+        NSLayoutConstraint.activate([
+            backButton.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: ScreenInfo.shared.getBoundsSize().height * 0.43),
+            backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            backButton.h.constraint(equalToConstant: 40),
+            
+            trackInfoView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            trackInfoView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            trackInfoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            trackInfoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+    }
+    
+    func setupStyle() {
+        
+    }
+}
+
+#Preview{
+    ResultsViewController(map: "Dragon Road")
+}
+
+// Mockando alguns dados para testar
+let mockLapTimes: [TimeInterval] = [
+    60.5,  // 1 minuto e 0.5 segundos
+    58.2,  // 58 segundos e 200 milissegundos
+    62.7   // 1 minuto e 2.7 segundos
+]
+
+let mockRankings: [PlayerTimeRankModel] = [
+    PlayerTimeRankModel(playerName: "Jogador 1", playerBestTime: "00:55"),
+    PlayerTimeRankModel(playerName: "Jogador 2", playerBestTime: "00:57"),
+    PlayerTimeRankModel(playerName: "Jogador 3", playerBestTime: "00:59"),
+    PlayerTimeRankModel(playerName: "Jogador 4", playerBestTime: "00:59")
+]
+
+let mockTotalTime: TimeInterval = mockLapTimes.reduce(0, +) // Somando o tempo total
+
+let mockMapTitle: String = "Drakon Road"

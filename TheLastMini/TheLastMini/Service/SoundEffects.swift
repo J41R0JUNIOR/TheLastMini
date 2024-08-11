@@ -1,21 +1,6 @@
 import AVFoundation
 import SceneKit
 
-enum FileName: String {
-    case voiceCong = "voiceCong"
-    case countSemaforoInit = "race_countdown2-106294-2"
-    case countSemaforoFinish = "race_countdown2-106294"
-    case soundCong = "soundCong"
-    case idlCar = "02-0807"
-    case startCar = "01-nissan_skyline_r34"
-    case accelerateCar1 = "CarAudioV3"
-    case accelerateCar3 = "03-nissan_skyline_r34"
-}
-
-enum TypeSound {
-    case soundEffect, music
-}
-
 class SoundManager{
     static let shared = SoundManager()
     public var audioPlayer: AVAudioPlayer?
@@ -31,6 +16,10 @@ class SoundManager{
         }
     }
     
+    public func stop(){
+        self.audioPlayer?.stop()
+    }
+    
     private func startSong(fileName: FileName) async {
          await withCheckedContinuation { continuation in
              DispatchQueue.global().async {
@@ -43,6 +32,8 @@ class SoundManager{
                  do {
                      self.audioPlayer = try AVAudioPlayer(contentsOf: url)
                      self.audioPlayer?.prepareToPlay()
+                     self.audioPlayer?.volume = self.setupVolume(fileName: fileName)
+                     self.audioPlayer?.numberOfLoops = self.looping(fileName: fileName)
                      self.audioPlayer?.play()
                      continuation.resume()
                  } catch {
@@ -59,6 +50,13 @@ class SoundManager{
             return 0.2
         }
         return 0.5
+    }
+    
+    private func looping(fileName: FileName) -> Int {
+        if fileName == .musicaFoda{
+            return -1
+        }
+        return 0
     }
 
     public func changeVolume(_ volumeValue: Double) {

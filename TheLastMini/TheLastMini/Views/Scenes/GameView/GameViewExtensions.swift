@@ -47,9 +47,7 @@ extension GameView: NavigationDelegate{
             setupControls()
             self.replaceAndPlay.toggleVisibility()
             self.trafficLightComponent.isHidden = false
-            Task{
-                await self.trafficLightComponent.startAnimation()
-            }
+            self.trafficLightComponent.startAnimation()
         default:
             print("ERROR in 'GameView->navigationTo': Tag invalida")
         }
@@ -91,12 +89,12 @@ extension GameView: ViewCode{
             endView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             endView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
-            carControlViewComponent.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            carControlViewComponent.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             carControlViewComponent.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             carControlViewComponent.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            carControlViewComponent.heightAnchor.constraint(equalToConstant: 200),
+            carControlViewComponent.heightAnchor.constraint(equalToConstant: 150),
             
-            label.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            label.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
             label.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
     }
@@ -113,6 +111,6 @@ extension GameView: ResultsViewControllerDelegate {
 }
 
 
-//#Preview{
-//    GameView()
-//}
+#Preview{
+    GameView(vehicleModel: VehicleModel(carName: "Äs"))
+}

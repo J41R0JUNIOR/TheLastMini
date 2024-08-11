@@ -10,9 +10,23 @@ import UIKit
 
 
 class TrafficLightComponent: UIView{    
-    let light1 = UIView()
-    let light2 = UIView()
-    let light3 = UIView()
+    private lazy var light1: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(resource: .light1Apagado)
+        return view
+    }()
+    
+    private lazy var light2: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(resource: .light2Apagado)
+        return view
+    }()
+    
+    private lazy var light3: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(resource: .light3Apagado)
+        return view
+    }()
     
     weak var delegate: TrafficLightDelegate?
     
@@ -41,7 +55,6 @@ class TrafficLightComponent: UIView{
             stackView.translatesAutoresizingMaskIntoConstraints = false
             stackView.distribution = .equalSpacing
             stackView.axis = .horizontal
-            
             return stackView
         }()
         
@@ -55,13 +68,11 @@ class TrafficLightComponent: UIView{
         [light1, light2, light3].forEach { light in
             light.widthAnchor.constraint(equalToConstant: lightSize).isActive = true
             light.heightAnchor.constraint(equalToConstant: lightSize).isActive = true
-            light.layer.cornerRadius = lightSize / 2
-            light.backgroundColor = .gray
+//            light.layer.cornerRadius = lightSize / 2
         }
     }
     
     func startAnimation() {
-        light1.backgroundColor = .yellow
         var count = 0
         let lights = [light1, light2, light3]
         
@@ -69,9 +80,6 @@ class TrafficLightComponent: UIView{
             if count == 3 {
                 Task{
                     await self.soundManager.playSong(fileName: .countSemaforoFinish, .soundEffect)
-                }
-                for light in lights {
-                    light.backgroundColor = .green
                 }
             } else if count == 4 {
                 self.allGreen = true
@@ -81,7 +89,8 @@ class TrafficLightComponent: UIView{
                 Task{
                     await self.soundManager.playSong(fileName: .countSemaforoInit, .soundEffect)
                 }
-                lights[count].backgroundColor = .yellow
+                HapticsService.shared.feedback(for: .rigid)
+                lights[count].image = UIImage(named: "light\(count+1)Ligado")
             }
             count += 1
         }

@@ -17,18 +17,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
+        requestPermission()
+        
         Task{
-            await requestPermission()
+            await soundManager.playSong(fileName: .musicaFoda, .music)
         }
         
-        
         self.window = UIWindow(windowScene: windowScene)
-        let navigationController = UINavigationController(rootViewController: /*OnboardView()*/ HomeViewController() /*GameView()*/)
+        let navigationController = UINavigationController(rootViewController: HomeViewController())
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
     }
     
-    public func requestPermission() async {
+    public func requestPermission() {
         let localPlayer = GameCenterService.shared.localPlayer
         localPlayer.authenticateHandler = { (viewController, error) in
             if let viewController = viewController{

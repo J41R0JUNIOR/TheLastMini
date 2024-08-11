@@ -16,15 +16,13 @@ class HapticsService{
     
     public let userDefaults = UserDefaults.standard
     /// Singleton instance
-    static let shared = HapticsService()
+    static let shared: HapticsService = HapticsService()
     
     private init() {}
         
     public func changeValueIsVibrate(){
         let isVibrate = userDefaults.isVibrate
-        print("⬆️ Antes ", isVibrate)
         userDefaults.isVibrate = !isVibrate
-        print("⬇️ Depois, ", userDefaults.isVibrate)
     }
    
     public func addHapticFeedbackFromViewController(type: UINotificationFeedbackGenerator.FeedbackType){

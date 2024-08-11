@@ -17,7 +17,7 @@ class MenuColletionView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = .init(width: size.width*0.3, height: size.width*0.2)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: size.width/3.7, bottom: 0, right: size.width/3.8)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: size.width/3.65, bottom: 0, right: size.width/3.8)
         
         let colletion = UICollectionView(frame: .zero, collectionViewLayout: layout)
         colletion.register(MenuCollectioViewCell.self, forCellWithReuseIdentifier: MenuCollectioViewCell.identifier)

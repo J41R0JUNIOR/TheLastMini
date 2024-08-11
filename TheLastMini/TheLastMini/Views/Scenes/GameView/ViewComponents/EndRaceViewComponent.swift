@@ -13,8 +13,8 @@ class EndRaceView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Finish!"
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 40, weight: .bold)
+        label.textColor = .amarelo
+        label.font = UIFont(name: FontsCuston.fontBoldItalick.rawValue, size: 50)
         return label
     }()
     
