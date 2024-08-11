@@ -41,6 +41,7 @@ extension GameView: NavigationDelegate{
                 self.focusNode.isHidden = false
                 self.label.isHidden = false
                 self.tapGesture?.isEnabled = true
+                self.checkpointsNode.removeAll()
             }
         case 11:
             print("Play")

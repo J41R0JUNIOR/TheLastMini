@@ -224,7 +224,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             }
             wallNode.opacity = 0
             if setPhysics {
-                wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: wallNode, options: nil))
+                wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
                 wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
             }
         }
