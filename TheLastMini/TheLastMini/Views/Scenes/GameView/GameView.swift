@@ -369,7 +369,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                 for node in checkpointsNode {
                     node?.isCheck = false
                 }
-                if lapAndTimer.currentLap != 1 {
+                if lapAndTimer.currentLap != 3 {
                     DispatchQueue.main.async {
                         self.lapAndTimer.addLap()
                     }
