@@ -61,7 +61,7 @@ class SoundManager{
 
     public func changeVolume(_ volumeValue: Double) {
         guard let player = self.audioPlayer else {
-            print("SCNAudioSource Invalido")
+            print("audio Invalido")
             return
         }
 

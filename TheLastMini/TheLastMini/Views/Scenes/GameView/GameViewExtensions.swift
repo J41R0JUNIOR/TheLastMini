@@ -4,7 +4,6 @@ import FocusNode
 import SmartHitTest
 
 
-
 extension ARSCNView: ARSmartHitTest { }
 
 //MARK: - Configuração de animação de scan
@@ -16,7 +15,7 @@ extension GameView: ARCoachingOverlayViewDelegate{
     
     func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
         print("Sera que foi agora? 🐐")
-        if !shouldHandleResetRequest{
+        if !shouldHandleResetRequest && isInicialazeCoach{
             shouldHandleResetRequest = true
             self.setupDefualtConfig()
             return
@@ -37,7 +36,7 @@ extension GameView: NavigationDelegate{
                     }
                 }
                 self.isVehicleAdded = false
-                self.replaceAndPlay.toggleVisibility()
+                self.replaceAndPlay.isHidden = true
                 self.focusNode.isHidden = false
                 self.label.isHidden = false
                 self.tapGesture?.isEnabled = true
@@ -46,7 +45,7 @@ extension GameView: NavigationDelegate{
         case 11:
             print("Play")
             setupControls()
-            self.replaceAndPlay.toggleVisibility()
+            self.replaceAndPlay.isHidden = true
             self.trafficLightComponent.isHidden = false
             self.trafficLightComponent.startAnimation()
         default:

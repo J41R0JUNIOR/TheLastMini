@@ -193,7 +193,7 @@ class TrackInfoView: UIView {
         
         for (index, ranking) in rankings.enumerated() {
             let label = PositionImageComponent()
-            label.configure(with: "\(ranking.playerName) - \(ranking.playerBestTime)", UIImage(named: "p\(index+1)") ?? UIImage(resource: .gameButton))
+            label.configure(with: "\(ranking.playerName.prefix(8)) - \(ranking.playerBestTime)", UIImage(named: "p\(index+1)") ?? UIImage(resource: .gameButton))
             label.translatesAutoresizingMaskIntoConstraints = false
             addSubview(label)
             rankingLabels.append(label)
