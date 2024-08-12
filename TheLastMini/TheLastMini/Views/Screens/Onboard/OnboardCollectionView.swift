@@ -26,7 +26,7 @@ class OnboardCollectionView: UIView {
         control.currentPage = 0
         control.translatesAutoresizingMaskIntoConstraints = false
         control.pageIndicatorTintColor = .gray
-        control.currentPageIndicatorTintColor = .white
+//        control.currentPageIndicatorTintColor = .white
         return control
     }()
     
