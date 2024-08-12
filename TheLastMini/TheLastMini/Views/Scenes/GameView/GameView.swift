@@ -215,7 +215,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             checkNode.opacity = 0
             if setPhysics {
                 checkNode.position.y -= 0.042
-                checkNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+                checkNode.physicsBody = roadModel.physicsBody
                 checkNode.physicsBody?.categoryBitMask = BodyType.check.rawValue
                 checkNode.name = "\(i)"
                 checkpointsNode.append(checkNode)

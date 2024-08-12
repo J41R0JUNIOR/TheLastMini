@@ -12,6 +12,7 @@ struct RoadModel {
     var roadName: String = ""
     var scale: SCNVector3 = .init(0, 0, 0)
     var checkPointMaxPoints: Int = 0
+    var physicsBody: SCNPhysicsBody = SCNPhysicsBody(type: .static, shape: nil)
     
     init(carName: String) {
         switch carName {
@@ -20,7 +21,6 @@ struct RoadModel {
             self.scale = SCNVector3(x: 1.5, y: 1, z: 1.5)
             self.checkPointMaxPoints = 10
             
-       
         default: break
        
         }
