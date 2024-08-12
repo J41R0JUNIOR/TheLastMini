@@ -22,7 +22,7 @@ class ResultsViewController: UIViewController {
     }()
     
     
-    private var laps: [TimeInterval] = []
+    public var laps: [TimeInterval] = []
     private var rank : [PlayerTimeRankModel] = []
     private var map : String
     
@@ -31,7 +31,7 @@ class ResultsViewController: UIViewController {
     weak var delegate: ResultsViewControllerDelegate?
     
     init(map: String) {
-        self.map = mockMapTitle
+        self.map = "Dragon Road"
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -48,8 +48,10 @@ class ResultsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        setupRank()
+        Task{
+            await SoundManager.shared.playSong(fileName: .musicaFoda, .music)
+        }
+//        setupRank()
     }
     
     public func setupRank() {
@@ -58,14 +60,14 @@ class ResultsViewController: UIViewController {
             for player in gameCenterService.playersData {
                 rank.append(PlayerTimeRankModel(playerName: player.name, playerBestTime: player.score))
             }
-            setupTrackInfoView(mockLapTimes)
+            setupTrackInfoView()
 //            setupBackButton()
         }
     }
     
     
-    public func setupTrackInfoView(_ laps: [TimeInterval]) {
-        trackInfoView.lapTimes = laps
+    private func setupTrackInfoView() {
+        trackInfoView.lapTimes = self.laps
         trackInfoView.totalTime = sumTotalTime()
         trackInfoView.rankings = rank
         trackInfoView.titleMap = map
@@ -126,7 +128,7 @@ extension ResultsViewController: ViewCode{
     ResultsViewController(map: "Dragon Road")
 }
 
-// Mockando alguns dados para testar
+//// Mockando alguns dados para testar
 let mockLapTimes: [TimeInterval] = [
     60.5,  // 1 minuto e 0.5 segundos
     58.2,  // 58 segundos e 200 milissegundos

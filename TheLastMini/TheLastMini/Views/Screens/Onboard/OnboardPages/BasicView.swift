@@ -4,7 +4,7 @@ class BasicView: UIView {
     private let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = .white
+//        label.textColor = .white
 //        label.layer.borderWidth = 1
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -16,7 +16,7 @@ class BasicView: UIView {
     private let label2: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = .white
+//        label.textColor = .white
 //        label.layer.borderColor = UIColor.red.cgColor
         label.layer.borderWidth = 1 // Opcional: para uma borda mais fina
         label.numberOfLines = 0 // Allow label to wrap text

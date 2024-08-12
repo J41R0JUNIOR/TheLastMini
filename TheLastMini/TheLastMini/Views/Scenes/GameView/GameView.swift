@@ -68,6 +68,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let label = UILabel()
         label.text = "Position the track and click on the screen to position"
         label.font = UIFont(name: FontsCuston.fontBoldItalick.rawValue, size: 22)
+        label.backgroundColor = .black.withAlphaComponent(0.5)
+        label.layer.cornerRadius = 3
+        label.clipsToBounds = true
         label.textColor = .amarelo
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -383,7 +386,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                         self.endView.isHidden = false
                         HapticsService.shared.addHapticFeedbackFromViewController(type: .success)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            self.resumoView.setupTrackInfoView(self.lapAndTimer.lapsTime)
+                            self.resumoView.laps = self.lapAndTimer.lapsTime
+                            self.resumoView.setupRank()
                             self.resumoView.saveTimeRecord()
                             self.present(self.resumoView, animated: false)
                         }
@@ -431,7 +435,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     private func playTimer(){
-        Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { [self] time in
+        Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { [self] time in
             if !isInicialazeCoach{
                 setupDefualtConfig()
             }
