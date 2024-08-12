@@ -43,7 +43,7 @@ class CarControlComponent: UIView {
     
     var rightStack: UIStackView = {
         let stack = UIStackView()
-        stack.axis = .vertical
+        stack.axis = .horizontal
         stack.distribution = .fillEqually
         stack.alignment = .fill
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -150,8 +150,6 @@ extension CarControlComponent: ViewCode {
         
         rightStack.addArrangedSubview(backwardButton)
         rightStack.addArrangedSubview(forwardButton)
-        rightStack.axis = .horizontal
-//        rightStack.backgroundColor = .red
         addSubview(rightStack)
     }
     
@@ -182,7 +180,6 @@ extension CarControlComponent: ViewCode {
         backwardButton.addTarget(self, action: #selector(moveBackwardAction), for: .touchDown)
         backwardButton.addTarget(self, action: #selector(resetSpeed), for: .touchUpInside)
         
-//        self.backgroundColor = .red
     }
 }
 
