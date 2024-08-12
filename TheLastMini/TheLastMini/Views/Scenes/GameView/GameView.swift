@@ -208,14 +208,14 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             fatalError("Could not load wheel asset")
         }
         
-        pistaNode.scale = roadModel.scale
+        pistaNode.scale = SCNVector3(x: 1.5, y: 1, z: 1.5)
         
-        for i in 1...roadModel.checkPointMaxPoints {
+        for i in 1...10 {
             guard let checkNode = pistaNode.childNode(withName: "Check\(i)", recursively: true) else { fatalError("Checkpoint\(i) not found") }
             checkNode.opacity = 0
             if setPhysics {
                 checkNode.position.y -= 0.042
-                checkNode.physicsBody = roadModel.physicsBody
+                checkNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
                 checkNode.physicsBody?.categoryBitMask = BodyType.check.rawValue
                 checkNode.name = "\(i)"
                 checkpointsNode.append(checkNode)
