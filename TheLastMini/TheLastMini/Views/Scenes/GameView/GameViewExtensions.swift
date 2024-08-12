@@ -110,7 +110,7 @@ extension GameView: ResultsViewControllerDelegate {
     }
 }
 
-
-#Preview{
-    GameView(vehicleModel: VehicleModel(carName: "Äs"))
-}
+//
+//#Preview{
+//    GameView(vehicleModel: VehicleModel(carName: "Äs"))
+//}

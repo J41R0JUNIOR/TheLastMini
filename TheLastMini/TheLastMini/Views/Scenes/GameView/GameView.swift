@@ -7,6 +7,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     internal var sceneView: ARSCNView = ARSCNView(frame: .zero)
     internal var isVehicleAdded = false
     internal let vehicleModel: VehicleModel
+    internal let roadModel: RoadModel
     internal var shouldHandleResetRequest = false
     internal var isInicialazeCoach: Bool = false
     internal var soundManager: SoundManager = SoundManager.shared
@@ -77,8 +78,9 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         return label
     }()    
     
-    init(vehicleModel: VehicleModel){
+    init(vehicleModel: VehicleModel, roadModel: RoadModel){
         self.vehicleModel = vehicleModel
+        self.roadModel = roadModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -201,14 +203,14 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createSpeedway(setPhysics: Bool) ->SCNNode{
-        guard let pista = SCNScene(named: "pistaV12.usdz"),
+        guard let pista = SCNScene(named: roadModel.roadName),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
         }
         
-        pistaNode.scale = SCNVector3(x: 1.5, y: 1, z: 1.5)
+        pistaNode.scale = roadModel.scale
         
-        for i in 1...10 {
+        for i in 1...roadModel.checkPointMaxPoints {
             guard let checkNode = pistaNode.childNode(withName: "Check\(i)", recursively: true) else { fatalError("Checkpoint\(i) not found") }
             checkNode.opacity = 0
             if setPhysics {
@@ -427,7 +429,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         movementSystem.changed()
         lapAndTimer.isHidden = false
         lapAndTimer.playTimer()
-        
+         
         Task{
             await self.soundManager.playSong(fileName: .accelerateCar1, .soundEffect)
         }
