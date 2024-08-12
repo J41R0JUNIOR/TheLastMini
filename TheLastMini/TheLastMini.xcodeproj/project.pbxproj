@@ -49,22 +49,14 @@
 		C0BCBCF72C613D570035BCC0 /* TrafficLightComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */; };
 		D92661DA2C6154C8006FC0BB /* SoundEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92661D92C6154C8006FC0BB /* SoundEffects.swift */; };
 		D92661E62C6155A4006FC0BB /* soundCong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661E32C6155A4006FC0BB /* soundCong.mp3 */; };
-		D92661E72C6155A4006FC0BB /* voiceCong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661E42C6155A4006FC0BB /* voiceCong.mp3 */; };
 		D92661EA2C616D54006FC0BB /* race_countdown2-106294.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661E82C616D54006FC0BB /* race_countdown2-106294.mp3 */; };
 		D92661EB2C616D54006FC0BB /* race_countdown2-106294-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661E92C616D54006FC0BB /* race_countdown2-106294-2.mp3 */; };
-		D92661EF2C62A928006FC0BB /* 02-nissan_skyline_r34.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661EC2C62A927006FC0BB /* 02-nissan_skyline_r34.mp3 */; };
-		D92661F02C62A928006FC0BB /* 03-nissan_skyline_r34.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661ED2C62A927006FC0BB /* 03-nissan_skyline_r34.mp3 */; };
-		D92661F12C62A928006FC0BB /* 01-nissan_skyline_r34.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661EE2C62A927006FC0BB /* 01-nissan_skyline_r34.mp3 */; };
-		D92661F32C62A977006FC0BB /* car-idle-84718.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */; };
 		D93A082C2C66837900BF4F1F /* Kanit-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D93A082A2C6682F200BF4F1F /* Kanit-MediumItalic.ttf */; };
 		D93A082D2C66857900BF4F1F /* Kanit-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D93A08242C6682F100BF4F1F /* Kanit-BoldItalic.ttf */; };
 		D94ACB9C2C669DC700B85807 /* CarAudioV3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D94ACB9B2C669DC700B85807 /* CarAudioV3.mp3 */; };
 		D94ACB9F2C68330E00B85807 /* Kanit-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D93A08262C6682F200BF4F1F /* Kanit-LightItalic.ttf */; };
 		D94ACBA12C683B5400B85807 /* PositionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94ACBA02C683B5400B85807 /* PositionComponent.swift */; };
 		D94ACBA52C6853AF00B85807 /* Phonky_Frog__Day__10_de_ago_de_2024_2230.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D94ACBA42C6853AF00B85807 /* Phonky_Frog__Day__10_de_ago_de_2024_2230.mp3 */; };
-		D9752C4C2C640FFF0039F9B6 /* 02-0807.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C4A2C640FFF0039F9B6 /* 02-0807.mp3 */; };
-		D9752C4D2C640FFF0039F9B6 /* 01-0807.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C4B2C640FFF0039F9B6 /* 01-0807.mp3 */; };
-		D9752C4F2C653B6C0039F9B6 /* CarAudioR.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D9752C4E2C653B6C0039F9B6 /* CarAudioR.mp3 */; };
 		D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC682C4EDA3000E391F5 /* AppDelegate.swift */; };
 		D995CC6B2C4EDA3000E391F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */; };
 		D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D995CC712C4EDA3200E391F5 /* Assets.xcassets */; };
@@ -132,13 +124,8 @@
 		C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrafficLightComponent.swift; path = ../TrafficLightComponent.swift; sourceTree = "<group>"; };
 		D92661D92C6154C8006FC0BB /* SoundEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffects.swift; sourceTree = "<group>"; };
 		D92661E32C6155A4006FC0BB /* soundCong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = soundCong.mp3; sourceTree = "<group>"; };
-		D92661E42C6155A4006FC0BB /* voiceCong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = voiceCong.mp3; sourceTree = "<group>"; };
 		D92661E82C616D54006FC0BB /* race_countdown2-106294.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "race_countdown2-106294.mp3"; sourceTree = "<group>"; };
 		D92661E92C616D54006FC0BB /* race_countdown2-106294-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "race_countdown2-106294-2.mp3"; sourceTree = "<group>"; };
-		D92661EC2C62A927006FC0BB /* 02-nissan_skyline_r34.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "02-nissan_skyline_r34.mp3"; sourceTree = "<group>"; };
-		D92661ED2C62A927006FC0BB /* 03-nissan_skyline_r34.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "03-nissan_skyline_r34.mp3"; sourceTree = "<group>"; };
-		D92661EE2C62A927006FC0BB /* 01-nissan_skyline_r34.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01-nissan_skyline_r34.mp3"; sourceTree = "<group>"; };
-		D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "car-idle-84718.mp3"; sourceTree = "<group>"; };
 		D93A08232C6682F100BF4F1F /* Kanit-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		D93A08242C6682F100BF4F1F /* Kanit-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-BoldItalic.ttf"; sourceTree = "<group>"; };
 		D93A08252C6682F100BF4F1F /* Kanit-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-ThinItalic.ttf"; sourceTree = "<group>"; };
@@ -150,9 +137,6 @@
 		D94ACB9B2C669DC700B85807 /* CarAudioV3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CarAudioV3.mp3; sourceTree = "<group>"; };
 		D94ACBA02C683B5400B85807 /* PositionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionComponent.swift; sourceTree = "<group>"; };
 		D94ACBA42C6853AF00B85807 /* Phonky_Frog__Day__10_de_ago_de_2024_2230.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Phonky_Frog__Day__10_de_ago_de_2024_2230.mp3; sourceTree = "<group>"; };
-		D9752C4A2C640FFF0039F9B6 /* 02-0807.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "02-0807.mp3"; sourceTree = "<group>"; };
-		D9752C4B2C640FFF0039F9B6 /* 01-0807.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "01-0807.mp3"; sourceTree = "<group>"; };
-		D9752C4E2C653B6C0039F9B6 /* CarAudioR.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CarAudioR.mp3; sourceTree = "<group>"; };
 		D995CC652C4EDA3000E391F5 /* TheLastMini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheLastMini.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D995CC682C4EDA3000E391F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D995CC6A2C4EDA3000E391F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -305,16 +289,8 @@
 			children = (
 				D94ACBA42C6853AF00B85807 /* Phonky_Frog__Day__10_de_ago_de_2024_2230.mp3 */,
 				D94ACB9B2C669DC700B85807 /* CarAudioV3.mp3 */,
-				D9752C4E2C653B6C0039F9B6 /* CarAudioR.mp3 */,
-				D9752C4B2C640FFF0039F9B6 /* 01-0807.mp3 */,
-				D9752C4A2C640FFF0039F9B6 /* 02-0807.mp3 */,
-				D92661F22C62A977006FC0BB /* car-idle-84718.mp3 */,
-				D92661EE2C62A927006FC0BB /* 01-nissan_skyline_r34.mp3 */,
-				D92661EC2C62A927006FC0BB /* 02-nissan_skyline_r34.mp3 */,
-				D92661ED2C62A927006FC0BB /* 03-nissan_skyline_r34.mp3 */,
 				D92661E92C616D54006FC0BB /* race_countdown2-106294-2.mp3 */,
 				D92661E82C616D54006FC0BB /* race_countdown2-106294.mp3 */,
-				D92661E42C6155A4006FC0BB /* voiceCong.mp3 */,
 				D92661E32C6155A4006FC0BB /* soundCong.mp3 */,
 			);
 			path = Sounds;
@@ -524,7 +500,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C05638C92C596CC200742377 /* speedway.usdz in Resources */,
-				D9752C4F2C653B6C0039F9B6 /* CarAudioR.mp3 in Resources */,
 				B384A5602C580D8F002FA243 /* MmR.usdz in Resources */,
 				D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */,
 				D93A082D2C66857900BF4F1F /* Kanit-BoldItalic.ttf in Resources */,
@@ -533,23 +508,16 @@
 				B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */,
 				C080D1932C640C800096C6EB /* pistaWall2.usdz in Resources */,
 				C089E0F62C5AD47C0003E40E /* TestCompleteSpeedway.usdz in Resources */,
-				D9752C4C2C640FFF0039F9B6 /* 02-0807.mp3 in Resources */,
-				D92661F02C62A928006FC0BB /* 03-nissan_skyline_r34.mp3 in Resources */,
 				D94ACB9C2C669DC700B85807 /* CarAudioV3.mp3 in Resources */,
 				B384A5612C580D8F002FA243 /* Rr.usdz in Resources */,
 				C03B0EBF2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz in Resources */,
-				D92661F12C62A928006FC0BB /* 01-nissan_skyline_r34.mp3 in Resources */,
 				D93A082C2C66837900BF4F1F /* Kanit-MediumItalic.ttf in Resources */,
-				D92661F32C62A977006FC0BB /* car-idle-84718.mp3 in Resources */,
 				D92661E62C6155A4006FC0BB /* soundCong.mp3 in Resources */,
 				B37BCC3C2C6A864700E9AA5C /* pistaV12.usdz in Resources */,
 				C0BCBCF22C613C8B0035BCC0 /* TestPistaWallMaior.usdz in Resources */,
 				D92661EA2C616D54006FC0BB /* race_countdown2-106294.mp3 in Resources */,
 				C01B331B2C5D532E000C4AE3 /* TestSpeedwayCheckDown1_5.usdz in Resources */,
 				D94ACBA52C6853AF00B85807 /* Phonky_Frog__Day__10_de_ago_de_2024_2230.mp3 in Resources */,
-				D9752C4D2C640FFF0039F9B6 /* 01-0807.mp3 in Resources */,
-				D92661EF2C62A928006FC0BB /* 02-nissan_skyline_r34.mp3 in Resources */,
-				D92661E72C6155A4006FC0BB /* voiceCong.mp3 in Resources */,
 				C01B33192C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz in Resources */,
 				C080D18F2C63F7C70096C6EB /* testepista02.usdz in Resources */,
 				D94ACB9F2C68330E00B85807 /* Kanit-LightItalic.ttf in Resources */,
@@ -745,7 +713,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KV78S9S54R;
+				DEVELOPMENT_TEAM = 335BRL9A43;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = " [APP NAME]";
@@ -763,7 +731,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMinii;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -783,7 +751,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KV78S9S54R;
+				DEVELOPMENT_TEAM = 335BRL9A43;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = " [APP NAME]";
@@ -801,7 +769,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMinii;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
