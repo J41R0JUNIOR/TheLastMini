@@ -170,7 +170,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         coachingOverlay.session = sceneView.session
         coachingOverlay.delegate = self
-        coachingOverlay.goal = .anyPlane
+        coachingOverlay.goal = .horizontalPlane
         
         sceneView.session.run(configuration)
     }
@@ -203,18 +203,20 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createSpeedway(setPhysics: Bool) ->SCNNode{
-        guard let pista = SCNScene(named: roadModel.roadName),
+        guard let pista = SCNScene(named: "pista_final-2.usdz"),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
         }
         
         pistaNode.scale = SCNVector3(x: 1.5, y: 1, z: 1.5)
         
+        print("NODES CHILDS: \(pistaNode.childNodes)")
+        
         for i in 1...10 {
             guard let checkNode = pistaNode.childNode(withName: "Check\(i)", recursively: true) else { fatalError("Checkpoint\(i) not found") }
             checkNode.opacity = 0
             if setPhysics {
-                checkNode.position.y -= 0.042
+                checkNode.position.z += 0.041
                 checkNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
                 checkNode.physicsBody?.categoryBitMask = BodyType.check.rawValue
                 checkNode.name = "\(i)"
@@ -236,24 +238,24 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         if setPhysics {
             guard let finishNode = pistaNode.childNode(withName: "Finish", recursively: true) else { fatalError("Finish Node not found") }
-            finishNode.position.y -= 0.042
+            finishNode.position.z += 0.0425
             finishNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
             finishNode.physicsBody?.categoryBitMask = BodyType.finish.rawValue
             finishNode.opacity = 0
             self.finishNode = finishNode
         }
         
-        guard let planeNode = pistaNode.childNode(withName: "Plane", recursively: true) else { fatalError("Plane Node not found") }
-        let boxGeometry = SCNBox(width: 0.15, height: 0.01, length: 0.05, chamferRadius: 0.0)
-        let material = SCNMaterial()
-        material.diffuse.contents = UIColor.gray // Altere 'yellow' para a cor desejada
-        boxGeometry.materials = [material]
-
-        let node = SCNNode(geometry: boxGeometry)
-        node.position = planeNode.position
-        node.position.y += 0.0005
+//        guard let planeNode = pistaNode.childNode(withName: "Geometry.005", recursively: true) else { fatalError("Plane Node not found") }
+//        let boxGeometry = SCNBox(width: 0.15, height: 0.01, length: 0.05, chamferRadius: 0.0)
+//        let material = SCNMaterial()
+//        material.diffuse.contents = UIColor.gray // Altere 'yellow' para a cor desejada
+//        boxGeometry.materials = [material]
+//
+//        let node = SCNNode(geometry: boxGeometry)
+//        node.position = planeNode.position
+//        node.position.y += 0.0005
         
-        pistaNode.addChildNode(node)
+//        pistaNode.addChildNode(node)
         pistaNode.name = "pistaNode"
         return pistaNode
     }
@@ -307,7 +309,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         }
         
         chassisNode.position = position
-        chassisNode.position.y += 0.1
+        chassisNode.position.y += 0.2
         self.addNodeToScene(node: chassisNode)
         
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)
@@ -368,7 +370,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.finish.rawValue) ||
             (nodeA.physicsBody?.categoryBitMask == BodyType.finish.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
-            
             if checkpointsNode.allSatisfy({ $0!.isCheck }) {
                 lapAndTimer.saveLapTime()
                 for node in checkpointsNode {
