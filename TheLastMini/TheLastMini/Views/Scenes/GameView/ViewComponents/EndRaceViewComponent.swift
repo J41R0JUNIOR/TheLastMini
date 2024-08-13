@@ -9,13 +9,10 @@ import UIKit
 
 class EndRaceView: UIView {
 
-    lazy var endLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Finish!"
-        label.textColor = .amarelo
-        label.font = UIFont(name: FontsCuston.fontBoldItalick.rawValue, size: 50)
-        return label
+    lazy var endLabel: UIImageView = {
+        let img = UIImageView(image: UIImage(named: "finish"))
+        img.translatesAutoresizingMaskIntoConstraints = false
+        return img
     }()
     
     init() {
