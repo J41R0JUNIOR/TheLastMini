@@ -163,9 +163,14 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         sceneView = ARSCNView(frame: self.view.frame)
         sceneView.delegate = self
         sceneView.autoenablesDefaultLighting = true
+        
         sceneView.scene.physicsWorld.contactDelegate = self
         
         let configuration = ARWorldTrackingConfiguration()
+        if ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh){
+            configuration.sceneReconstruction = .mesh
+        }
+        configuration.wantsHDREnvironmentTextures = true
         configuration.planeDetection = [.horizontal]
         
         coachingOverlay.session = sceneView.session
@@ -203,10 +208,13 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createSpeedway(setPhysics: Bool) ->SCNNode{
-        guard let pista = SCNScene(named: "pista_final-2.usdz"),
+        guard let pista = SCNScene(named: "pista_final-3.scn"),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
         }
+        
+        pistaNode.light = SCNLight()
+        pistaNode.light?.type = .directional
         
         pistaNode.scale = SCNVector3(x: 1.5, y: 1, z: 1.5)
         
@@ -309,7 +317,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         }
         
         chassisNode.position = position
-        chassisNode.position.y += 0.2
+//        chassisNode.position.y += 0.2
         self.addNodeToScene(node: chassisNode)
         
         self.sceneView.scene.physicsWorld.addBehavior(vehicle)

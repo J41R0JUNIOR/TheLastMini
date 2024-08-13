@@ -74,8 +74,8 @@ extension GameView: ViewCode{
             
             replaceAndPlay.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             replaceAndPlay.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            replaceAndPlay.heightAnchor.constraint(equalToConstant: 41),
-            replaceAndPlay.widthAnchor.constraint(equalToConstant: 280),
+            replaceAndPlay.heightAnchor.constraint(equalToConstant: 50),
+            replaceAndPlay.widthAnchor.constraint(equalToConstant: 380),
             
             trafficLightComponent.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             trafficLightComponent.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -111,6 +111,6 @@ extension GameView: ResultsViewControllerDelegate {
 }
 
 //
-//#Preview{
-//    GameView(vehicleModel: VehicleModel(carName: "Äs"))
-//}
+#Preview{
+    GameView(vehicleModel: VehicleModel(carName: "Äs"), roadModel: RoadModel(carName: "asf"))
+}
