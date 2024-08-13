@@ -48,6 +48,12 @@ class TrackInfoView: UIView {
         return view
     }()
     
+    lazy var rankingComponent: UIImageView = {
+        let img = UIImageView(image: UIImage(named: "rankingFinal"))
+        img.translatesAutoresizingMaskIntoConstraints = false
+        return img
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupInitialLayout()
@@ -182,11 +188,16 @@ class TrackInfoView: UIView {
         rankingLabel.font = UIFont(name: FontsCuston.fontLightItalick.rawValue, size: 24)
         rankingLabel.textColor = .amarelo
         addSubview(rankingLabel)
+        addSubview(rankingComponent)
         
         // Layout the ranking label
         NSLayoutConstraint.activate([
             rankingLabel.topAnchor.constraint(equalTo: stroke1.bottomAnchor, constant: 10),
-            rankingLabel.leadingAnchor.constraint(equalTo: self.stroke2.trailingAnchor, constant: 40)
+            rankingLabel.leadingAnchor.constraint(equalTo: self.stroke2.trailingAnchor, constant: 40),
+            rankingComponent.topAnchor.constraint(equalTo: rankingLabel.bottomAnchor, constant: 8),
+            rankingComponent.leadingAnchor.constraint(equalTo: rankingLabel.leadingAnchor),
+            rankingComponent.widthAnchor.constraint(equalToConstant: 230),
+            rankingComponent.heightAnchor.constraint(equalToConstant: 140)
         ])
         
         var lastLabel: PositionImageComponent?

@@ -757,7 +757,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 335BRL9A43;
+				DEVELOPMENT_TEAM = SJYF62B3PZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Kurama Driver";
@@ -775,7 +775,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -795,7 +795,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 335BRL9A43;
+				DEVELOPMENT_TEAM = SJYF62B3PZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Kurama Driver";
@@ -813,7 +813,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
