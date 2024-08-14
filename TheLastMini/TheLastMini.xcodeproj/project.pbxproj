@@ -20,6 +20,7 @@
 		B302B2AC2C6686F900859785 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2AB2C6686F900859785 /* Connection.swift */; };
 		B37BCC3C2C6A864700E9AA5C /* pistaV12.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B37BCC3B2C6A864700E9AA5C /* pistaV12.usdz */; };
 		B37BCC3E2C6A8FB200E9AA5C /* RoadValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37BCC3D2C6A8FB200E9AA5C /* RoadValue.swift */; };
+		B37BCC422C6C326000E9AA5C /* VehicleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37BCC412C6C326000E9AA5C /* VehicleFactory.swift */; };
 		B384A5532C5808C8002FA243 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B384A5522C5808C8002FA243 /* GameView.swift */; };
 		B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55C2C580D8F002FA243 /* Ll.usdz */; };
 		B384A5602C580D8F002FA243 /* MmR.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55D2C580D8F002FA243 /* MmR.usdz */; };
@@ -105,6 +106,7 @@
 		B302B2AB2C6686F900859785 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		B37BCC3B2C6A864700E9AA5C /* pistaV12.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pistaV12.usdz; sourceTree = "<group>"; };
 		B37BCC3D2C6A8FB200E9AA5C /* RoadValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadValue.swift; sourceTree = "<group>"; };
+		B37BCC412C6C326000E9AA5C /* VehicleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleFactory.swift; sourceTree = "<group>"; };
 		B384A5522C5808C8002FA243 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		B384A55C2C580D8F002FA243 /* Ll.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Ll.usdz; sourceTree = "<group>"; };
 		B384A55D2C580D8F002FA243 /* MmR.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = MmR.usdz; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				B39E5E4A2C5A715700D28EAA /* Component.swift */,
 				C0BCBCEF2C613C8B0035BCC0 /* GameEnum.swift */,
 				B302B2A82C6567C500859785 /* CarValues.swift */,
+				B37BCC412C6C326000E9AA5C /* VehicleFactory.swift */,
 				B37BCC3D2C6A8FB200E9AA5C /* RoadValue.swift */,
 			);
 			path = Model;
@@ -597,6 +600,7 @@
 				D995CC832C4EE70400E391F5 /* HapticsService.swift in Sources */,
 				D995CC962C50189F00E391F5 /* Delegates.swift in Sources */,
 				B302B2902C61A52B00859785 /* OnboardCollectionViewCell.swift in Sources */,
+				B37BCC422C6C326000E9AA5C /* VehicleFactory.swift in Sources */,
 				B39E5E492C5A70FA00D28EAA /* System.swift in Sources */,
 				B39E5E472C5A70DC00D28EAA /* Extension.swift in Sources */,
 				C051967C2C66A533000ECE5F /* ReplaceAndPlayComponent.swift in Sources */,
@@ -757,7 +761,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 335BRL9A43;
+				DEVELOPMENT_TEAM = KV78S9S54R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Kurama Driver";
@@ -775,7 +779,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMinii;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -795,7 +799,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 335BRL9A43;
+				DEVELOPMENT_TEAM = KV78S9S54R;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Kurama Driver";
@@ -813,7 +817,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMinii;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

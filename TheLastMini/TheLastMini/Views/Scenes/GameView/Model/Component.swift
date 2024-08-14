@@ -18,7 +18,7 @@ protocol Component {}
 // Componente de física do veículo
 struct VehiclePhysicsComponent: Component {
     let vehicle: SCNPhysicsVehicle
-    let wheels: [SCNPhysicsVehicleWheel]
+//    let wheels: [SCNPhysicsVehicleWheel]
 }
 
 // Componente de posição

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SceneKit
 
 struct VehicleModel {
     var chassisName: String = ""

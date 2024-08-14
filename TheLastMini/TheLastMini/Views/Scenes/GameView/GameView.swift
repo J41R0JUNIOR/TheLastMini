@@ -6,7 +6,8 @@ import SmartHitTest
 class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate, TrafficLightDelegate {
     internal var sceneView: ARSCNView = ARSCNView(frame: .zero)
     internal var isVehicleAdded = false
-    internal let vehicleModel: VehicleModel
+//    internal let vehicleModel: VehicleModel
+    internal var chassi: VehicleFactory
     internal let roadModel: RoadModel
     internal var shouldHandleResetRequest = false
     internal var isInicialazeCoach: Bool = false
@@ -78,8 +79,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         return label
     }()    
     
-    init(vehicleModel: VehicleModel, roadModel: RoadModel){
-        self.vehicleModel = vehicleModel
+    init(chassisNode: VehicleFactory, roadModel: RoadModel){
+        self.chassi = chassisNode
         self.roadModel = roadModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -180,33 +181,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         sceneView.session.run(configuration)
     }
     
-    func createWheel(lado: Lado) -> SCNNode {
-        let wheel = lado == .L ? vehicleModel.lWheelName : vehicleModel.rWheelName
-        guard let wheelNode = SCNScene(named: wheel)?.rootNode else {
-            fatalError("Could not load wheel asset")
-        }
-        return wheelNode.clone()
-    }
-    
-    func createChassis() -> SCNNode {
-        guard let chassis = SCNScene(named: vehicleModel.chassisName),
-              let chassisNode = chassis.rootNode.childNodes.first else {
-            fatalError("Could not load chassis asset")
-        }
-        
-        let boxGeometry = SCNBox(width: 0.06, height: 0.03, length: 0.12, chamferRadius: 0.0)
-        let boxShape = SCNPhysicsShape(geometry: boxGeometry, options: nil)
-        let body = SCNPhysicsBody(type: .dynamic, shape: boxShape)
-        body.mass = 1.0
-        
-        chassisNode.name = "CarNode"
-        chassisNode.physicsBody = body
-        chassisNode.physicsBody?.categoryBitMask = BodyType.car.rawValue
-        chassisNode.physicsBody?.contactTestBitMask = BodyType.check.rawValue | BodyType.ground.rawValue | BodyType.wall.rawValue | BodyType.finish.rawValue
-        
-        return chassisNode
-    }
-    
     func createSpeedway(setPhysics: Bool) ->SCNNode{
         guard let pista = SCNScene(named: "pista_final-3.scn"),
               let pistaNode = pista.rootNode.childNodes.first else {
@@ -269,66 +243,21 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func setupVehicle(at position: SCNVector3) {
-        let chassisNode = createChassis()
-        let boxGeometry = SCNBox(width: 0.06, height: 0.03, length: 0.12, chamferRadius: 0.0)
-        let boxShape = SCNPhysicsShape(geometry: boxGeometry, options: nil)
-        let body = SCNPhysicsBody(type: .dynamic, shape: boxShape)
-        body.mass = 1.0
-        chassisNode.physicsBody = body
-        chassisNode.physicsBody?.categoryBitMask = BodyType.car.rawValue
-        chassisNode.physicsBody?.contactTestBitMask = BodyType.check.rawValue | BodyType.ground.rawValue | BodyType.wall.rawValue | BodyType.finish.rawValue
-        
-        let wheel1Node = createWheel(lado: .R)
-        let wheel2Node = createWheel(lado: .L)
-        let wheel3Node = createWheel(lado: .R)
-        let wheel4Node = createWheel(lado: .L)
-        
-        let wheel1 = SCNPhysicsVehicleWheel(node: wheel1Node)
-        let wheel2 = SCNPhysicsVehicleWheel(node: wheel2Node)
-        let wheel3 = SCNPhysicsVehicleWheel(node: wheel3Node)
-        let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
-        
-        
-        wheel1.connectionPosition = SCNVector3(-vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel)
-        wheel2.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel)
-        wheel3.connectionPosition = SCNVector3(-vehicleModel.xWheel, vehicleModel.yWheel, -vehicleModel.zbWheel)
-        wheel4.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, -vehicleModel.zbWheel)
-        
-        wheel1.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
-        wheel2.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
-        wheel3.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
-        wheel4.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
-        
+        let chassisNode = chassi.createChassi()
 
-        wheel1.suspensionRestLength = vehicleModel.suspensionRestLength
-        wheel2.suspensionRestLength = vehicleModel.suspensionRestLength
-        wheel3.suspensionRestLength = vehicleModel.suspensionRestLength
-        wheel4.suspensionRestLength = vehicleModel.suspensionRestLength
-        
-        chassisNode.addChildNode(wheel1Node)
-        chassisNode.addChildNode(wheel2Node)
-        chassisNode.addChildNode(wheel3Node)
-        chassisNode.addChildNode(wheel4Node)
-        
-        var vehicle = SCNPhysicsVehicle()
-        
-        if let vehiclePhysicsBody = chassisNode.physicsBody {
-            vehicle = SCNPhysicsVehicle(chassisBody: vehiclePhysicsBody, wheels: [wheel1, wheel2, wheel3, wheel4])
-        }
-        
         chassisNode.position = position
-//        chassisNode.position.y += 0.2
+        
         self.addNodeToScene(node: chassisNode)
         
-        self.sceneView.scene.physicsWorld.addBehavior(vehicle)
+        self.sceneView.scene.physicsWorld.addBehavior(self.chassi.vehicle)
       
         self.entities.append(chassisNode)
         
-        let vehicleComponent = VehiclePhysicsComponent(vehicle: vehicle, wheels: [wheel1, wheel2, wheel3, wheel4])
+        let vehicleComponent = VehiclePhysicsComponent(vehicle: self.chassi.vehicle)
         let positionComponent = PositionComponent(position: position)
         chassisNode.addComponent(vehicleComponent)
         chassisNode.addComponent(positionComponent)
-        print(chassisNode.getId(), "esse é o uuid do carro gerado")
+        
         isVehicleAdded = true
     }
     
