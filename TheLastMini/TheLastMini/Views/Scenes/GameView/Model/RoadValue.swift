@@ -17,9 +17,9 @@ struct RoadModel {
     init(carName: String) {
         switch carName {
         case "Dragon Road":
-            self.roadName = "pistaV12.usdz"
+            self.roadName = "pista_final-3.scn"
             self.scale = SCNVector3(x: 1.5, y: 1, z: 1.5)
-            self.checkPointMaxPoints = 10
+            self.checkPointMaxPoints = 10 
             
         default: break
        
