@@ -225,17 +225,17 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func setupVehicle(at position: SCNVector3) {
-        let chassisNode = chassi.chassisNode
+        let chassisNode = chassi.getChassisNOde()
 
         chassisNode.position = position
         
         self.addNodeToScene(node: chassisNode)
         
-        self.sceneView.scene.physicsWorld.addBehavior(self.chassi.vehicle)
+        self.sceneView.scene.physicsWorld.addBehavior(self.chassi.getVehicle())
       
         self.entities.append(chassisNode)
         
-        let vehicleComponent = VehiclePhysicsComponent(vehicle: self.chassi.vehicle)
+        let vehicleComponent = VehiclePhysicsComponent(vehicle: self.chassi.getVehicle())
         let positionComponent = PositionComponent(position: position)
         chassisNode.addComponent(vehicleComponent)
         chassisNode.addComponent(positionComponent)

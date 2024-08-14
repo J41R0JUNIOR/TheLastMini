@@ -4,8 +4,8 @@ import SceneKit
 class VehicleFactory {
     
     private let vehicleModel: VehicleModel
-     var vehicle = SCNPhysicsVehicle()
-     var chassisNode = SCNNode()
+    private var vehicle = SCNPhysicsVehicle()
+    private var chassisNode = SCNNode()
     
     private var wheels: [SCNPhysicsVehicleWheel] = []
     
@@ -75,5 +75,8 @@ class VehicleFactory {
     
     func getVehicle() -> SCNPhysicsVehicle {
         return vehicle
+    }
+    func getChassisNOde() -> SCNNode {
+        return chassisNode
     }
 }
