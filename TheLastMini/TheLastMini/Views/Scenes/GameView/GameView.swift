@@ -6,7 +6,6 @@ import SmartHitTest
 class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, ARSessionDelegate, TrafficLightDelegate {
     internal var sceneView: ARSCNView = ARSCNView(frame: .zero)
     internal var isVehicleAdded = false
-//    internal let vehicleModel: VehicleModel
     internal var chassi: VehicleFactory
     internal let roadModel: RoadModel
     internal var shouldHandleResetRequest = false
@@ -23,7 +22,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     private var accelerateAudioPlayer: SCNAudioPlayer?
     private var startAudioPlayer: SCNAudioPlayer?
     private let userDefualt: UserDefaults = UserDefaults.standard
-
         
     ///View de animacao de scan
     internal lazy var coachingOverlay: ARCoachingOverlayView = {
@@ -89,14 +87,12 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupScene()
         self.setupViewCode()
     }
-    
     
     internal func configureFocusNode(){
         focusNode.childNodes.forEach { $0.removeFromParentNode() }
@@ -109,13 +105,10 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         customNode.scale = SCNVector3(0.5, 0.5, 0.5) 
         focusNode.isHidden = false
         
-        
         if focusNode.parent != nil {
             self.addNodeToScene(node: self.focusNode)
         }
     }
-    
-    
     
     func setupTapGesture() {
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -227,33 +220,22 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             self.finishNode = finishNode
         }
         
-//        guard let planeNode = pistaNode.childNode(withName: "Geometry.005", recursively: true) else { fatalError("Plane Node not found") }
-//        let boxGeometry = SCNBox(width: 0.15, height: 0.01, length: 0.05, chamferRadius: 0.0)
-//        let material = SCNMaterial()
-//        material.diffuse.contents = UIColor.gray // Altere 'yellow' para a cor desejada
-//        boxGeometry.materials = [material]
-//
-//        let node = SCNNode(geometry: boxGeometry)
-//        node.position = planeNode.position
-//        node.position.y += 0.0005
-        
-//        pistaNode.addChildNode(node)
         pistaNode.name = "pistaNode"
         return pistaNode
     }
     
     func setupVehicle(at position: SCNVector3) {
-        let chassisNode = chassi.createChassi()
+        let chassisNode = chassi.getChassisNOde()
 
         chassisNode.position = position
         
         self.addNodeToScene(node: chassisNode)
         
-        self.sceneView.scene.physicsWorld.addBehavior(self.chassi.vehicle)
+        self.sceneView.scene.physicsWorld.addBehavior(self.chassi.getVehicle())
       
         self.entities.append(chassisNode)
         
-        let vehicleComponent = VehiclePhysicsComponent(vehicle: self.chassi.vehicle)
+        let vehicleComponent = VehiclePhysicsComponent(vehicle: self.chassi.getVehicle())
         let positionComponent = PositionComponent(position: position)
         chassisNode.addComponent(vehicleComponent)
         chassisNode.addComponent(positionComponent)
@@ -273,7 +255,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             soundManager.changeVolume(volume)
         }
     }
-    
     
     // Chamar a função de atualização de jogo no loop principal
     override func viewWillAppear(_ animated: Bool) {
