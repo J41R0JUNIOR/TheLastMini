@@ -122,9 +122,10 @@ extension HomeViewController: NavigationDelegate{
             newInstanceGameCenter()
             present(gameCenterVC!, animated: true)
         case 2:
-            let carValues = VehicleModel(carName: Cars.models.names[0])
             let roadValues = RoadModel(carName: Roads.roads.names[0])
-            navigationController?.pushViewController(GameView(vehicleModel: carValues, roadModel: roadValues), animated: true)
+            let vehicle =  VehicleFactory(vehicleModel: VehicleModel(carName: Cars.models.names[0]))
+
+            navigationController?.pushViewController(GameView(chassisNode: vehicle, roadModel: roadValues), animated: true)
         default:
             print("Tag invalida")
         }
