@@ -12,8 +12,6 @@ class ReplaceAndPlayComponent: UIView {
     private lazy var replace: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(resource: .replace), for: .normal)
-//        button.setTitle("Reposicionar", for: .normal)
-//        button.setTitleColor(.systemBlue, for: .normal)
         button.backgroundColor = .black.withAlphaComponent(0.3)
         button.layer.cornerRadius = 10.0
         button.tag = 10
@@ -25,9 +23,6 @@ class ReplaceAndPlayComponent: UIView {
     private lazy var play: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(resource: .startGame), for: .normal)
-        
-//        button.setTitle("Start", for: .normal)
-//        button.setTitleColor(.systemBlue, for: .normal)
         button.backgroundColor = .black.withAlphaComponent(0.3)
         button.layer.cornerRadius = 10.0
         button.tag = 11
