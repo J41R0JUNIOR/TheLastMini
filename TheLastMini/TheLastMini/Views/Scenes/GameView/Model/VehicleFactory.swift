@@ -1,21 +1,19 @@
-//
-//  VehicleFactory.swift
-//  TheLastMini
-//
-//  Created by Jairo Júnior on 13/08/24.
-//
-
 import Foundation
 import SceneKit
 
-
-struct VehicleFactory{
+class VehicleFactory {
     
     private let vehicleModel: VehicleModel
-    var vehicle = SCNPhysicsVehicle()
-
+     var vehicle = SCNPhysicsVehicle()
+     var chassisNode = SCNNode()
+    
+    private var wheels: [SCNPhysicsVehicleWheel] = []
+    
     init(vehicleModel: VehicleModel) {
         self.vehicleModel = vehicleModel
+        createChassis()
+        createWheels()
+        setupVehicle()
     }
     
     func createWheel(lado: Lado) -> SCNNode {
@@ -26,9 +24,9 @@ struct VehicleFactory{
         return wheelNode.clone()
     }
     
-    func createChassis() -> SCNNode {
+    func createChassis() {
         guard let chassis = SCNScene(named: vehicleModel.chassisName),
-              let chassisNode = chassis.rootNode.childNodes.first else {
+              let node = chassis.rootNode.childNodes.first else {
             fatalError("Could not load chassis asset")
         }
         
@@ -37,62 +35,45 @@ struct VehicleFactory{
         let body = SCNPhysicsBody(type: .dynamic, shape: boxShape)
         body.mass = 1.0
         
-        chassisNode.name = "CarNode"
-        chassisNode.physicsBody = body
-        chassisNode.physicsBody?.categoryBitMask = BodyType.car.rawValue
-        chassisNode.physicsBody?.contactTestBitMask = BodyType.check.rawValue | BodyType.ground.rawValue | BodyType.wall.rawValue | BodyType.finish.rawValue
+        node.name = "CarNode"
+        node.physicsBody = body
+        node.physicsBody?.categoryBitMask = BodyType.car.rawValue
+        node.physicsBody?.contactTestBitMask = BodyType.check.rawValue | BodyType.ground.rawValue | BodyType.wall.rawValue | BodyType.finish.rawValue
         
-        return chassisNode
+        self.chassisNode = node
     }
     
-    mutating func createChassi() -> SCNNode{
-        let chassisNode = createChassis()
-        let boxGeometry = SCNBox(width: 0.06, height: 0.03, length: 0.12, chamferRadius: 0.0)
-        let boxShape = SCNPhysicsShape(geometry: boxGeometry, options: nil)
-        let body = SCNPhysicsBody(type: .dynamic, shape: boxShape)
-        body.mass = 1.0
-        chassisNode.physicsBody = body
-        chassisNode.physicsBody?.categoryBitMask = BodyType.car.rawValue
-        chassisNode.physicsBody?.contactTestBitMask = BodyType.check.rawValue | BodyType.ground.rawValue | BodyType.wall.rawValue | BodyType.finish.rawValue
+    func createWheels() {
+        let wheelPositions = [
+            SCNVector3(-vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel),
+            SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel),
+            SCNVector3(-vehicleModel.xWheel, vehicleModel.yWheel, -vehicleModel.zbWheel),
+            SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, -vehicleModel.zbWheel)
+        ]
         
-        let wheel1Node = createWheel(lado: .R)
-        let wheel2Node = createWheel(lado: .L)
-        let wheel3Node = createWheel(lado: .R)
-        let wheel4Node = createWheel(lado: .L)
+        let wheelSides: [Lado] = [.R, .L, .R, .L]
         
-        let wheel1 = SCNPhysicsVehicleWheel(node: wheel1Node)
-        let wheel2 = SCNPhysicsVehicleWheel(node: wheel2Node)
-        let wheel3 = SCNPhysicsVehicleWheel(node: wheel3Node)
-        let wheel4 = SCNPhysicsVehicleWheel(node: wheel4Node)
-        
-        
-        wheel1.connectionPosition = SCNVector3(-vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel)
-        wheel2.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, vehicleModel.zfWheel)
-        wheel3.connectionPosition = SCNVector3(-vehicleModel.xWheel, vehicleModel.yWheel, -vehicleModel.zbWheel)
-        wheel4.connectionPosition = SCNVector3(vehicleModel.xWheel, vehicleModel.yWheel, -vehicleModel.zbWheel)
-        
-        wheel1.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
-        wheel2.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
-        wheel3.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
-        wheel4.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
-        
-
-        wheel1.suspensionRestLength = vehicleModel.suspensionRestLength
-        wheel2.suspensionRestLength = vehicleModel.suspensionRestLength
-        wheel3.suspensionRestLength = vehicleModel.suspensionRestLength
-        wheel4.suspensionRestLength = vehicleModel.suspensionRestLength
-        
-        chassisNode.addChildNode(wheel1Node)
-        chassisNode.addChildNode(wheel2Node)
-        chassisNode.addChildNode(wheel3Node)
-        chassisNode.addChildNode(wheel4Node)
-        
-        
-        if let vehiclePhysicsBody = chassisNode.physicsBody {
-            vehicle = SCNPhysicsVehicle(chassisBody: vehiclePhysicsBody, wheels: [wheel1, wheel2, wheel3, wheel4])
+        for (index, position) in wheelPositions.enumerated() {
+            let wheelNode = createWheel(lado: wheelSides[index])
+            let wheel = SCNPhysicsVehicleWheel(node: wheelNode)
+            
+            wheel.connectionPosition = position
+            wheel.suspensionStiffness = CGFloat(vehicleModel.suspensionStiffness)
+            wheel.suspensionRestLength = vehicleModel.suspensionRestLength
+            
+            wheels.append(wheel)
+            chassisNode.addChildNode(wheelNode)
         }
-        
-        
-        return chassisNode
+    }
+    
+    func setupVehicle() {
+        guard let vehiclePhysicsBody = chassisNode.physicsBody else {
+            fatalError("Chassis node does not have a physics body")
+        }
+        vehicle = SCNPhysicsVehicle(chassisBody: vehiclePhysicsBody, wheels: wheels)
+    }
+    
+    func getVehicle() -> SCNPhysicsVehicle {
+        return vehicle
     }
 }
