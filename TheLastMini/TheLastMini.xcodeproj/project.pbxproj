@@ -17,7 +17,6 @@
 		B302B2932C61B77A00859785 /* BasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2922C61B77A00859785 /* BasicView.swift */; };
 		B302B2A72C654DB500859785 /* GameViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2A62C654DB500859785 /* GameViewExtensions.swift */; };
 		B302B2A92C6567C500859785 /* CarValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2A82C6567C500859785 /* CarValues.swift */; };
-		B302B2AC2C6686F900859785 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2AB2C6686F900859785 /* Connection.swift */; };
 		B37BCC3C2C6A864700E9AA5C /* pistaV12.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B37BCC3B2C6A864700E9AA5C /* pistaV12.usdz */; };
 		B37BCC3E2C6A8FB200E9AA5C /* RoadValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37BCC3D2C6A8FB200E9AA5C /* RoadValue.swift */; };
 		B37BCC422C6C326000E9AA5C /* VehicleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37BCC412C6C326000E9AA5C /* VehicleFactory.swift */; };
@@ -103,7 +102,6 @@
 		B302B2922C61B77A00859785 /* BasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicView.swift; sourceTree = "<group>"; };
 		B302B2A62C654DB500859785 /* GameViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewExtensions.swift; sourceTree = "<group>"; };
 		B302B2A82C6567C500859785 /* CarValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarValues.swift; sourceTree = "<group>"; };
-		B302B2AB2C6686F900859785 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		B37BCC3B2C6A864700E9AA5C /* pistaV12.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pistaV12.usdz; sourceTree = "<group>"; };
 		B37BCC3D2C6A8FB200E9AA5C /* RoadValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadValue.swift; sourceTree = "<group>"; };
 		B37BCC412C6C326000E9AA5C /* VehicleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleFactory.swift; sourceTree = "<group>"; };
@@ -249,14 +247,6 @@
 				B37BCC3D2C6A8FB200E9AA5C /* RoadValue.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		B302B2AA2C6686E800859785 /* MultipierConnectivicty */ = {
-			isa = PBXGroup;
-			children = (
-				B302B2AB2C6686F900859785 /* Connection.swift */,
-			);
-			path = MultipierConnectivicty;
 			sourceTree = "<group>";
 		};
 		B384A5512C5807E4002FA243 /* GameView */ = {
@@ -424,7 +414,6 @@
 		D995CC852C4EE73400E391F5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				B302B2AA2C6686E800859785 /* MultipierConnectivicty */,
 				B302B2842C616FCA00859785 /* Onboard */,
 				62E91F8D2C5AABD400280B20 /* Results */,
 				D995CC862C4EE73D00E391F5 /* Home */,
@@ -594,7 +583,6 @@
 				D995CC802C4EE60B00E391F5 /* ViewCodeProtocols.swift in Sources */,
 				C0BCBCF12C613C8B0035BCC0 /* EndRaceViewComponent.swift in Sources */,
 				C0BCBCF02C613C8B0035BCC0 /* LapAndTimerViewComponent.swift in Sources */,
-				B302B2AC2C6686F900859785 /* Connection.swift in Sources */,
 				D995CC692C4EDA3000E391F5 /* AppDelegate.swift in Sources */,
 				62E91F942C5AB21400280B20 /* PlayerTimeRankModel.swift in Sources */,
 				D995CC832C4EE70400E391F5 /* HapticsService.swift in Sources */,
