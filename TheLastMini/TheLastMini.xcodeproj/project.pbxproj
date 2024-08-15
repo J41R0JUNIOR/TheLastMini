@@ -767,7 +767,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Kurama Driver";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to enable augmented reality features, allowing you to interact with virtual objects in the real world.";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -805,7 +804,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Kurama Driver";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.racing-games";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to enable augmented reality features, allowing you to interact with virtual objects in the real world.";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
