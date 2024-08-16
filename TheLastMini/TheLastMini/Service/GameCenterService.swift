@@ -33,7 +33,8 @@ class GameCenterService: ObservableObject{
     public func setNewRecord(recordTime: TimeInterval, leaderboardID: Identifier) async {
         print("Valor timeInterval: ", recordTime, " [-] Valor int: ", recordTime.toInt)
         do{
-            try await GKLeaderboard.submitScore(recordTime.toInt, context: 0, player: self.localPlayer, leaderboardIDs: [leaderboardID.rawValue])
+            let result: Void = try await GKLeaderboard.submitScore(recordTime.toInt, context: 0, player: self.localPlayer, leaderboardIDs: [leaderboardID.rawValue])
+            print(result, " - Valor")
             print("Setado Valor")
         }catch (let error){
             print("ERROR in 'setScore': ", error.localizedDescription)

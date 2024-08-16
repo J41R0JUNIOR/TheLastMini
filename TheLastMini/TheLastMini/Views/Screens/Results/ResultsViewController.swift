@@ -71,11 +71,6 @@ class ResultsViewController: UIViewController {
         trackInfoView.totalTime = sumTotalTime()
         trackInfoView.rankings = rank
         trackInfoView.titleMap = map
-        
-//        trackInfoView.lapTimes = mockLapTimes
-//        trackInfoView.totalTime = mockTotalTime
-//        trackInfoView.rankings = mockRankings
-//        trackInfoView.titleMap = mockMapTitle
     }
     
     public func saveTimeRecord() {
@@ -128,20 +123,4 @@ extension ResultsViewController: ViewCode{
     ResultsViewController(map: "Dragon Road")
 }
 
-//// Mockando alguns dados para testar
-let mockLapTimes: [TimeInterval] = [
-    60.5,  // 1 minuto e 0.5 segundos
-    58.2,  // 58 segundos e 200 milissegundos
-    62.7   // 1 minuto e 2.7 segundos
-]
 
-let mockRankings: [PlayerTimeRankModel] = [
-    PlayerTimeRankModel(playerName: "Jogador 1", playerBestTime: "00:55"),
-    PlayerTimeRankModel(playerName: "Jogador 2", playerBestTime: "00:57"),
-    PlayerTimeRankModel(playerName: "Jogador 3", playerBestTime: "00:59"),
-    PlayerTimeRankModel(playerName: "Jogador 4", playerBestTime: "00:59")
-]
-
-let mockTotalTime: TimeInterval = mockLapTimes.reduce(0, +) // Somando o tempo total
-
-let mockMapTitle: String = "Drakon Road"
