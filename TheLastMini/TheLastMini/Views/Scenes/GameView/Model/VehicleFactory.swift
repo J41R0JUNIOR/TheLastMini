@@ -38,7 +38,7 @@ class VehicleFactory {
         node.name = "CarNode"
         node.physicsBody = body
         node.physicsBody?.categoryBitMask = BodyType.car.rawValue
-        node.physicsBody?.contactTestBitMask = BodyType.check.rawValue | BodyType.ground.rawValue | BodyType.wall.rawValue | BodyType.finish.rawValue
+        node.physicsBody?.contactTestBitMask = BodyType.check.rawValue | BodyType.ground.rawValue | BodyType.wall.rawValue | BodyType.finish.rawValue | BodyType.poca.rawValue
         
         self.chassisNode = node
     }

@@ -175,13 +175,13 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createSpeedway(setPhysics: Bool) ->SCNNode{
-        guard let pista = SCNScene(named: "pista_final-3.scn"),
+        guard let pista = SCNScene(named: "pista2208_3.usdz"),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
         }
         
-        pistaNode.light = SCNLight()
-        pistaNode.light?.type = .directional
+//        pistaNode.light = SCNLight()
+//        pistaNode.light?.type = .directional
         
         pistaNode.scale = SCNVector3(x: 1.5, y: 1, z: 1.5)
         
@@ -208,6 +208,21 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             if setPhysics {
                 wallNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
                 wallNode.physicsBody?.categoryBitMask = BodyType.wall.rawValue
+            }
+        }
+        
+        for i in 1... {
+            guard let pocaNode = pistaNode.childNode(withName: "Poca\(i)", recursively: true) else {
+                print("Não achou a Poca\(i)")
+                break
+            }
+            // DESCOMENTAR QUANDO TIVER A POÇA MODELADA
+            pocaNode.geometry?.materials.first?.diffuse.contents = UIColor.black.withAlphaComponent(0.8)
+//            pocaNode.opacity = 0
+            if setPhysics {
+                pocaNode.position.z += 0.041
+                pocaNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+                pocaNode.physicsBody?.categoryBitMask = BodyType.poca.rawValue
             }
         }
         
@@ -277,6 +292,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let nodeA = contact.nodeA
         let nodeB = contact.nodeB
         
+        // CONTATO DO CARRO COM CHECKPOINT
         if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.check.rawValue) ||
             (nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
             let checkpointNode = nodeA.physicsBody?.categoryBitMask == BodyType.check.rawValue ? nodeA : nodeB
@@ -286,6 +302,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             }
         }
         
+        // CONTA DO CARRO COM FINISH
         if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.finish.rawValue) ||
             (nodeA.physicsBody?.categoryBitMask == BodyType.finish.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
             if checkpointsNode.allSatisfy({ $0!.isCheck }) {
@@ -313,6 +330,19 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                         }
                     }
                 }
+            }
+        }
+        
+        // CONTATO DO CARRO COM POCA
+        if (nodeA.physicsBody?.categoryBitMask == BodyType.car.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.poca.rawValue) ||
+            (nodeA.physicsBody?.categoryBitMask == BodyType.poca.rawValue && nodeB.physicsBody?.categoryBitMask == BodyType.car.rawValue) {
+            let pocaNode = nodeA.physicsBody?.categoryBitMask == BodyType.poca.rawValue ? nodeA : nodeB
+            
+            if !pocaNode.isCheck {
+                print("CARRINHO PASSOU PELA POÇA !!! 🕳️🕳️")
+                pocaNode.isCheck = true
+                pocaNode.opacity = 0 // MUDAR A OPACIDADE DA POÇA MODELADA
+                // MARK: CHAMAR ANIMAÇÃO DA POÇA AQUI
             }
         }
     }

@@ -13,6 +13,7 @@ enum BodyType: Int {
     case finish = 4
     case ground = 8
     case wall = 16
+    case poca = 32
 }
 
 
