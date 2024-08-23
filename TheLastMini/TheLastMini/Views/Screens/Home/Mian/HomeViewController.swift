@@ -58,7 +58,7 @@ class HomeViewController: UIViewController{
             let hasSeenOnboarding = UserDefaults.standard.bool(forKey: UserDefaultsKeys.hasSeenOnboarding.rawValue)
             
         
-            if hasSeenOnboarding {
+            if !hasSeenOnboarding {
                 // Navegar para o Onboarding e atualizar UserDefaults
                 navigationController?.pushViewController(OnboardView(), animated: true)
                 UserDefaults.standard.set(true, forKey: UserDefaultsKeys.hasSeenOnboarding.rawValue)
