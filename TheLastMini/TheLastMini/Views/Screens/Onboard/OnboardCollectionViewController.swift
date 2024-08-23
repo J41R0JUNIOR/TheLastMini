@@ -57,7 +57,6 @@ enum OnboardText {
     case firstPageText
     case howToPlay
     case secondPageText
-//    case thirdPageTitle
     case thirdPageText
     case fourthPageText
 
@@ -65,31 +64,27 @@ enum OnboardText {
         switch self {
         case .firstPageText:
             return """
-                    Bem-vindo ao \(PrimaryNames.gameName.rawValue)!\n
-                    Prepare-se para uma emocionante experiência de corrida em Realidade Aumentada!\n No \(PrimaryNames.gameName.rawValue), você não apenas joga, mas vive a corrida no mundo real.
+                    Welcome to \(PrimaryNames.gameName.rawValue)!\n
+                    Get ready for an exciting Augmented Reality racing experience!\n In \(PrimaryNames.gameName.rawValue), you don't just play, you live the race in the real world.
                     """
         case .howToPlay:
-            return "How to play?"
+            return "How to Play?"
         case .secondPageText:
             return """
-                    Posicione a Pista: Coloque uma pista de corrida no chão usando seu dispositivo. A pista será projetada no ambiente ao seu redor, tornando cada corrida única.
+                    Position the Track: Place a racing track on the ground using your device. The track will be projected into your surroundings, making each race unique.
                     """
-//        case .thirdPageTitle:
-//            return "Nothing to do"
         case .thirdPageText:
             return """
-                     Dirija o Carro: Utilize os botões intuitivos para controlar seu carro:
-                     Acelere para ganhar velocidade.
-                     Frear para diminuir a velocidade e fazer curvas mais seguras.
-                     Esquerda e Direita para direcionar o carro pelo percurso.
+                     Drive the Car: Use the intuitive buttons to control your car:
+                     Accelerate to gain speed.
+                     Brake to slow down and make safer turns.
+                     Left and Right to steer the car along the course.
                     """
-
         case .fourthPageText:
             return """
-                     Evite Obstáculos: Fique atento aos obstáculos que aparecem na pista. Eles podem afetar a dirigibilidade e desafiar suas habilidades de controle.
-                     Compita com Amigos: Mostre suas habilidades e veja quem é o melhor piloto! O tempo de volta de cada jogador é registrado e comparado, permitindo que você compita por quem faz o melhor tempo.
+                     Avoid Obstacles: Watch out for obstacles on the track. They can affect drivability and challenge your control skills.
+                     Compete with Friends: Show off your skills and see who’s the best driver! Each player's lap time is recorded and compared, allowing you to compete for the best time.
             """
         }
     }
 }
-
