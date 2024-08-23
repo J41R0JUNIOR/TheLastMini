@@ -18,9 +18,7 @@ extension OnboardView: ViewCode {
    
     
     func addViews() { 
-//        self.addChild(carouselOnboardingComponent)
         self.view.addSubview(carouselOnboardingComponent.view)
-//        carouselOnboardingComponent.didMove(toParent: self)
     }
     
     func addContrains() {

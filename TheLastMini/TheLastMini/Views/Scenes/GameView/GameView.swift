@@ -75,7 +75,26 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }()    
+    }()
+    
+    internal lazy var labelValocity: UILabel = {
+        let label = UILabel()
+        label.text = "00"
+        label.font = UIFont(name: FontsCuston.fontBoldItalick.rawValue, size: 50)
+        label.textColor = .white
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    internal lazy var imagePosa: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(resource: .posa)
+        image.contentMode = .scaleAspectFill
+        image.alpha = 0
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
     
     init(chassisNode: VehicleFactory, roadModel: RoadModel){
         self.chassi = chassisNode
@@ -180,9 +199,6 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             fatalError("Could not load wheel asset")
         }
         
-//        pistaNode.light = SCNLight()
-//        pistaNode.light?.type = .directional
-        
         pistaNode.scale = SCNVector3(x: 1.5, y: 1, z: 1.5)
         
         print("NODES CHILDS: \(pistaNode.childNodes)")
@@ -268,8 +284,35 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         
         if let volume = movementSystem.vehiclePhysics?.vehicle.speedInKilometersPerHour, volume > 0{
             soundManager.changeVolume(volume)
+            updateLabelVelocity(volume)
         }
     }
+    
+    func updateLabelVelocity(_ volume: CGFloat) {
+            let newVelocity: CGFloat = volume * 20
+            
+            labelValocity.text = String(format: "%.00f\nVelocity", newVelocity)
+            
+            let colorPercentage = min(newVelocity / 100.0, 1.0)
+            let color = UIColor(
+                red: 1,
+                green: 1 - colorPercentage,
+                blue: 1 - colorPercentage,
+                alpha: 1.0
+            )
+            
+            UIView.animate(withDuration: 0.5) {
+                self.labelValocity.textColor = color
+            }
+            
+            UIView.animate(withDuration: 0.1, animations: {
+                self.labelValocity.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            }) { _ in
+                UIView.animate(withDuration: 0.1) {
+                    self.labelValocity.transform = .identity
+                }
+            }
+        }
     
     // Chamar a função de atualização de jogo no loop principal
     override func viewWillAppear(_ animated: Bool) {
@@ -342,7 +385,21 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
                 print("CARRINHO PASSOU PELA POÇA !!! 🕳️🕳️")
                 pocaNode.isCheck = true
                 pocaNode.opacity = 0 // MUDAR A OPACIDADE DA POÇA MODELADA
-                // MARK: CHAMAR ANIMAÇÃO DA POÇA AQUI
+                DispatchQueue.main.async{
+                    self.animateImage()
+                }
+            }
+        }
+    }
+    
+    private func animateImage() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.imagePosa.alpha = 1
+        }) { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                UIView.animate(withDuration: 0.5) {
+                    self.imagePosa.alpha = 0
+                }
             }
         }
     }
@@ -377,6 +434,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         self.trafficLightComponent.removeFromSuperview()
         movementSystem.changed()
         lapAndTimer.isHidden = false
+        labelValocity.isHidden = false
         lapAndTimer.playTimer()
          
         Task{

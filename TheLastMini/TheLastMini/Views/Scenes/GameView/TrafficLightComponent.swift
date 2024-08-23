@@ -68,7 +68,6 @@ class TrafficLightComponent: UIView{
         [light1, light2, light3].forEach { light in
             light.widthAnchor.constraint(equalToConstant: lightSize).isActive = true
             light.heightAnchor.constraint(equalToConstant: lightSize).isActive = true
-//            light.layer.cornerRadius = lightSize / 2
         }
     }
     

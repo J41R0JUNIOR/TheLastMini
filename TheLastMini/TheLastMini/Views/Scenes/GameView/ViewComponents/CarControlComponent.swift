@@ -96,9 +96,6 @@ class CarControlComponent: UIView {
             rightStack.widthAnchor.constraint(equalToConstant: 100),
             rightStack.heightAnchor.constraint(equalToConstant: 100),
         ])
-        
-//        leftStack.spacing = leftStack.frame.width * 0.1
-//        rightStack.spacing = rightStack.frame.height * 0.05
     }
     
     func moveForward(_ value: CGFloat = 0.4) {

@@ -56,7 +56,7 @@ extension GameView: NavigationDelegate{
 
 extension GameView: ViewCode{
     func addViews() {
-        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent, lapAndTimer, endView, carControlViewComponent, label)
+        self.view.addListSubviews(sceneView, replaceAndPlay, coachingOverlay, trafficLightComponent, lapAndTimer, endView, carControlViewComponent, label, imagePosa, labelValocity)
         self.replaceAndPlay.delegate = self
         self.trafficLightComponent.delegate = self
         self.focusNode.viewDelegate = sceneView
@@ -96,6 +96,14 @@ extension GameView: ViewCode{
             
             label.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20),
             label.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            
+            imagePosa.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            imagePosa.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            imagePosa.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            imagePosa.topAnchor.constraint(equalTo: view.topAnchor),
+            
+            labelValocity.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            labelValocity.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
         ])
     }
     

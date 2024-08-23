@@ -5,9 +5,6 @@ class OnboardCollectionViewController: UICollectionViewController {
     private lazy var onboardCollection: OnboardCollectionView = {
         let view = OnboardCollectionView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        
-//        view.layer.borderColor = .init(red: 0, green: 1, blue: 0, alpha: 1)
-//        view.layer.borderWidth = 3
         return view
     }() 
     
@@ -25,7 +22,6 @@ class OnboardCollectionViewController: UICollectionViewController {
 extension OnboardCollectionViewController: ViewCode {
     func addViews() {
         if onboardCollection != self.view {
-//                    view.addSubview(onboardCollection)
             self.view.addSubview(onboardCollection)
 
                 }

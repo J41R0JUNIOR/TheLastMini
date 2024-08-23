@@ -17,36 +17,20 @@
 		B302B2932C61B77A00859785 /* BasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2922C61B77A00859785 /* BasicView.swift */; };
 		B302B2A72C654DB500859785 /* GameViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2A62C654DB500859785 /* GameViewExtensions.swift */; };
 		B302B2A92C6567C500859785 /* CarValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2A82C6567C500859785 /* CarValues.swift */; };
-		B37BCC3C2C6A864700E9AA5C /* pistaV12.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B37BCC3B2C6A864700E9AA5C /* pistaV12.usdz */; };
 		B37BCC3E2C6A8FB200E9AA5C /* RoadValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37BCC3D2C6A8FB200E9AA5C /* RoadValue.swift */; };
 		B37BCC422C6C326000E9AA5C /* VehicleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37BCC412C6C326000E9AA5C /* VehicleFactory.swift */; };
 		B384A5532C5808C8002FA243 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B384A5522C5808C8002FA243 /* GameView.swift */; };
-		B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55C2C580D8F002FA243 /* Ll.usdz */; };
-		B384A5602C580D8F002FA243 /* MmR.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55D2C580D8F002FA243 /* MmR.usdz */; };
-		B384A5612C580D8F002FA243 /* Rr.usdz in Resources */ = {isa = PBXBuildFile; fileRef = B384A55E2C580D8F002FA243 /* Rr.usdz */; };
 		B39E5E472C5A70DC00D28EAA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E462C5A70DC00D28EAA /* Extension.swift */; };
 		B39E5E492C5A70FA00D28EAA /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E482C5A70FA00D28EAA /* System.swift */; };
 		B39E5E4B2C5A715700D28EAA /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E4A2C5A715700D28EAA /* Component.swift */; };
 		B39E5E572C5D72BE00D28EAA /* CarControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39E5E562C5D72BE00D28EAA /* CarControlComponent.swift */; };
-		C01B33192C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C01B33182C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz */; };
-		C01B331B2C5D532E000C4AE3 /* TestSpeedwayCheckDown1_5.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C01B331A2C5D532D000C4AE3 /* TestSpeedwayCheckDown1_5.usdz */; };
-		C03B0EB52C62B5B7007C7CB0 /* pistateste_02.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C03B0EB42C62B5B7007C7CB0 /* pistateste_02.usdz */; };
 		C03B0EBF2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C03B0EBC2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz */; };
 		C03B0EC02C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C03B0EBD2C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz */; };
 		C03B0EC12C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C03B0EBE2C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz */; };
 		C051967C2C66A533000ECE5F /* ReplaceAndPlayComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C051967A2C66A532000ECE5F /* ReplaceAndPlayComponent.swift */; };
 		C051967D2C66A533000ECE5F /* TrafficLightComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C051967B2C66A532000ECE5F /* TrafficLightComponent.swift */; };
-		C05638C92C596CC200742377 /* speedway.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C05638C82C596CC200742377 /* speedway.usdz */; };
-		C080D18C2C63E3C10096C6EB /* pistateste_02.scn in Resources */ = {isa = PBXBuildFile; fileRef = C080D18B2C63E3C10096C6EB /* pistateste_02.scn */; };
-		C080D18F2C63F7C70096C6EB /* testepista02.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C080D18E2C63F7C70096C6EB /* testepista02.usdz */; };
-		C080D1932C640C800096C6EB /* pistaWall2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C080D1922C640C800096C6EB /* pistaWall2.usdz */; };
-		C080D1952C640E330096C6EB /* testePista3.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C080D1942C640E330096C6EB /* testePista3.usdz */; };
-		C089E0F62C5AD47C0003E40E /* TestCompleteSpeedway.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C089E0F52C5AD47C0003E40E /* TestCompleteSpeedway.usdz */; };
-		C09FD2DA2C77F5D0008C67EC /* pista2208_3.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C09FD2D92C77F5D0008C67EC /* pista2208_3.usdz */; };
-		C09FD2DC2C77F5D5008C67EC /* pista2208_3.scn in Resources */ = {isa = PBXBuildFile; fileRef = C09FD2DB2C77F5D5008C67EC /* pista2208_3.scn */; };
 		C0BCBCF02C613C8B0035BCC0 /* LapAndTimerViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCEC2C613C8B0035BCC0 /* LapAndTimerViewComponent.swift */; };
 		C0BCBCF12C613C8B0035BCC0 /* EndRaceViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCED2C613C8B0035BCC0 /* EndRaceViewComponent.swift */; };
-		C0BCBCF22C613C8B0035BCC0 /* TestPistaWallMaior.usdz in Resources */ = {isa = PBXBuildFile; fileRef = C0BCBCEE2C613C8B0035BCC0 /* TestPistaWallMaior.usdz */; };
 		C0BCBCF32C613C8B0035BCC0 /* GameEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCEF2C613C8B0035BCC0 /* GameEnum.swift */; };
 		C0BCBCF62C613D570035BCC0 /* ReplaceAndPlayComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayComponent.swift */; };
 		C0BCBCF72C613D570035BCC0 /* TrafficLightComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */; };
@@ -89,8 +73,6 @@
 		D995CCC22C5AA97900E391F5 /* GameCenterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCC12C5AA97900E391F5 /* GameCenterService.swift */; };
 		D995CCC42C5AB62D00E391F5 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCC32C5AB62D00E391F5 /* Enums.swift */; };
 		D995CCC62C5ABFD400E391F5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D995CCC52C5ABFD400E391F5 /* Extensions.swift */; };
-		D9E346E72C6C0E4E00F99B61 /* pista_final-2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D9E346E62C6C0E4E00F99B61 /* pista_final-2.usdz */; };
-		D9E346EB2C6C0EF300F99B61 /* pista_final-3.scn in Resources */ = {isa = PBXBuildFile; fileRef = D9E346EA2C6C0EF300F99B61 /* pista_final-3.scn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,37 +86,20 @@
 		B302B2922C61B77A00859785 /* BasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicView.swift; sourceTree = "<group>"; };
 		B302B2A62C654DB500859785 /* GameViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewExtensions.swift; sourceTree = "<group>"; };
 		B302B2A82C6567C500859785 /* CarValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarValues.swift; sourceTree = "<group>"; };
-		B37BCC3B2C6A864700E9AA5C /* pistaV12.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pistaV12.usdz; sourceTree = "<group>"; };
 		B37BCC3D2C6A8FB200E9AA5C /* RoadValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadValue.swift; sourceTree = "<group>"; };
 		B37BCC412C6C326000E9AA5C /* VehicleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleFactory.swift; sourceTree = "<group>"; };
 		B384A5522C5808C8002FA243 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
-		B384A55C2C580D8F002FA243 /* Ll.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Ll.usdz; sourceTree = "<group>"; };
-		B384A55D2C580D8F002FA243 /* MmR.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = MmR.usdz; sourceTree = "<group>"; };
-		B384A55E2C580D8F002FA243 /* Rr.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Rr.usdz; sourceTree = "<group>"; };
 		B39E5E462C5A70DC00D28EAA /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B39E5E482C5A70FA00D28EAA /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		B39E5E4A2C5A715700D28EAA /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		B39E5E562C5D72BE00D28EAA /* CarControlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarControlComponent.swift; sourceTree = "<group>"; };
-		C01B33182C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = TestSpeedwayCheckDown1.usdz; sourceTree = "<group>"; };
-		C01B331A2C5D532D000C4AE3 /* TestSpeedwayCheckDown1_5.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = TestSpeedwayCheckDown1_5.usdz; sourceTree = "<group>"; };
-		C03B0EB42C62B5B7007C7CB0 /* pistateste_02.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pistateste_02.usdz; sourceTree = "<group>"; };
 		C03B0EBC2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Left_Wheel_3-2.usdz"; sourceTree = "<group>"; };
 		C03B0EBD2C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Right_Wheel_3-2.usdz"; sourceTree = "<group>"; };
 		C03B0EBE2C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Car_Chassis_3-2.usdz"; sourceTree = "<group>"; };
 		C051967A2C66A532000ECE5F /* ReplaceAndPlayComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplaceAndPlayComponent.swift; sourceTree = "<group>"; };
 		C051967B2C66A532000ECE5F /* TrafficLightComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficLightComponent.swift; sourceTree = "<group>"; };
-		C05638C82C596CC200742377 /* speedway.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = speedway.usdz; sourceTree = "<group>"; };
-		C080D18B2C63E3C10096C6EB /* pistateste_02.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = pistateste_02.scn; sourceTree = "<group>"; };
-		C080D18D2C63E9F00096C6EB /* LunarRover_English.reality */ = {isa = PBXFileReference; lastKnownFileType = text; path = LunarRover_English.reality; sourceTree = "<group>"; };
-		C080D18E2C63F7C70096C6EB /* testepista02.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = testepista02.usdz; sourceTree = "<group>"; };
-		C080D1922C640C800096C6EB /* pistaWall2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pistaWall2.usdz; sourceTree = "<group>"; };
-		C080D1942C640E330096C6EB /* testePista3.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = testePista3.usdz; sourceTree = "<group>"; };
-		C089E0F52C5AD47C0003E40E /* TestCompleteSpeedway.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = TestCompleteSpeedway.usdz; sourceTree = "<group>"; };
-		C09FD2D92C77F5D0008C67EC /* pista2208_3.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pista2208_3.usdz; sourceTree = "<group>"; };
-		C09FD2DB2C77F5D5008C67EC /* pista2208_3.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = pista2208_3.scn; sourceTree = "<group>"; };
 		C0BCBCEC2C613C8B0035BCC0 /* LapAndTimerViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LapAndTimerViewComponent.swift; path = TheLastMini/Views/Scenes/GameView/ViewComponents/LapAndTimerViewComponent.swift; sourceTree = SOURCE_ROOT; };
 		C0BCBCED2C613C8B0035BCC0 /* EndRaceViewComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EndRaceViewComponent.swift; path = TheLastMini/Views/Scenes/GameView/ViewComponents/EndRaceViewComponent.swift; sourceTree = SOURCE_ROOT; };
-		C0BCBCEE2C613C8B0035BCC0 /* TestPistaWallMaior.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = TestPistaWallMaior.usdz; path = TheLastMini/Views/Scenes/GameView/TestPistaWallMaior.usdz; sourceTree = SOURCE_ROOT; };
 		C0BCBCEF2C613C8B0035BCC0 /* GameEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameEnum.swift; path = TheLastMini/Views/Scenes/GameView/Model/GameEnum.swift; sourceTree = SOURCE_ROOT; };
 		C0BCBCF42C613D570035BCC0 /* ReplaceAndPlayComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReplaceAndPlayComponent.swift; path = ../ReplaceAndPlayComponent.swift; sourceTree = "<group>"; };
 		C0BCBCF52C613D570035BCC0 /* TrafficLightComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrafficLightComponent.swift; path = ../TrafficLightComponent.swift; sourceTree = "<group>"; };
@@ -184,8 +149,6 @@
 		D995CCC12C5AA97900E391F5 /* GameCenterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterService.swift; sourceTree = "<group>"; };
 		D995CCC32C5AB62D00E391F5 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		D995CCC52C5ABFD400E391F5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		D9E346E62C6C0E4E00F99B61 /* pista_final-2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "pista_final-2.usdz"; sourceTree = "<group>"; };
-		D9E346EA2C6C0EF300F99B61 /* pista_final-3.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "pista_final-3.scn"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,28 +233,9 @@
 		B39E5E542C5D6FA900D28EAA /* ARAssets */ = {
 			isa = PBXGroup;
 			children = (
-				C09FD2D92C77F5D0008C67EC /* pista2208_3.usdz */,
-				C09FD2DB2C77F5D5008C67EC /* pista2208_3.scn */,
-				B37BCC3B2C6A864700E9AA5C /* pistaV12.usdz */,
-				C0BCBCEE2C613C8B0035BCC0 /* TestPistaWallMaior.usdz */,
-				B384A55C2C580D8F002FA243 /* Ll.usdz */,
-				B384A55D2C580D8F002FA243 /* MmR.usdz */,
-				B384A55E2C580D8F002FA243 /* Rr.usdz */,
-				C05638C82C596CC200742377 /* speedway.usdz */,
-				C089E0F52C5AD47C0003E40E /* TestCompleteSpeedway.usdz */,
-				C01B33182C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz */,
-				C01B331A2C5D532D000C4AE3 /* TestSpeedwayCheckDown1_5.usdz */,
-				C03B0EB42C62B5B7007C7CB0 /* pistateste_02.usdz */,
-				C080D18B2C63E3C10096C6EB /* pistateste_02.scn */,
 				C03B0EBE2C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz */,
 				C03B0EBD2C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz */,
 				C03B0EBC2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz */,
-				C080D18D2C63E9F00096C6EB /* LunarRover_English.reality */,
-				C080D18E2C63F7C70096C6EB /* testepista02.usdz */,
-				C080D1922C640C800096C6EB /* pistaWall2.usdz */,
-				C080D1942C640E330096C6EB /* testePista3.usdz */,
-				D9E346E62C6C0E4E00F99B61 /* pista_final-2.usdz */,
-				D9E346EA2C6C0EF300F99B61 /* pista_final-3.scn */,
 			);
 			path = ARAssets;
 			sourceTree = "<group>";
@@ -530,43 +474,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9E346E72C6C0E4E00F99B61 /* pista_final-2.usdz in Resources */,
-				C05638C92C596CC200742377 /* speedway.usdz in Resources */,
 				D9752C4F2C653B6C0039F9B6 /* CarAudioR.mp3 in Resources */,
-				B384A5602C580D8F002FA243 /* MmR.usdz in Resources */,
 				D995CC722C4EDA3200E391F5 /* Assets.xcassets in Resources */,
 				D93A082D2C66857900BF4F1F /* Kanit-BoldItalic.ttf in Resources */,
 				C03B0EC02C62C2AF007C7CB0 /* Right_Wheel_3-2.usdz in Resources */,
-				C080D18C2C63E3C10096C6EB /* pistateste_02.scn in Resources */,
-				B384A55F2C580D8F002FA243 /* Ll.usdz in Resources */,
-				C080D1932C640C800096C6EB /* pistaWall2.usdz in Resources */,
-				C089E0F62C5AD47C0003E40E /* TestCompleteSpeedway.usdz in Resources */,
 				D9752C4C2C640FFF0039F9B6 /* 02-0807.mp3 in Resources */,
 				D92661F02C62A928006FC0BB /* 03-nissan_skyline_r34.mp3 in Resources */,
 				D94ACB9C2C669DC700B85807 /* CarAudioV3.mp3 in Resources */,
-				B384A5612C580D8F002FA243 /* Rr.usdz in Resources */,
 				C03B0EBF2C62C2AF007C7CB0 /* Left_Wheel_3-2.usdz in Resources */,
 				D92661F12C62A928006FC0BB /* 01-nissan_skyline_r34.mp3 in Resources */,
 				D93A082C2C66837900BF4F1F /* Kanit-MediumItalic.ttf in Resources */,
 				D92661F32C62A977006FC0BB /* car-idle-84718.mp3 in Resources */,
 				D92661E62C6155A4006FC0BB /* soundCong.mp3 in Resources */,
-				B37BCC3C2C6A864700E9AA5C /* pistaV12.usdz in Resources */,
-				C09FD2DA2C77F5D0008C67EC /* pista2208_3.usdz in Resources */,
-				C0BCBCF22C613C8B0035BCC0 /* TestPistaWallMaior.usdz in Resources */,
 				D92661EA2C616D54006FC0BB /* race_countdown2-106294.mp3 in Resources */,
-				C01B331B2C5D532E000C4AE3 /* TestSpeedwayCheckDown1_5.usdz in Resources */,
 				D94ACBA52C6853AF00B85807 /* Phonky_Frog__Day__10_de_ago_de_2024_2230.mp3 in Resources */,
-				C09FD2DC2C77F5D5008C67EC /* pista2208_3.scn in Resources */,
-				D9E346EB2C6C0EF300F99B61 /* pista_final-3.scn in Resources */,
 				D9752C4D2C640FFF0039F9B6 /* 01-0807.mp3 in Resources */,
 				D92661EF2C62A928006FC0BB /* 02-nissan_skyline_r34.mp3 in Resources */,
 				D92661E72C6155A4006FC0BB /* voiceCong.mp3 in Resources */,
-				C01B33192C5D51A4000C4AE3 /* TestSpeedwayCheckDown1.usdz in Resources */,
-				C080D18F2C63F7C70096C6EB /* testepista02.usdz in Resources */,
 				D94ACB9F2C68330E00B85807 /* Kanit-LightItalic.ttf in Resources */,
 				C03B0EC12C62C2AF007C7CB0 /* Car_Chassis_3-2.usdz in Resources */,
-				C03B0EB52C62B5B7007C7CB0 /* pistateste_02.usdz in Resources */,
-				C080D1952C640E330096C6EB /* testePista3.usdz in Resources */,
 				D92661EB2C616D54006FC0BB /* race_countdown2-106294-2.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -757,7 +683,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SJYF62B3PZ;
+				DEVELOPMENT_TEAM = 335BRL9A43;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Kuruma Driver";
@@ -774,7 +700,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini1;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -794,7 +720,7 @@
 				CODE_SIGN_ENTITLEMENTS = TheLastMini/TheLastMini.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SJYF62B3PZ;
+				DEVELOPMENT_TEAM = 335BRL9A43;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheLastMini/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Kuruma Driver";
@@ -811,7 +737,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini1;
+				PRODUCT_BUNDLE_IDENTIFIER = Mini06.TheLastMini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

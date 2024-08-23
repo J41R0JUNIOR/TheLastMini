@@ -51,7 +51,6 @@ class ResultsViewController: UIViewController {
         Task{
             await SoundManager.shared.playSong(fileName: .musicaFoda, .music)
         }
-//        setupRank()
     }
     
     public func setupRank() {
@@ -61,7 +60,6 @@ class ResultsViewController: UIViewController {
                 rank.append(PlayerTimeRankModel(playerName: player.name, playerBestTime: player.score))
             }
             setupTrackInfoView()
-//            setupBackButton()
         }
     }
     
@@ -105,7 +103,6 @@ extension ResultsViewController: ViewCode{
         NSLayoutConstraint.activate([
             backButton.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: ScreenInfo.shared.getBoundsSize().height * 0.43),
             backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            backButton.h.constraint(equalToConstant: 40),
             
             trackInfoView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             trackInfoView.centerYAnchor.constraint(equalTo: view.centerYAnchor),

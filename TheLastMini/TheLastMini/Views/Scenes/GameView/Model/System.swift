@@ -13,11 +13,7 @@ class RenderSystem {
     func update(deltaTime: TimeInterval, entities: [Entity]) {
         for entity in entities {
             guard let position = entity.getComponent(ofType: PositionComponent.self) else { continue }
-            
-            // Atualizar a posição do node
-//            entity.position = position.position
-//            print(position)
-//            print("entity.position", entity.position)
+        
           
         }
     }

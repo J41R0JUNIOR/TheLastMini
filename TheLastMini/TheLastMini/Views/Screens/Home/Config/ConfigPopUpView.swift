@@ -11,7 +11,7 @@ class ConfigPopUpView: UIView {
 
     private lazy var background: UIView = {
         let view = UIView()
-        view.backgroundColor = /*UIColor(named: "bgColor")*/ .clear
+        view.backgroundColor = .clear
         view.clipsToBounds = true
         view.layer.cornerRadius = 13
         view.translatesAutoresizingMaskIntoConstraints = false

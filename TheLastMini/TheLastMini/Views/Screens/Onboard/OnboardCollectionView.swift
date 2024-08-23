@@ -26,7 +26,6 @@ class OnboardCollectionView: UIView {
         control.currentPage = 0
         control.translatesAutoresizingMaskIntoConstraints = false
         control.pageIndicatorTintColor = .gray
-//        control.currentPageIndicatorTintColor = .white
         return control
     }()
     
@@ -62,8 +61,6 @@ class OnboardCollectionView: UIView {
 
 extension OnboardCollectionView: ViewCode {
     func addViews() {
-        //        addSubview(collectionView)
-        //        addSubview(pageControl)
         addListSubviews(collectionView, pageControl, nextPageButton, backPageButton)
     }
     
@@ -86,7 +83,6 @@ extension OnboardCollectionView: ViewCode {
     }
     
     func setupStyle() {
-        //        backPageButton.isHidden = true
         nextPageButton.addTarget(self, action: #selector(nextIndexPage), for: .touchUpInside)
         backPageButton.addTarget(self, action: #selector(backIndexPage), for: .touchUpInside)
     }

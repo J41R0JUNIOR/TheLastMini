@@ -106,9 +106,10 @@ extension LapAndTimerView: ViewCode{
     
     func addContrains() {
         NSLayoutConstraint.activate([
-            lapLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            timerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 2),
             
-            timerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            lapLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            lapLabel.topAnchor.constraint(equalTo: self.timerLabel.bottomAnchor, constant: 5),
         ])
     }
     
