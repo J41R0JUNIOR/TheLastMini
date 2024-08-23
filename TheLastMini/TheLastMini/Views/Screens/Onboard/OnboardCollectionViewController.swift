@@ -42,7 +42,8 @@ extension OnboardCollectionViewController: ViewCode {
         let model: [UIView] = [
                    FirstPageOnboad(title: PrimaryNames.gameName.rawValue, text: OnboardText.firstPageText.text, image: UIImage(named: "AppIcon")!),
                    HowToPlayPageOnboad(title: OnboardText.howToPlay.text, text: OnboardText.secondPageText.text, image: UIImage(named: "posicionar")!),
-                   HowToPlayPageOnboad(title: OnboardText.howToPlay.text, text: OnboardText.thirdPageText.text, image: UIImage(named: "jogar")!)
+                   HowToPlayPageOnboad(title: OnboardText.howToPlay.text, text: OnboardText.thirdPageText.text, image: UIImage(named: "jogar")!),
+                   HowToPlayPageOnboad(title: OnboardText.howToPlay.text, text: OnboardText.fourthPageText.text)
                ]
         self.onboardCollection.configure(model)
     }
@@ -87,11 +88,6 @@ enum OnboardText {
             return """
                      Evite Obstáculos: Fique atento aos obstáculos que aparecem na pista. Eles podem afetar a dirigibilidade e desafiar suas habilidades de controle.
                      Compita com Amigos: Mostre suas habilidades e veja quem é o melhor piloto! O tempo de volta de cada jogador é registrado e comparado, permitindo que você compita por quem faz o melhor tempo.
-                     Dicas para um Desempenho Ideal:
-                             
-                     Atenção ao Trajeto: Navegue cuidadosamente para evitar obstáculos e otimizar seu tempo.
-                     Prática: Quanto mais você jogar, melhor ficará em prever e reagir às mudanças na pista.
-                     Divirta-se e boa sorte na pista!
             """
         }
     }

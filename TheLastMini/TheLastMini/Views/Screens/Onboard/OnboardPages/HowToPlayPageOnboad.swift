@@ -53,9 +53,9 @@ class HowToPlayPageOnboad: UIView {
     
     let title: String
     let text: String
-    let image: UIImage // Adicione uma propriedade para a imagem
+    let image: UIImage 
     
-    init(title: String, text: String, image: UIImage) {
+    init(title: String, text: String, image: UIImage = UIImage()) {
         self.title = title
         self.text = text
         self.image = image
