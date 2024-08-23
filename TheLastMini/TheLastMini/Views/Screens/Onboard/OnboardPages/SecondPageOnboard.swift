@@ -1,6 +1,6 @@
 import UIKit
 
-class SecondPageOnboad: UIView {
+class HowToPlayPageOnboad: UIView {
     private let label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -20,19 +20,37 @@ class SecondPageOnboad: UIView {
     }()
     
     private let imageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "AppIcon"))
-        imageView.contentMode = .scaleAspectFit
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 15
+        imageView.contentMode = .scaleAspectFit // Ajuste o modo de conteúdo conforme necessário
         return imageView
     }()
     
-    private let size = ScreenInfo.shared.getBoundsSize()
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
     
     let title: String
     let text: String
-    let image: UIImage
+    let image: UIImage // Adicione uma propriedade para a imagem
     
     init(title: String, text: String, image: UIImage) {
         self.title = title
@@ -47,44 +65,50 @@ class SecondPageOnboad: UIView {
     }
 }
 
-extension SecondPageOnboad: ViewCode {
+extension HowToPlayPageOnboad: ViewCode {
+
     func addViews() {
-        addSubview(label)
-        addSubview(label2)
-        addSubview(imageView)
+        addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(stackView)
+        stackView.addArrangedSubview(label)
+        stackView.addArrangedSubview(label2)
+        stackView.addArrangedSubview(imageView) // Adicione o imageView à stackView
     }
     
     func addContrains() {
         NSLayoutConstraint.activate([
-            // Constraints for the first label
-            label.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
-            label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            // Constraints for the scroll view
+            scrollView.topAnchor.constraint(equalTo: self.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
 
-            // Constraints for the second label
-            label2.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 16),
-            label2.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            label2.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            // Constraints for the content view inside the scroll view
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+
+            // Constraints for the stack view inside the content view
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
 
             // Constraints for the image view
-            imageView.topAnchor.constraint(equalTo: label2.bottomAnchor, constant: 16),
-            imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 100),
-            imageView.heightAnchor.constraint(equalToConstant: 100),
-
-//            imageView.heightAnchor.constraint(equalToConstant: 200) // Ajuste conforme necessário
+            imageView.heightAnchor.constraint(equalToConstant: 200) // Ajuste a altura conforme necessário
         ])
     }
     
     func setupStyle() {
         self.label.text = self.title
         self.label2.text = self.text
-        self.imageView.image = self.image
-//        self.imageView.image.c
-        
+        self.imageView.image = self.image // Configure a imagem
     }
 }
 
 #Preview {
-    FirstPageOnboad(title: "Bem-vindo", text: "Este é o Kuruma Driver!", image: UIImage(named: "sua_imagem")!)
+    HowToPlayPageOnboad(title: "Bem-vindo", text: "Este é o Kuruma Driver!", image: UIImage(named: "exampleImage")!)
 }

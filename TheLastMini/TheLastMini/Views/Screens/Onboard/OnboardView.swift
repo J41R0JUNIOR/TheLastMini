@@ -32,6 +32,8 @@ extension OnboardView: ViewCode {
     
     func setupStyle() {
         self.view.backgroundColor = .black
+        self.navigationItem.hidesBackButton = true
+
     }
 }
 

@@ -80,8 +80,6 @@ extension FirstPageOnboad: ViewCode {
         self.label.text = self.title
         self.label2.text = self.text
         self.imageView.image = self.image
-//        self.imageView.image.c
-        
     }
 }
 
