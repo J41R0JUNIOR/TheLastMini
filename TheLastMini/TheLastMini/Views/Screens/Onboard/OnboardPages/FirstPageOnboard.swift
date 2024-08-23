@@ -12,7 +12,7 @@ class FirstPageOnboad: UIView {
     
     private let label2: UILabel = {
         let label = UILabel()
-        label.textAlignment = .justified
+        label.textAlignment = .center
         label.textColor = .white
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -20,7 +20,7 @@ class FirstPageOnboad: UIView {
     }()
     
     private let imageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "AppIcon"))
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true

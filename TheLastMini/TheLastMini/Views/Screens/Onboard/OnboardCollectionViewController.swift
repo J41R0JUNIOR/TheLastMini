@@ -72,7 +72,6 @@ enum OnboardText {
         case .secondPageText:
             return """
                     Posicione a Pista: Coloque uma pista de corrida no chão usando seu dispositivo. A pista será projetada no ambiente ao seu redor, tornando cada corrida única.
-                        
                     """
 //        case .thirdPageTitle:
 //            return "Nothing to do"
@@ -82,7 +81,6 @@ enum OnboardText {
                      Acelere para ganhar velocidade.
                      Frear para diminuir a velocidade e fazer curvas mais seguras.
                      Esquerda e Direita para direcionar o carro pelo percurso.
-                                 
                     """
 
         case .fourthPageText:

@@ -12,7 +12,7 @@ class HowToPlayPageOnboad: UIView {
     
     private let label2: UILabel = {
         let label = UILabel()
-        label.textAlignment = .justified
+        label.textAlignment = .center
         label.textColor = .white
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -21,8 +21,11 @@ class HowToPlayPageOnboad: UIView {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit // Ajuste o modo de conteúdo conforme necessário
+        imageView.clipsToBounds = true
+//        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 15
         return imageView
     }()
     
@@ -41,7 +44,7 @@ class HowToPlayPageOnboad: UIView {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 16
+        stackView.spacing = 20
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +76,7 @@ extension HowToPlayPageOnboad: ViewCode {
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(label)
         stackView.addArrangedSubview(label2)
-        stackView.addArrangedSubview(imageView) // Adicione o imageView à stackView
+        stackView.addArrangedSubview(imageView)
     }
     
     func addContrains() {
@@ -98,7 +101,7 @@ extension HowToPlayPageOnboad: ViewCode {
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
 
             // Constraints for the image view
-            imageView.heightAnchor.constraint(equalToConstant: 200) // Ajuste a altura conforme necessário
+            imageView.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
     
