@@ -44,7 +44,7 @@ class HomeViewController: UIViewController{
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.callOnboard()
         self.setupViewCode()
     }
     
@@ -52,6 +52,17 @@ class HomeViewController: UIViewController{
         super.viewWillAppear(animated)
         
         
+    }
+    func callOnboard(){
+        // Verificar se o onboarding já foi exibido
+            let hasSeenOnboarding = UserDefaults.standard.bool(forKey: UserDefaultsKeys.hasSeenOnboarding.rawValue)
+            
+        
+            if hasSeenOnboarding {
+                // Navegar para o Onboarding e atualizar UserDefaults
+                navigationController?.pushViewController(OnboardView(), animated: true)
+                UserDefaults.standard.set(true, forKey: UserDefaultsKeys.hasSeenOnboarding.rawValue)
+            }
     }
 }
 
@@ -142,4 +153,8 @@ extension HomeViewController: GKGameCenterControllerDelegate{
 
 #Preview{
     HomeViewController()
+}
+
+enum UserDefaultsKeys: String {
+    case hasSeenOnboarding
 }

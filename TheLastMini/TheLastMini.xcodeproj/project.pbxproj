@@ -14,9 +14,10 @@
 		B302B28C2C619E4F00859785 /* OnboardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B28B2C619E4F00859785 /* OnboardCollectionViewController.swift */; };
 		B302B28E2C61A23E00859785 /* OnboardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B28D2C61A23E00859785 /* OnboardCollectionView.swift */; };
 		B302B2902C61A52B00859785 /* OnboardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B28F2C61A52B00859785 /* OnboardCollectionViewCell.swift */; };
-		B302B2932C61B77A00859785 /* BasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2922C61B77A00859785 /* BasicView.swift */; };
+		B302B2932C61B77A00859785 /* FirstPageOnboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2922C61B77A00859785 /* FirstPageOnboard.swift */; };
 		B302B2A72C654DB500859785 /* GameViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2A62C654DB500859785 /* GameViewExtensions.swift */; };
 		B302B2A92C6567C500859785 /* CarValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = B302B2A82C6567C500859785 /* CarValues.swift */; };
+		B359CE532C790925008F259F /* SecondPageOnboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B359CE522C790925008F259F /* SecondPageOnboard.swift */; };
 		B37BCC3E2C6A8FB200E9AA5C /* RoadValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37BCC3D2C6A8FB200E9AA5C /* RoadValue.swift */; };
 		B37BCC422C6C326000E9AA5C /* VehicleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37BCC412C6C326000E9AA5C /* VehicleFactory.swift */; };
 		B384A5532C5808C8002FA243 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B384A5522C5808C8002FA243 /* GameView.swift */; };
@@ -83,9 +84,10 @@
 		B302B28B2C619E4F00859785 /* OnboardCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardCollectionViewController.swift; sourceTree = "<group>"; };
 		B302B28D2C61A23E00859785 /* OnboardCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardCollectionView.swift; sourceTree = "<group>"; };
 		B302B28F2C61A52B00859785 /* OnboardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardCollectionViewCell.swift; sourceTree = "<group>"; };
-		B302B2922C61B77A00859785 /* BasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicView.swift; sourceTree = "<group>"; };
+		B302B2922C61B77A00859785 /* FirstPageOnboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageOnboard.swift; sourceTree = "<group>"; };
 		B302B2A62C654DB500859785 /* GameViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewExtensions.swift; sourceTree = "<group>"; };
 		B302B2A82C6567C500859785 /* CarValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarValues.swift; sourceTree = "<group>"; };
+		B359CE522C790925008F259F /* SecondPageOnboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPageOnboard.swift; sourceTree = "<group>"; };
 		B37BCC3D2C6A8FB200E9AA5C /* RoadValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadValue.swift; sourceTree = "<group>"; };
 		B37BCC412C6C326000E9AA5C /* VehicleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleFactory.swift; sourceTree = "<group>"; };
 		B384A5522C5808C8002FA243 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -197,7 +199,8 @@
 		B302B2912C61B76D00859785 /* OnboardPages */ = {
 			isa = PBXGroup;
 			children = (
-				B302B2922C61B77A00859785 /* BasicView.swift */,
+				B302B2922C61B77A00859785 /* FirstPageOnboard.swift */,
+				B359CE522C790925008F259F /* SecondPageOnboard.swift */,
 			);
 			path = OnboardPages;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				B39E5E492C5A70FA00D28EAA /* System.swift in Sources */,
 				B39E5E472C5A70DC00D28EAA /* Extension.swift in Sources */,
 				C051967C2C66A533000ECE5F /* ReplaceAndPlayComponent.swift in Sources */,
+				B359CE532C790925008F259F /* SecondPageOnboard.swift in Sources */,
 				B302B28E2C61A23E00859785 /* OnboardCollectionView.swift in Sources */,
 				D995CC942C4F00D000E391F5 /* TopHomeButtonsView.swift in Sources */,
 				D995CCAF2C52EEAF00E391F5 /* MenuCollectioViewCell.swift in Sources */,
@@ -547,7 +551,7 @@
 				D995CCA42C50411600E391F5 /* UserDefult.swift in Sources */,
 				D92661DA2C6154C8006FC0BB /* SoundEffects.swift in Sources */,
 				D995CCC22C5AA97900E391F5 /* GameCenterService.swift in Sources */,
-				B302B2932C61B77A00859785 /* BasicView.swift in Sources */,
+				B302B2932C61B77A00859785 /* FirstPageOnboard.swift in Sources */,
 				B39E5E572C5D72BE00D28EAA /* CarControlComponent.swift in Sources */,
 				D995CC992C501BA100E391F5 /* ConfigPopUpViewController.swift in Sources */,
 			);

@@ -39,13 +39,16 @@ extension OnboardCollectionViewController: ViewCode {
     func setupStyle() {}
     
     func setupCells() {
-        let model: [UIView] = [BasicView(title: PrimaryNames.gameName.rawValue, text: OnboardText.firstPageText.text), BasicView(title: OnboardText.secondPageTitle.text, text: OnboardText.secondPageText.text), BasicView(title: OnboardText.thirdPageTitle.text, text: OnboardText.thirdPageText.text)]
+        let model: [UIView] = [
+                   FirstPageOnboad(title: PrimaryNames.gameName.rawValue, text: OnboardText.firstPageText.text, image: UIImage(named: "AppIcon")!),
+                   SecondPageOnboad(title: OnboardText.secondPageTitle.text, text: OnboardText.secondPageText.text, image: UIImage(named: "AppIcon")!)
+               ]
         self.onboardCollection.configure(model)
     }
 }
 
 enum PrimaryNames: String {
-    case gameName = "Game name"
+    case gameName = "Kuruma Driver"
 }
 
 enum OnboardText {
@@ -58,15 +61,34 @@ enum OnboardText {
     var text: String {
         switch self {
         case .firstPageText:
-            return "Lorem Ipsum is simply dummy text of the game named \(PrimaryNames.gameName.rawValue) printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            return """
+                        Bem-vindo ao \(PrimaryNames.gameName.rawValue)!\n
+                        Prepare-se para uma emocionante experiência de corrida em Realidade Aumentada!\n No \(PrimaryNames.gameName.rawValue), você não apenas joga, mas vive a corrida no mundo real.
+                    """
         case .secondPageTitle:
-            return "What to do?"
+            return "How to play?"
         case .secondPageText:
-            return "Nothing"
+            return """
+            Posicione a Pista: Coloque uma pista de corrida no chão usando seu dispositivo. A pista será projetada no ambiente ao seu redor, tornando cada corrida única.
+            Dirija o Carro: Utilize os botões intuitivos para controlar seu carro:
+            Acelere para ganhar velocidade.
+            Frear para diminuir a velocidade e fazer curvas mais seguras.
+            Esquerda e Direita para direcionar o carro pelo percurso.
+            Evite Obstáculos: Fique atento aos obstáculos que aparecem na pista. Eles podem afetar a dirigibilidade e desafiar suas habilidades de controle.
+            Compita com Amigos: Mostre suas habilidades e veja quem é o melhor piloto! O tempo de volta de cada jogador é registrado e comparado, permitindo que você compita por quem faz o melhor tempo.
+            Dicas para um Desempenho Ideal:
+                    
+            Atenção ao Trajeto: Navegue cuidadosamente para evitar obstáculos e otimizar seu tempo.
+            Prática: Quanto mais você jogar, melhor ficará em prever e reagir às mudanças na pista.
+            Divirta-se e boa sorte na pista!
+        """
         case .thirdPageTitle:
             return "Nothing to do"
         case .thirdPageText:
-            return "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            return """
+         nothing
+        """
+
         }
     }
 }

@@ -88,16 +88,26 @@ extension OnboardCollectionView: ViewCode {
     }
     
 
-    @objc func nextIndexPage(){
+    @objc func nextIndexPage() {
         collectionView.isPagingEnabled = false
-        let nextIndex = min(pageControl.currentPage + 1, model.count - 1)
-        let indexPath = IndexPath(item: nextIndex, section: 0)
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        print(indexPath, nextIndex)
-        collectionView.isPagingEnabled = true
+
+        let nextIndex = pageControl.currentPage + 1
         
-        pageControl.currentPage = nextIndex
+        if nextIndex < model.count {
+            // Move para a próxima página
+            let indexPath = IndexPath(item: nextIndex, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            pageControl.currentPage = nextIndex
+        } else {
+            // Se for a última página, faça o pop para a root view controller
+            if let navigationController = self.window?.rootViewController as? UINavigationController {
+                navigationController.popToRootViewController(animated: true)
+            }
+        }
+        collectionView.isPagingEnabled = true
+
     }
+
     
     @objc func backIndexPage(){
         collectionView.isPagingEnabled = false

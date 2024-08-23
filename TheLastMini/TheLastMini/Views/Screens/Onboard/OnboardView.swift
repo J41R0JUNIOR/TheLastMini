@@ -15,9 +15,9 @@ class OnboardView: UIViewController {
 }
 
 extension OnboardView: ViewCode {
-   
     
-    func addViews() { 
+    
+    func addViews() {
         self.view.addSubview(carouselOnboardingComponent.view)
     }
     
@@ -30,7 +30,9 @@ extension OnboardView: ViewCode {
         ])
     }
     
-    func setupStyle() {}
+    func setupStyle() {
+        self.view.backgroundColor = .black
+    }
 }
 
 #Preview{
