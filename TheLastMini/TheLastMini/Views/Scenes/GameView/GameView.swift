@@ -12,6 +12,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     internal var isInicialazeCoach: Bool = false
     internal var soundManager: SoundManager = SoundManager.shared
     internal var checkpointsNode: [SCNNode?] = []
+    internal var pocasNode: [SCNNode?] = []
     private var finishNode: SCNNode?
     private var entities: [Entity] = []
     private let movementSystem = MovementSystem()
@@ -156,11 +157,13 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         floorNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: floor, options: nil))
         floorNode.geometry?.materials.first?.diffuse.contents = UIColor.blue.withAlphaComponent(0.0)
         floorNode.position = position
+//        floorNode.position.y -= 0.2
         floorNode.opacity = 0
         self.addNodeToScene(node: floorNode)
         
         let speedwayNode = createSpeedway(setPhysics: true)
         speedwayNode.position = position
+//        speedwayNode.position.y -= 0.2
         self.addNodeToScene(node: speedwayNode)
         setupVehicle(at: position)
     }
@@ -176,6 +179,7 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         sceneView = ARSCNView(frame: self.view.frame)
         sceneView.delegate = self
         sceneView.autoenablesDefaultLighting = true
+//        sceneView.debugOptions = .showPhysicsShapes
         
         sceneView.scene.physicsWorld.contactDelegate = self
         
@@ -194,20 +198,22 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
     }
     
     func createSpeedway(setPhysics: Bool) ->SCNNode{
-        guard let pista = SCNScene(named: "pista2208_3.usdz"),
+        guard let pista = SCNScene(named: "pistaandre.usdz"),
               let pistaNode = pista.rootNode.childNodes.first else {
             fatalError("Could not load wheel asset")
         }
         
+//        guard let pistaFinal = pistaNode.childNode(withName: "pista_final_2", recursively: true) else { fatalError("pistaFinal not found")}
+        
         pistaNode.scale = SCNVector3(x: 1.5, y: 1, z: 1.5)
         
-        print("NODES CHILDS: \(pistaNode.childNodes)")
+//        print("NODES CHILDS: \(pistaFinal.childNodes)")
         
-        for i in 1...10 {
+        for i in 1...9 {
             guard let checkNode = pistaNode.childNode(withName: "Check\(i)", recursively: true) else { fatalError("Checkpoint\(i) not found") }
             checkNode.opacity = 0
             if setPhysics {
-                checkNode.position.z += 0.041
+                checkNode.position.y += 0.04
                 checkNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
                 checkNode.physicsBody?.categoryBitMask = BodyType.check.rawValue
                 checkNode.name = "\(i)"
@@ -215,9 +221,22 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             }
         }
         
+        guard let checkNode = pistaNode.childNode(withName: "Finish", recursively: true) else { fatalError("Checkpoint10 not found") }
+        checkNode.opacity = 0
+        if setPhysics {
+            checkNode.position.y += 0.04
+            checkNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+            checkNode.physicsBody?.categoryBitMask = BodyType.check.rawValue
+            checkNode.name = "10"
+            checkpointsNode.append(checkNode)
+        }
+        
         for i in 1... {
+            if (i >= 3 && i <= 9) || i == 23 {
+                continue
+            }
             guard let wallNode = pistaNode.childNode(withName: "InvWall1_\(i)", recursively: true) else {
-                print("Não achou a Paredes internas0\(i)")
+                print("Não achou a Parede\(i)")
                 break
             }
             wallNode.opacity = 0
@@ -228,27 +247,44 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         }
         
         for i in 1... {
+            if i == 2 {
+                continue
+            }
             guard let pocaNode = pistaNode.childNode(withName: "Poca\(i)", recursively: true) else {
                 print("Não achou a Poca\(i)")
                 break
             }
             // DESCOMENTAR QUANDO TIVER A POÇA MODELADA
             pocaNode.geometry?.materials.first?.diffuse.contents = UIColor.black.withAlphaComponent(0.8)
-//            pocaNode.opacity = 0
+            pocaNode.opacity = 0
+            pocaNode.name = "Poca\(i)"
             if setPhysics {
-                pocaNode.position.z += 0.041
+                pocaNode.position.y += 0.04
                 pocaNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
                 pocaNode.physicsBody?.categoryBitMask = BodyType.poca.rawValue
             }
         }
         
         if setPhysics {
-            guard let finishNode = pistaNode.childNode(withName: "Finish", recursively: true) else { fatalError("Finish Node not found") }
-            finishNode.position.z += 0.0425
+            guard let finishNode = pistaNode.childNode(withName: "Check10", recursively: true) else { fatalError("Finish Node not found") }
+            finishNode.position.y += 0.04
             finishNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
             finishNode.physicsBody?.categoryBitMask = BodyType.finish.rawValue
             finishNode.opacity = 0
             self.finishNode = finishNode
+            
+            guard let pocaNode = pistaNode.childNode(withName: "Plane", recursively: true) else {
+                fatalError("Não achou a Plane")
+            }
+            guard let poca001Node = pistaNode.childNode(withName: "Plane001", recursively: true) else {
+                fatalError("Não achou a Plane")
+            }
+            guard let poca002Node = pistaNode.childNode(withName: "Plane002", recursively: true) else {
+                fatalError("Não achou a Plane")
+            }
+            pocasNode.append(pocaNode)
+            pocasNode.append(poca001Node)
+            pocasNode.append(poca002Node)
         }
         
         pistaNode.name = "pistaNode"
@@ -259,6 +295,8 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
         let chassisNode = chassi.getChassisNOde()
 
         chassisNode.position = position
+        chassisNode.position.y += 0.1
+        chassisNode.position.z -= 0.1
         
         self.addNodeToScene(node: chassisNode)
         
@@ -384,7 +422,17 @@ class GameView: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate, 
             if !pocaNode.isCheck {
                 print("CARRINHO PASSOU PELA POÇA !!! 🕳️🕳️")
                 pocaNode.isCheck = true
-                pocaNode.opacity = 0 // MUDAR A OPACIDADE DA POÇA MODELADA
+//                pocaNode.opacity = 0 // MUDAR A OPACIDADE DA POÇA MODELADA
+                switch pocaNode.name {
+                case "Poca1":
+                    pocasNode[0]?.opacity = 0
+                case "Poca3":
+                    pocasNode[1]?.opacity = 0
+                case "Poca4":
+                    pocasNode[2]?.opacity = 0
+                default:
+                    break
+                }
                 DispatchQueue.main.async{
                     self.animateImage()
                 }
